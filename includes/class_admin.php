@@ -29,8 +29,8 @@ if ( ! class_exists( 'MsRobotstxtManager_Admin' ) )
         private $templates = MS_ROBOTSTXT_MANAGER_TEMPLATES;
 
         // Plugin Extension
-        private $msrtm;
-        
+        private $msrtm = null;
+
         // Disable Plugin Features
         private $disabler;
 
@@ -164,7 +164,7 @@ if ( ! class_exists( 'MsRobotstxtManager_Admin' ) )
             // Website: Disable Plugin
             do_action( 'msrtm_disable_website' );
 
-            if ( $this->msrtm ) {
+            if ( isset( $this->msrtm ) ) {
                 // Update Network Settings
                 apply_filters( 'msrtm_network_settings', false );
             }

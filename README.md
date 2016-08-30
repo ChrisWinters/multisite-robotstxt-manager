@@ -1,4 +1,13 @@
 :: Multisite Robots.txt Manager
+--------
+
+Plugin Name: Multisite Robots.txt Manager | MS Robots.txt
+Contributors: tribalNerd, Chris Winters
+Donate link: http://technerdia.com/donate.html
+Tags: robotstxt, robots.txt, robots, robot, spiders, virtual, search, google, seo, plugin, network, mu, multisite, technerdia, tribalnerd
+Requires at least: 3.8
+Tested up to: 4.6.0
+Stable tag: 1.0.2
 
 A Simple Multisite Robots.txt Manager - Quickly and easily manage all robots.txt files on a Wordpress Multisite Website Network.
 
@@ -299,6 +308,16 @@ For "real" Multisite HOST Networks, use the Wordpress plugin: BWP Google XML Sit
 
 :: Changelog
 --------
+= 1.0.2 =
+* Upgrade Bug Corrected
+* Changed how Extention loads in
+* Adjusted Extension calls throughout plugin
+* Adjusted plugin activation order for detecting old plugin options
+* Corrected static function calls for register_activation_hook
+* Added feature to copy old sitemap url to new append option
+
+= 1.0.1 =
+* Because SVN sucks!
 
 Beta Release
 = 1.0.0 =

@@ -51,10 +51,7 @@ if ( ! class_exists( 'MsRobotstxtManager_Core' ) )
             }
 
             // Activate Plugin
-            add_filter( 'activate_' . $this->plugin_base, array( &$this, 'activate' ), 10, 1 );
-
-            // Deactivate Plugin
-            add_filter( 'deactivate_' . $this->plugin_base, array( &$this, 'deactivate' ), 10, 1 );
+            register_activation_hook( $this->plugin_file, array( 'MsRobotstxtManager_Core', 'activate' ) );
         }
 
 
@@ -78,26 +75,11 @@ if ( ! class_exists( 'MsRobotstxtManager_Core' ) )
 
 
         /**
-         * Deactivate Plugin: Remove Activate and Deactivate Filters
-         * 
-         * @return void
-         */
-        final public function deactivate()
-        {
-            // Remove Activate Function
-            remove_filter( 'activate_' . $this->plugin_base, array( &$this, 'activate' ), 10 );
-
-            // Remove Dectivate Function
-            remove_filter( 'deactivate_' . $this->plugin_base, array( &$this, 'deactivate' ), 10 );
-        }
-
-
-        /**
          * Activate Plugin: Validate Plugin & Install Default Features
          * 
          * @return void
          */
-        final public function activate()
+        final public static function activate()
         {
             // Wordpress Version Check
             global $wp_version;
@@ -113,40 +95,38 @@ if ( ! class_exists( 'MsRobotstxtManager_Core' ) )
             }
 
             // Version Check
-            if( version_compare( $wp_version, $this->wp_min_version, "<" ) ) {
-                wp_die( __( 'This plugin requires WordPress ' . $this->wp_min_version . ' or higher. Please Upgrade Wordpress, then try activating this plugin again.', 'multisite-robotstxt-manager' ) );
+            if( version_compare( $wp_version, MS_ROBOTSTXT_MANAGER_WP_MIN_VERSION, "<" ) ) {
+                wp_die( __( 'This plugin requires WordPress ' . MS_ROBOTSTXT_MANAGER_WP_MIN_VERSION . ' or higher. Please Upgrade Wordpress, then try activating this plugin again.', 'multisite-robotstxt-manager' ) );
             }
-
-            // Get Preset Robots.txt File
-            $preset_robotstxt_file = new MsRobotstxtManager_Presets();
 
             // If Not Found, Build Preset Robotst.txt File
             if ( ! get_option( 'ms_robotstxt_manager_network_robotstxt' ) ) {
-                // Previous Version Robots.txt File
-                if ( get_option( "ms_robotstxt_default" ) ) {
-                    // Get Robots.txt File
-                    $default_option = maybe_unserialize( get_option( "ms_robotstxt_default" ) );
-                    $robotstxt = $default_option['default_robotstxt'];
-                        
-                    // Build Robots.txt File From Old File
-                    add_option( 'ms_robotstxt_manager_network_robotstxt', array( 'robotstxt' => $robotstxt ), '', 'no' );
 
-                    $this->sitemapPreviousVersion();
-                    add_option( 'ms_robotstxt_manager_robotstxt', array( 'robotstxt' => apply_filters( 'msrtm_append_rules', get_option( 'ms_robotstxt_sitemap' ) ) ), '', "no" );
+                // Get Preset Robots.txt File
+                $preset_robotstxt_file = new MsRobotstxtManager_Presets();
 
-                    // Remove Previous Version Features
-                    $this->uninstallPreviousVersion();
-                } else {
-                    // Build Robots.txt File From Preset
-                    add_option( 'ms_robotstxt_manager_network_robotstxt', array( 'robotstxt' => $preset_robotstxt_file->defaultRobotstxt() ), '', 'no' );
-            
-                    // Deactivate The Plugin
-                    delete_option( 'ms_robotstxt_manager_network_status' );
+                // Build Robots.txt File From Preset
+                add_option( 'ms_robotstxt_manager_network_robotstxt', array( 'robotstxt' => $preset_robotstxt_file->defaultRobotstxt() ), '', 'no' );
 
-                    // Define Which Preset Is Being used
-                    delete_option( 'ms_robotstxt_manager_network_preset' );
-                    add_option( 'ms_robotstxt_manager_network_preset', 'default', '', 'no' );
-                }
+                // Deactivate The Plugin
+                delete_option( 'ms_robotstxt_manager_network_status' );
+
+                // Define Which Preset Is Being used
+                delete_option( 'ms_robotstxt_manager_network_preset' );
+                add_option( 'ms_robotstxt_manager_network_preset', 'default', '', 'no' );
+            }
+
+            // Previous Version Robots.txt File
+            if ( get_option( "ms_robotstxt_default" ) ) {
+                // Get Old Robots.txt File
+                $default_option = maybe_unserialize( get_option( "ms_robotstxt_default" ) );
+                $robotstxt = $default_option['default_robotstxt'];
+
+                // Build Robots.txt File From Old File
+                add_option( 'ms_robotstxt_manager_network_robotstxt', array( 'robotstxt' => $robotstxt ), '', 'no' );
+
+                // Remove Previous Version Features
+                self::uninstallPreviousVersion();
             }
         }
 
@@ -156,7 +136,7 @@ if ( ! class_exists( 'MsRobotstxtManager_Core' ) )
          * 
          * @return void
          */
-        final public function uninstallPreviousVersion() {
+        final public static function uninstallPreviousVersion() {
             // Remove Options
             remove_filter( 'robots_txt', array( 'msrtm_robots_txt', 'msrtm_show_robots_txt' ) );
             delete_option( 'ms_robotstxt_default' );
@@ -178,6 +158,13 @@ if ( ! class_exists( 'MsRobotstxtManager_Core' ) )
                 // Switch To Each Website
                 switch_to_blog( $site->blog_id );
 
+                // Get Old Robots.txt File URL
+                if ( ! get_option( 'ms_robotstxt_sitemap' ) ) { continue; }
+                $sitemap_data = maybe_unserialize( get_option( 'ms_robotstxt_sitemap' ) );
+
+                // Build Append Rules From Old Robots.txt File
+                add_option( 'ms_robotstxt_manager_robotstxt', array( 'robotstxt' => apply_filters( 'msrtm_append_rules', $sitemap_data ) ), '', "no" );
+
                 // Remove Website Options
                 remove_filter( 'robots_txt', array( 'msrtm_robots_txt', 'msrtm_show_robots_txt' ) );
                 delete_option( 'ms_robotstxt_default' );
@@ -189,8 +176,6 @@ if ( ! class_exists( 'MsRobotstxtManager_Core' ) )
                 // Return To Root Site
                 restore_current_blog();
             }
-
-            return;
         }
 
 
