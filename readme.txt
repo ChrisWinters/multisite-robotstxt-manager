@@ -5,14 +5,17 @@ Donate link: http://technerdia.com/donate.html
 Tags: robotstxt, robots.txt, robots, robot, spiders, virtual, search, google, seo, plugin, network, mu, multisite, technerdia, tribalnerd
 Requires at least: 3.8
 Tested up to: 4.6.0
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 
 
 A Simple Multisite Robots.txt Manager - Quickly and easily manage all robots.txt files on a Wordpress Multisite Website Network.
 
 
-
 == Description ==
+
+### UPGRADE NOTICE
+
+After auto upgrading: return to the network plugin admin, this will deactivate the plugin, then click the Network Activate link to activate the plugin again.
 
 A Simple Multisite Robots.txt Manager - Quickly and easily manage all robots.txt files on a Wordpress Multisite Website Network.
 
@@ -70,7 +73,9 @@ Visit this [Plugin on Github!](https://github.com/tribalNerd/multisite-robotstxt
 
 
 
-== Installation ==
+:: Installation
+--------
+
 [View the Install Guide](http://technerdia.com/msrtm/docs/getting-started/) | 
 [Screenshots](http://technerdia.com/msrtm/screenshots/) | 
 [Feedback](http://technerdia.com/feedback/)
@@ -97,7 +102,9 @@ Visit this [Plugin on Github!](https://github.com/tribalNerd/multisite-robotstxt
 
 
 
-== Frequently Asked Questions ==
+:: Frequently Asked Questions
+--------
+
 [F.A.Q.](http://technerdia.com/msrtm/#faq) | 
 [Screenshots](http://technerdia.com/msrtm/screenshots/) | 
 [Feedback](http://technerdia.com/feedback/)
@@ -223,7 +230,8 @@ A) When the plugin is disabled, no settings are deleted, however the robots.txt 
 [Frequently Asked Questions](http://technerdia.com/msrtm/#faq)
 
 
-== Arbitrary section ==
+:: Arbitrary section
+--------
 
 [View the Install Guide](http://technerdia.com/msrtm/docs/getting-started/) | 
 [Screenshots](http://technerdia.com/msrtm/screenshots/) | 
@@ -301,9 +309,8 @@ For "real" Multisite HOST Networks, use the Wordpress plugin: BWP Google XML Sit
 
 
 
-== Changelog ==
-
-Beta Release
+:: Changelog
+--------
 = 1.0.2 =
 * Upgrade Bug Corrected
 * Changed how Extention loads in
@@ -315,6 +322,7 @@ Beta Release
 = 1.0.1 =
 * Because SVN sucks!
 
+Beta Release
 = 1.0.0 =
 * Major rebuild, all files recreated, new code
 * Set network robots.txt file as global file
@@ -367,7 +375,7 @@ Alpha Release
 * Added do_action( 'do_robotstxt' ); call after header call of robots.txt display.
 * Adjusted robots.txt display to use public/private blog feature correctly.
 * Removed is_user_member_of_blog() check around add_submenu_page() calls.
-* Added $_GET['page'] == "ms_robotstxt.php" wrap around tab display call.
+* Added $_GET['page'] :: "ms_robotstxt.php" wrap around tab display call.
 * Improved sitemap structure url output with various domain structures.
 * Added current_user_can() && is_super_admin() check to uninstall.php
 * Added / adjusted wp_nonce_field and check_admin_referer calls.
@@ -404,7 +412,8 @@ Alpha Release
 
 
 
-== Screenshots ==
+:: Screenshots
+--------
 
 - More Screenshots --> http://technerdia.com/msrtm/screenshots/
 

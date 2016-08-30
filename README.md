@@ -1,18 +1,22 @@
 :: Multisite Robots.txt Manager
 --------
 
-Plugin Name: Multisite Robots.txt Manager | MS Robots.txt
-Contributors: tribalNerd, Chris Winters
-Donate link: http://technerdia.com/donate.html
-Tags: robotstxt, robots.txt, robots, robot, spiders, virtual, search, google, seo, plugin, network, mu, multisite, technerdia, tribalnerd
-Requires at least: 3.8
-Tested up to: 4.6.0
-Stable tag: 1.0.2
+* Plugin Name: Multisite Robots.txt Manager | MS Robots.txt
+* Contributors: tribalNerd, Chris Winters
+* Donate link: http://technerdia.com/donate.html
+* Tags: robotstxt, robots.txt, robots, robot, spiders, virtual, search, google, seo, plugin, network, mu, multisite, technerdia, tribalnerd
+* Requires at least: 3.8
+* Tested up to: 4.6.0
+* Stable tag: 1.0.3
 
 A Simple Multisite Robots.txt Manager - Quickly and easily manage all robots.txt files on a Wordpress Multisite Website Network.
 
 :: Description
 --------
+
+### UPGRADE NOTICE
+
+After auto upgrading: return to the network plugin admin, this will deactivate the plugin, then click the Network Activate link to activate the plugin again.
 
 A Simple Multisite Robots.txt Manager - Quickly and easily manage all robots.txt files on a Wordpress Multisite Website Network.
 

@@ -4,7 +4,7 @@
  * Plugin URI: http://technerdia.com/msrtm/
  * Description: A Multisite Network Robots.txt Manager. Quickly manage your Network Websites robots.txt files from a single administration area.
  * Tags: robotstxt, robots.txt, robots, robot, spiders, virtual, search, google, seo, plugin, network, wpmu, multisite, technerdia, tribalnerd
- * Version: 1.0.2
+ * Version: 1.0.3
  * License: GPL
  * Copyright (c) 2016, techNerdia LLC.
  * Author: tribalNerd, Chris Winters
@@ -90,6 +90,9 @@ if( is_admin() || is_network_admin() ) {
 
     // Admin Area Display & Functionality
     $MsRobotstxtManager_Admin = new MsRobotstxtManager_Admin();
+
+    // Upgrade Detection & Manager
+    $MsRobotstxtManager_Upgrade = new MsRobotstxtManager_Upgrade();
 
 // Frontend Facing
 } else {

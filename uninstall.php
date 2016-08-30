@@ -41,6 +41,9 @@ if ( ! class_exists( 'MsRobotstxtManager_Uninstall' ) )
             delete_option( 'ms_robotstxt_manager_status' );
             delete_option( 'ms_robotstxt_manager_append' );
             delete_option( 'ms_robotstxt_manager_robotstxt' );
+            delete_option( 'ms_robotstxt_manager_upgraded' );
+            delete_option( 'ms_robotstxt_manager_plugin_check' );
+            delete_option( 'ms_robotstxt_manager_rewrite_check' );
 
             global $wpdb;
 

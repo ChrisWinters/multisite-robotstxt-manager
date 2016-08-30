@@ -318,37 +318,6 @@ if ( ! class_exists( 'MsRobotstxtManager_Admin' ) )
 
 
         /**
-         * Display Input Submit Button
-         * 
-         * @return html
-         */
-        final private function echoSubmit( $text )
-        {
-            // Define Button Text
-            $button_text = ( ! empty( $text ) ) ? $text : 'submit';
-
-            return '<input type="submit" name="submit" value=" ' . $button_text . ' " />';
-        }
-
-
-        /**
-         * Display Form
-         * 
-         * @return html
-         */
-        final private function echoForm( $location, $close = false )
-        {
-            if ( $close === true ) {
-                echo '</form>';
-            } else {
-                echo '<form enctype="multipart/form-data" method="post" action="">';
-                echo '<input type="hidden" name="ms_robotstxt_manager" value="' . $location . '" />';
-                wp_nonce_field( 'ms_robotstxt_manager_action', 'ms_robotstxt_manager_nonce' );
-            }
-        }
-
-
-        /**
          * Extend Setting Options
          * 
          * @return class
