@@ -1,0 +1,332 @@
+# Copyright (C) 2016 Multisite Robots.txt Manager | MS Robots.txt
+# This file is distributed under the same license as the Multisite Robots.txt Manager | MS Robots.txt package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Multisite Robots.txt Manager | MS Robots.txt 1.0.0\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/multisite-robotstxt-manager\n"
+"POT-Creation-Date: 2016-08-30 03:36:32+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2016-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: includes/class_admin.php:253
+msgid "Default Robots.txt File: The plugins default installed robots.txt file."
+msgstr ""
+
+#: includes/class_admin.php:254
+msgid ""
+"Alternative Robots.txt File: Simular to the plugins default robots.txt file, "
+"with more disallows."
+msgstr ""
+
+#: includes/class_admin.php:255
+msgid ""
+"Wordpress Limited Robots.txt File: Only disallows wp-includes and wp-admin."
+msgstr ""
+
+#: includes/class_admin.php:256
+msgid "Open Robots.txt File: Fully open robots.txt file, no disallows."
+msgstr ""
+
+#: includes/class_admin.php:257
+msgid ""
+"A Bloggers Robots.txt File: Optimized for blog focused Wordpress websites."
+msgstr ""
+
+#: includes/class_admin.php:258
+msgid "Google Robots.txt File: A Google friendly robots.txt file."
+msgstr ""
+
+#: includes/class_admin.php:259
+msgid ""
+"Lockdown Robots.txt File: Disallow everything, prevent spiders from indexing "
+"the website."
+msgstr ""
+
+#: includes/class_admin.php:263
+msgid "Robots.txt File Presets"
+msgstr ""
+
+#: includes/class_admin.php:272
+msgid "Showing!"
+msgstr ""
+
+#: includes/class_admin.php:300
+msgid ""
+"Disable the saved robots.txt file on this website, restoring the default "
+"Wordpress robots.txt file."
+msgstr ""
+
+#: includes/class_admin.php:301 includes/class_admin.php:312
+msgid "Are You Sure You Want To Submit This?"
+msgstr ""
+
+#: includes/class_admin.php:306
+msgid ""
+"Disable saved robots.txt files across all network websites, restoring the "
+"default Wordpress robots.txt file."
+msgstr ""
+
+#: includes/class_admin.php:311
+msgid ""
+"WARNING: Delete all settings related to the Multisite Robots.txt Manager "
+"Plugin across the entire network."
+msgstr ""
+
+#: includes/class_admin.php:377 includes/class_admin.php:387
+msgid "Multisite Robots.txt Manager is Active"
+msgstr ""
+
+#: includes/class_admin.php:377
+msgid ""
+"The robots.txt file template below is currently being used across all active "
+"network websites. The saved robots.txt file rules for each website will "
+"replace the {APPEND_WEBSITE_ROBOTSTXT} marker."
+msgstr ""
+
+#: includes/class_admin.php:382 includes/class_admin.php:392
+msgid "Multisite Robots.txt Manager is Disabled"
+msgstr ""
+
+#: includes/class_admin.php:382
+msgid ""
+"All network websites are currently displaying the default Wordpress robots."
+"txt file. To enable, click the 'update network' button below."
+msgstr ""
+
+#: includes/class_admin.php:387
+msgid ""
+"<a href=\"%1$s/robots.txt\" target=\"_blank\">Click here</a> to view this "
+"websites customized robots.txt file."
+msgstr ""
+
+#: includes/class_admin.php:392
+msgid ""
+"<a href=\"%1$s/robots.txt\" target=\"_blank\">Click here</a> to view this "
+"websites default Wordpress robots.txt file."
+msgstr ""
+
+#: includes/class_core.php:70 includes/class_core.php:75
+msgid "You are not authorized to perform this action."
+msgstr ""
+
+#: includes/class_core.php:107
+msgid ""
+"Activation Failed: The \"Multisite Robots.txt Manager\" Plugin can only be "
+"activated on Network Enabled Wordpress installs. Download and install the "
+"plugin, \"Robots.txt Manager\" for standalone Wordpress installs."
+msgstr ""
+
+#: includes/class_core.php:112
+msgid ""
+"Activation Failed: The \"Multisite Robots.txt Manager\" Plugin can only be "
+"activated within the Network Admin."
+msgstr ""
+
+#: includes/class_core.php:147
+msgid "Network Settings"
+msgstr ""
+
+#: includes/class_core.php:149
+msgid "Website Settings"
+msgstr ""
+
+#: includes/class_core.php:151
+msgid "F.A.Q."
+msgstr ""
+
+#: includes/class_core.php:152
+msgid "Support"
+msgstr ""
+
+#: includes/class_core.php:153
+msgid "Feedback"
+msgstr ""
+
+#: includes/class_core.php:154
+msgid "Donations"
+msgstr ""
+
+#: includes/class_core.php:155
+msgid "PRO Details"
+msgstr ""
+
+#: includes/class_core.php:183
+msgid "Upgrade Notice"
+msgstr ""
+
+#: includes/class_core.php:183
+msgid ""
+"MSRTM PRO failed to automatically upgrade - a new version is ready! Please "
+"contact us for download instructions."
+msgstr ""
+
+#: multisite-robotstxt-manager.php:37
+msgid "MS Robots.txt"
+msgstr ""
+
+#: multisite-robotstxt-manager.php:38
+msgid "Multisite Robots.txt Manager for Wordpress"
+msgstr ""
+
+#: multisite-robotstxt-manager.php:39
+msgid "A Multisite Robots.txt Manager Plugin For Wordpress."
+msgstr ""
+
+#: templates/footer.php:18
+msgid "Created by"
+msgstr ""
+
+#: templates/home.php:24
+msgid "update network"
+msgstr ""
+
+#: templates/home.php:48
+msgid "Rule Suggestions"
+msgstr ""
+
+#: templates/home.php:53
+msgid "Allow Upload Path"
+msgstr ""
+
+#: templates/home.php:60
+msgid "Allow Theme Path"
+msgstr ""
+
+#: templates/home.php:67
+msgid "Add Sitemap URL"
+msgstr ""
+
+#: templates/home.php:72
+msgid "update website rules"
+msgstr ""
+
+#: templates/home.php:81
+msgid "Saved Robots.txt File"
+msgstr ""
+
+#: templates/home.php:81
+msgid "The live robots.txt file for this website."
+msgstr ""
+
+#: templates/home.php:91
+msgid "Network Locked Robots.txt File"
+msgstr ""
+
+#: templates/home.php:91
+msgid ""
+"Website settings (above) will automatically be appended to the network "
+"robots.txt file and saved as the robots.txt for this website."
+msgstr ""
+
+#: templates/sidebar.php:11
+msgid "Quick Info"
+msgstr ""
+
+#: templates/sidebar.php:16
+msgid "Pro Automation Extension"
+msgstr ""
+
+#: templates/sidebar.php:16
+msgid "details"
+msgstr ""
+
+#: templates/sidebar.php:16
+msgid ""
+"Fully automate the population and creation of all network website robots.txt "
+"files!"
+msgstr ""
+
+#: templates/sidebar.php:18
+msgid "Please Rate This Plugin"
+msgstr ""
+
+#: templates/sidebar.php:19
+msgid ""
+"It only takes a few seconds to <a href=\"http://wordpress.org/extend/plugins/"
+"multisite-robotstxt-manager/\" target=\"_blank\">rate this plugin</a>! Your "
+"rating helps create motivation for future developments"
+msgstr ""
+
+#: templates/sidebar.php:27
+msgid "Multisite Robots.txt Manager"
+msgstr ""
+
+#: templates/sidebar.php:31
+msgid "Plugin Home Page"
+msgstr ""
+
+#: templates/sidebar.php:32
+msgid "Plugin at Wordpress.org"
+msgstr ""
+
+#: templates/sidebar.php:33
+msgid "Contact Support"
+msgstr ""
+
+#: templates/sidebar.php:34
+msgid "Submit Feedback"
+msgstr ""
+
+#: templates/sidebar.php:35
+msgid "More Plugins!"
+msgstr ""
+
+#: templates/sidebar.php:43
+msgid "Robots.txt Documentation"
+msgstr ""
+
+#: templates/sidebar.php:47
+msgid "Robots.txt Optimization Tips"
+msgstr ""
+
+#: templates/sidebar.php:48
+msgid "AskAapche Robots.txt Example"
+msgstr ""
+
+#: templates/sidebar.php:49
+msgid "Google Robots.txt F.A.Q."
+msgstr ""
+
+#: templates/sidebar.php:50
+msgid "Robots.txt Specifications"
+msgstr ""
+
+#: templates/sidebar.php:51
+msgid "Web Robots Database"
+msgstr ""
+
+#: uninstall.php:23
+msgid "Unauthorized Access."
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Multisite Robots.txt Manager | MS Robots.txt"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://technerdia.com/msrtm/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"A Multisite Network Robots.txt Manager. Quickly manage your Network Websites "
+"robots.txt files from a single administration area."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "tribalNerd, Chris Winters"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://techNerdia.com/"
+msgstr ""
+
+#. Tags of the plugin/theme
+msgid ""
+"robotstxt, robots.txt, robots, robot, spiders, virtual, search, google, seo, "
+"plugin, network, wpmu, multisite, technerdia, tribalnerd"
+msgstr ""
