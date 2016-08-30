@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the Multisite Robots.txt Manager | MS Robots.txt package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Multisite Robots.txt Manager | MS Robots.txt 1.0.0\n"
+"Project-Id-Version: Multisite Robots.txt Manager | MS Robots.txt 1.0.3\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/multisite-robotstxt-manager\n"
-"POT-Creation-Date: 2016-08-30 03:36:32+00:00\n"
+"POT-Creation-Date: 2016-08-30 22:26:54+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -76,92 +76,133 @@ msgid ""
 "Plugin across the entire network."
 msgstr ""
 
-#: includes/class_admin.php:377 includes/class_admin.php:387
+#: includes/class_admin.php:346 includes/class_admin.php:356
 msgid "Multisite Robots.txt Manager is Active"
 msgstr ""
 
-#: includes/class_admin.php:377
+#: includes/class_admin.php:346
 msgid ""
 "The robots.txt file template below is currently being used across all active "
 "network websites. The saved robots.txt file rules for each website will "
 "replace the {APPEND_WEBSITE_ROBOTSTXT} marker."
 msgstr ""
 
-#: includes/class_admin.php:382 includes/class_admin.php:392
+#: includes/class_admin.php:351 includes/class_admin.php:361
 msgid "Multisite Robots.txt Manager is Disabled"
 msgstr ""
 
-#: includes/class_admin.php:382
+#: includes/class_admin.php:351
 msgid ""
 "All network websites are currently displaying the default Wordpress robots."
 "txt file. To enable, click the 'update network' button below."
 msgstr ""
 
-#: includes/class_admin.php:387
+#: includes/class_admin.php:356
 msgid ""
 "<a href=\"%1$s/robots.txt\" target=\"_blank\">Click here</a> to view this "
 "websites customized robots.txt file."
 msgstr ""
 
-#: includes/class_admin.php:392
+#: includes/class_admin.php:361
 msgid ""
 "<a href=\"%1$s/robots.txt\" target=\"_blank\">Click here</a> to view this "
 "websites default Wordpress robots.txt file."
 msgstr ""
 
-#: includes/class_core.php:70 includes/class_core.php:75
+#: includes/class_core.php:67 includes/class_core.php:72
 msgid "You are not authorized to perform this action."
 msgstr ""
 
-#: includes/class_core.php:107
+#: includes/class_core.php:89
 msgid ""
 "Activation Failed: The \"Multisite Robots.txt Manager\" Plugin can only be "
 "activated on Network Enabled Wordpress installs. Download and install the "
 "plugin, \"Robots.txt Manager\" for standalone Wordpress installs."
 msgstr ""
 
-#: includes/class_core.php:112
+#: includes/class_core.php:94
 msgid ""
 "Activation Failed: The \"Multisite Robots.txt Manager\" Plugin can only be "
 "activated within the Network Admin."
 msgstr ""
 
-#: includes/class_core.php:147
+#: includes/class_core.php:113
 msgid "Network Settings"
 msgstr ""
 
-#: includes/class_core.php:149
+#: includes/class_core.php:115
 msgid "Website Settings"
 msgstr ""
 
-#: includes/class_core.php:151
+#: includes/class_core.php:117
 msgid "F.A.Q."
 msgstr ""
 
-#: includes/class_core.php:152
+#: includes/class_core.php:118
 msgid "Support"
 msgstr ""
 
-#: includes/class_core.php:153
+#: includes/class_core.php:119
 msgid "Feedback"
 msgstr ""
 
-#: includes/class_core.php:154
+#: includes/class_core.php:120
 msgid "Donations"
 msgstr ""
 
-#: includes/class_core.php:155
+#: includes/class_core.php:121
 msgid "PRO Details"
 msgstr ""
 
-#: includes/class_core.php:183
+#: includes/class_core.php:149
 msgid "Upgrade Notice"
 msgstr ""
 
-#: includes/class_core.php:183
+#: includes/class_core.php:149
 msgid ""
 "MSRTM PRO failed to automatically upgrade - a new version is ready! Please "
 "contact us for download instructions."
+msgstr ""
+
+#: includes/class_upgrade.php:154
+msgid "Old Plugin Data Found"
+msgstr ""
+
+#: includes/class_upgrade.php:154
+msgid ""
+"Click the button to automatically copy old settings over, and then purge the "
+"old settings from the database"
+msgstr ""
+
+#: includes/class_upgrade.php:155
+msgid "upgrade and purge network"
+msgstr ""
+
+#: includes/class_upgrade.php:434
+msgid "Left Over Robots.txt Files Found"
+msgstr ""
+
+#: includes/class_upgrade.php:434
+msgid ""
+"Click the button to automatically remove robots.txt files left by other "
+"plugins."
+msgstr ""
+
+#: includes/class_upgrade.php:435
+msgid "remove old data"
+msgstr ""
+
+#: includes/class_upgrade.php:544
+msgid "Bad Robots.txt Rewrite Rule Found"
+msgstr ""
+
+#: includes/class_upgrade.php:544
+msgid ""
+"Click the button to automatically correct the bad robots.txt rewrite rule."
+msgstr ""
+
+#: includes/class_upgrade.php:545
+msgid "update rewrite rules"
 msgstr ""
 
 #: multisite-robotstxt-manager.php:37
