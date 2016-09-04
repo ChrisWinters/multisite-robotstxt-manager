@@ -505,7 +505,7 @@ if ( ! class_exists( 'MsRobotstxtManager_Upgrade' ) )
                 $rules = get_option( 'rewrite_rules' );
 
                 // Check If Rule Within Rewrite Rules Array
-                if( ! in_array( "index.php?robots=1", $rules ) ) { $warning = true; }
+                if( ! in_array( "index.php?robots=1", (array) $rules ) ) { $warning = true; }
 
                 // Return Home
                 restore_current_blog();
@@ -585,7 +585,7 @@ if ( ! class_exists( 'MsRobotstxtManager_Upgrade' ) )
                     $rules = get_option( "rewrite_rules" );
 
                     // If Rule In Array
-                    if( ! in_array( "index.php?robots=1", $rules ) ) {
+                    if( ! in_array( "index.php?robots=1", (array) $rules ) ) {
                         // Set Proper Keys
                         $rule_key = "robots\.txt$";
                         $rules[ $rule_key ] = 'index.php?robots=1';
