@@ -10,15 +10,21 @@ if ( ! class_exists( 'MsRobotstxtManager_Upgrade' ) )
 {
     class MsRobotstxtManager_Upgrade extends MsRobotstxtManager_Helper
     {
+        // The plugin_root_name
+        private $plugin_name;
+
         /**
-         * Load Within Admin
+         * Setup/Run Upgrade
          * 
          * @return void
          */
-        public function __construct()
+        public function __construct( array $args = null )
         {
-            // Run Upgrade Class
-            add_action( 'init', array( &$this, 'runUpgrade' ) );
+            // Require Array
+            if( ! is_array( $args ) ) { return; }
+
+            // Set Vars
+            $this->plugin_name = $args['plugin_name'];
         }
 
 
@@ -27,10 +33,10 @@ if ( ! class_exists( 'MsRobotstxtManager_Upgrade' ) )
          * 
          * @return void
          */
-        final public function runUpgrade()
+        final public function initUpgrade()
         {
             // Network Only
-            if ( is_network_admin() ) {
+            if ( filter_input( INPUT_GET, 'page', FILTER_UNSAFE_RAW ) == $this->plugin_name ) {
                 // Check If Plugin Needs To Be Upgraded
                 if ( ! get_option( 'ms_robotstxt_manager_upgraded' ) ) {
                     // Check If Update Needed
@@ -61,13 +67,16 @@ if ( ! class_exists( 'MsRobotstxtManager_Upgrade' ) )
                 }
 
                 // Check/Clean Bad Rewrite Ruels
-                if ( ! get_option( 'msrtm_bad_rules' ) || get_option( 'msrtm_bad_rules' ) == '1' ) {
+                //if ( ! get_option( 'msrtm_bad_rules' ) || get_option( 'msrtm_bad_rules' ) == '1' ) {
                     // Check If rewrite_rules Option & Robots.txt Keys Are Set
-                    add_action( 'admin_init', array( &$this, 'checkBadRewrite' ) );
+                    //add_action( 'admin_init', array( &$this, 'checkBadRewrite' ) );
 
                     // Update Bad Rules
-                    add_action( 'admin_init', array( &$this, 'cleanBadRules') );
-                }
+                    //add_action( 'admin_init', array( &$this, 'cleanBadRules') );
+                //}
+
+                // Extension Upgrade Check
+                add_action( 'wp_loaded', array( &$this, 'checkExtension' ) );
             }
         }
 
@@ -377,7 +386,8 @@ if ( ! class_exists( 'MsRobotstxtManager_Upgrade' ) )
          * 
          * @return void
          */
-	final public function checkOtherPlugins() {
+	final public function checkOtherPlugins()
+        {
             // Clear Warning
             $warning = false;
 
@@ -505,7 +515,7 @@ if ( ! class_exists( 'MsRobotstxtManager_Upgrade' ) )
                 $rules = get_option( 'rewrite_rules' );
 
                 // Check If Rule Within Rewrite Rules Array
-                if( ! in_array( "index.php?robots=1", $rules ) ) { $warning = true; }
+                if( ! in_array( "index.php?robots=1", (array) $rules ) ) { $warning = true; }
 
                 // Return Home
                 restore_current_blog();
@@ -533,7 +543,7 @@ if ( ! class_exists( 'MsRobotstxtManager_Upgrade' ) )
 
 
         /**
-         * 
+         * Missing Robost.txt File Rules Notice
          * 
          * @return html
          */
@@ -541,7 +551,7 @@ if ( ! class_exists( 'MsRobotstxtManager_Upgrade' ) )
         {
             echo '<div id="message" class="updated notice is-dismissible">';
             $this->echoForm( 'clean_rewrite', false );
-            echo '<p><b>' . __( 'Bad Robots.txt Rewrite Rule Found', 'multisite-robotstxt-manager' ) . '</b>: ' . __( 'Click the button to automatically correct the bad robots.txt rewrite rule.', 'multisite-robotstxt-manager' ) . ': ';
+            echo '<p><b>' . __( 'Missing Robots.txt Rewrite Rule', 'multisite-robotstxt-manager' ) . '</b>: ' . __( 'Click the button to automatically correct the missing robots.txt rewrite rule.', 'multisite-robotstxt-manager' ) . ': ';
             echo $this->echoSubmit( __( 'update rewrite rules', 'multisite-robotstxt-manager' ) ) . '</p>';
             $this->echoForm( false, true );
             echo '<button type="button" class="notice-dismiss"><span class="screen-reader-text">Dismiss this notice.</span></button></div>';
@@ -573,8 +583,6 @@ if ( ! class_exists( 'MsRobotstxtManager_Upgrade' ) )
                     // Switch To Each Website
                     switch_to_blog( $site->blog_id );
 
-                    // Remove Old Plugin Settings
-
                     // Get Rewrite Rules
                     $get_rules = get_option( 'rewrite_rules' );
 
@@ -582,22 +590,47 @@ if ( ! class_exists( 'MsRobotstxtManager_Upgrade' ) )
                     if( empty( $get_rules ) ) { $wp_rewrite->flush_rules(); }
 
                     // Get Fresh Option Array
-                    $rules = get_option( "rewrite_rules" );
+                    $rules = get_option( 'rewrite_rules' );
 
                     // If Rule In Array
-                    if( ! in_array( "index.php?robots=1", $rules ) ) {
+                    if( ! in_array( "index.php?robots=1", (array) $rules ) ) {
                         // Set Proper Keys
                         $rule_key = "robots\.txt$";
                         $rules[ $rule_key ] = 'index.php?robots=1';
 
                         // Update Rules
-                        update_option( "rewrite_rules", $rules );
+                        update_option( 'rewrite_rules', $rules );
                     }
 
                     // Return Home
                     restore_current_blog();
                 }
             }
+        }
+
+
+        /**
+         * Extension Upgrade Check
+         * 
+         * @return void
+         */
+        final public function checkExtension()
+        {
+            if ( get_option( 'msrtm' ) ) {
+                add_action( 'admin_notices', array( &$this, 'noticeExtension' ) );
+                add_action( 'network_admin_notices', array( &$this, 'noticeExtension' ) );
+            }
+        }
+
+
+        /**
+         * Admin Area Upgrade Notice
+         * 
+         * @return html
+         */
+        final public function noticeExtension()
+        {
+            echo '<div id="message" class="updated notice is-dismissible"><p><b>' . __( 'Upgrade Notice' ) . '</b>: ' . __( 'MSRTM PRO failed to automatically upgrade - a new version is ready! Please contact us for download instructions.', 'multisite-robotstxt-manager' ) . '</p><button type="button" class="notice-dismiss"><span class="screen-reader-text">Dismiss this notice.</span></button></div>';
         }
     }
 }

@@ -10,67 +10,61 @@ if ( ! class_exists( 'MsRobotstxtManager_Admin' ) )
 {
     class MsRobotstxtManager_Admin extends MsRobotstxtManager_Helper
     {
-        // The plugin_root_name
-        private $plugin_name = MS_ROBOTSTXT_MANAGER_PLUGIN_NAME;
-
         // Website URL: get_bloginfo( 'url' )
-        private $base_url = MS_ROBOTSTXT_MANAGER_BASE_URL;
+        private $base_url;
+
+        // The plugin_root_name
+        private $plugin_name;
         
         // Plugin filename.php
-        private $plugin_file = MS_ROBOTSTXT_MANAGER_PLUGIN_FILE;
+        private $plugin_file;
         
         // Current Plugin Version
-        private $plugin_version = MS_ROBOTSTXT_MANAGER_VERSION;
+        private $plugin_version;
         
         // Plugin Menu name
-        private $menu_name = MS_ROBOTSTXT_MANAGER_MENU_NAME;
+        private $menu_name;
         
         // Path To Plugin Templates
-        private $templates = MS_ROBOTSTXT_MANAGER_TEMPLATES;
+        private $templates;
 
         // Plugin Extension
-        private $msrtm = null;
+        public $msrtm;
 
         // Disable Plugin Features
         private $disabler;
 
 
         /**
-         * Admin Area Actions & Options
+         * Set Class Vars
          */
-        function __construct()
+        function __construct( array $args = null )
+        {
+            // Require Array
+            if( ! is_array( $args ) ) { return; }
+
+            // Set Vars
+            $this->base_url         = $args['base_url'];
+            $this->plugin_name      = $args['plugin_name'];
+            $this->plugin_file      = $args['plugin_file'];
+            $this->plugin_version   = $args['plugin_version'];
+            $this->menu_name        = $args['menu_name'];
+            $this->templates        = $args['templates'];
+        }
+
+
+        /**
+         * Init Admin Functions & Filters
+         * 
+         * @return void
+         */
+        final public function initAdmin()
         {
             // Website Menu Link
             add_action( 'admin_menu', array( &$this, 'displayMenu' ) );
 
             // Network Menu Link
             add_action( 'network_admin_menu', array( &$this, 'displayMenu' ) );
-
-            // Only If Page Is Plugin Admin Area
-            if ( filter_input( INPUT_GET, 'page', FILTER_UNSAFE_RAW ) == $this->plugin_name ) {
-                // Admin Area Protection
-                add_action( 'admin_init', array( &$this, 'protectAdmin' ) );
-
-                // Add CSS
-                add_action( 'admin_enqueue_scripts', array( &$this, 'loadScripts' ) );
-
-                // Set Post Action Redirect
-                if ( filter_input( INPUT_POST, 'ms_robotstxt_manager' ) ) {
-                    add_action( 'wp_loaded', array( &$this, 'pluginRedirect' ) );
-                }
-            }
-
-            // Disable Plugin / Delete Plugin Settings
-            $this->disabler = new MsRobotstxtManager_Disabler();
-
-            // Disable Network Action
-            add_filter( 'msrtm_disable_network', array( $this->disabler, 'disableNetwork') );
-
-            // Disable Website Action
-            add_filter( 'msrtm_disable_website', array( $this->disabler, 'disableWebsite') );
-
-            // Delete Network Action
-            add_filter( 'msrtm_delete_network', array( $this->disabler, 'deleteNetwork') );
 
             // Append Website Rules To Robots.txt File
             add_filter( 'msrtm_append_rules', array( &$this, 'appendRobotstxt') );
@@ -106,7 +100,80 @@ if ( ! class_exists( 'MsRobotstxtManager_Admin' ) )
             add_filter( 'msrtm_sitemap_url', array( &$this, 'getSitemapUrl') );
 
             // Plugin Extension
-            if( defined( 'MSRTM' ) ) { $this->msrtm = new MSRTM_Extension(); }
+            if ( defined( 'MSRTM' ) ) { $this->msrtm = new MSRTM_Extension(); }
+
+            // Only If Page Is Plugin Admin Area
+            if ( filter_input( INPUT_GET, 'page', FILTER_UNSAFE_RAW ) == $this->plugin_name ) {
+                // Admin Area Protection
+                add_action( 'admin_init', array( &$this, 'protectAdmin' ) );
+
+                // Disable / Delete Features
+                add_action( 'admin_init', array( &$this, 'initDisabler' ) );
+
+                // Add CSS
+                add_action( 'admin_enqueue_scripts', array( &$this, 'loadScripts' ) );
+
+                // Set Post Action Redirect
+                if ( filter_input( INPUT_POST, 'ms_robotstxt_manager' ) ) {
+                    //add_action( 'wp_loaded', array( &$this, 'pluginRedirect' ) );
+                }
+            }
+        }
+
+
+        /**
+         * Init Disabler Class & Filters
+         * 
+         * @return void
+         */
+        final public function initDisabler()
+        {
+            // Disable Plugin / Delete Plugin Settings
+            $this->disabler = new MsRobotstxtManager_Disabler();
+
+            // Disable Network Action
+            add_filter( 'msrtm_disable_network', array( $this->disabler, 'disableNetwork') );
+
+            // Disable Website Action
+            add_filter( 'msrtm_disable_website', array( $this->disabler, 'disableWebsite') );
+
+            // Delete Network Action
+            add_filter( 'msrtm_delete_network', array( $this->disabler, 'deleteNetwork') );
+        }
+
+
+        /**
+         * Display Messages To User
+         * 
+         * @return void
+         */
+        final public function throwMessage( $slug, $notice_type = false ) {
+            // Set Message Type, Default Error
+            $type = ( $notice_type == "updated" ) ? "updated" : "error";
+
+            // Clear Message
+            $message = '';
+
+            // Switch Between Tabs
+            switch ( $slug ) {
+                case 'presetupdated':
+                    $message = __( '<u>Preset Option Updated</u>: The preset has been saved as the network robots.txt file. Click the "update network" button to publish the robots.txt file across the network.' );
+                break;
+                case 'websiteupdated':
+                    $message = __( '<u>Website Settings Updated</u>: ' );
+                break;
+                case 'networkuserupdated':
+                    $message = __( '<u>Blogs You Are Member Of Have Been Updated</u>: The saved network robots.txt file has been published to allowed websites.' );
+                break;
+                case 'networkglobalupdated':
+                    $message = __( '<u>All Network Websites Have Been Updated</u>: The saved network robots.txt file has been published to all websites.' );
+                break;
+            }
+
+            // Throw Message
+            if ( ! empty( $message ) ) {
+                add_settings_error( $slug, $slug, $message, $type );
+            }
         }
 
 
@@ -164,10 +231,8 @@ if ( ! class_exists( 'MsRobotstxtManager_Admin' ) )
             // Website: Disable Plugin
             do_action( 'msrtm_disable_website' );
 
-            if ( isset( $this->msrtm ) ) {
-                // Update Network Settings
-                apply_filters( 'msrtm_network_settings', false );
-            }
+            // Update Network Settings
+            if ( defined( 'MSRTM' ) ) { apply_filters( 'msrtm_network_settings', false ); }
 
 
             //
@@ -212,7 +277,11 @@ if ( ! class_exists( 'MsRobotstxtManager_Admin' ) )
         /**
          * Display Textarea With Robots.txt File
          * 
-         * @return string
+         * @param string $robotstxt_file robots.txt file
+         * @param int $textarea_cols number of columns in textarea
+         * @param int $textarea_rows nubmer of rows in textarea
+         * @param bool $readonly true to endable
+         * @return html
          */
         final private function echoTextarea( $robotstxt_file, $textarea_cols, $textarea_rows, $readonly = false )
         {
@@ -297,18 +366,18 @@ if ( ! class_exists( 'MsRobotstxtManager_Admin' ) )
 
             // Website Disable
             if ( is_admin() && ! is_network_admin() && $status ) {
-                echo '<p class="textright"><label>' . __( 'Disable the saved robots.txt file on this website, restoring the default Wordpress robots.txt file.', 'multisite-robotstxt-manager' ) . '</label> <input type="checkbox" name="status" value="disable" /></p>';
+                echo '<p class="textright"><label>' . __( 'Disable the saved robots.txt file on this website, restoring the default Wordpress robots.txt file.', 'multisite-robotstxt-manager' ) . '</label> <input type="checkbox" name="disable" value="website" /></p>';
                 echo '<p class="textright"><input type="submit" name="submit" value=" submit " style="margin-top:15px;" onclick="return confirm(\'' . __( "Are You Sure You Want To Submit This?", "multisite-robotstxt-manager" ) . '\');" /></p>';
             }
 
             // Network Disable
             if ( is_network_admin() && $status ) {
-                echo '<p class="textright"><label>' . __( 'Disable saved robots.txt files across all network websites, restoring the default Wordpress robots.txt file.', 'multisite-robotstxt-manager' ) . '</label> <input type="checkbox" name="status" value="disable" /></p>';
+                echo '<p class="textright"><label>' . __( 'Disable saved robots.txt files across all network websites, restoring the default Wordpress robots.txt file.', 'multisite-robotstxt-manager' ) . '</label> <input type="checkbox" name="disable" value="network" /></p>';
             }
 
             // Network Delete
             if ( is_network_admin() ) {
-                echo '<p class="textright"><label>' . __( 'WARNING: Delete all settings related to the Multisite Robots.txt Manager Plugin across the entire network.', 'multisite-robotstxt-manager' ) . '</label> <input type="checkbox" name="delete" value="all" /></p>';
+                echo '<p class="textright"><label>' . __( 'WARNING: Delete all settings related to the Multisite Robots.txt Manager Plugin across the entire network.', 'multisite-robotstxt-manager' ) . '</label> <input type="checkbox" name="disable" value="all" /></p>';
             echo '<p class="textright"><input type="submit" name="submit" value=" submit " style="margin-top:15px;" onclick="return confirm(\'' . __( "Are You Sure You Want To Submit This?", "multisite-robotstxt-manager" ) . '\');" /></p>';
             }
 
@@ -320,12 +389,11 @@ if ( ! class_exists( 'MsRobotstxtManager_Admin' ) )
         /**
          * Extend Setting Options
          * 
-         * @return class
+         * @return html
          */
         final private function echoSettings()
         {
-            // Extend Settings If Found
-            if ( isset( $this->msrtm ) ) {
+            if ( defined( 'MSRTM_PRO' ) && is_plugin_active( MSRTM_PRO ) ) {
                 return $this->msrtm->extendSettings();
             }
         }
@@ -460,6 +528,9 @@ if ( ! class_exists( 'MsRobotstxtManager_Admin' ) )
 
                 // Return To Previous Website
                 restore_current_blog();
+
+                // Display Message
+                $this->throwMessage( 'presetupdated', 'updated' );
             }
         }
 
@@ -467,6 +538,7 @@ if ( ! class_exists( 'MsRobotstxtManager_Admin' ) )
         /**
          * Update a Websites Robots.txt File
          * 
+         * @param int $blog_id current websites id
          * @return void
          */
         final public function updateWebsite( $blog_id )
@@ -498,6 +570,9 @@ if ( ! class_exists( 'MsRobotstxtManager_Admin' ) )
 
                 // Return To Current Website
                 restore_current_blog();
+
+                // Display Message
+                $this->throwMessage( 'websiteupdated', 'updated' );
             }
         }
 
@@ -523,42 +598,87 @@ if ( ! class_exists( 'MsRobotstxtManager_Admin' ) )
 
                 // Clear Saved Settings
                 delete_option( 'ms_robotstxt_manager_network_robotstxt' );
+                delete_option( 'ms_robotstxt_manager_network_status' );
                 delete_option( "ms_robotstxt_manager_network_preset" );
 
                 // Update Robots.txt File
                 add_option( 'ms_robotstxt_manager_network_robotstxt', array( 'robotstxt' => $robotstxt_file ), '', "no" );
 
-                global $wpdb;
+                // Enable Network
+                add_option( "ms_robotstxt_manager_network_status", '1', '', "no" );
 
-                // Get blog ID's
-                $site_list = $wpdb->get_results( "SELECT blog_id FROM $wpdb->blogs WHERE public = '1' AND archived = '0' AND mature = '0' AND spam = '0' AND deleted = '0' ORDER BY blog_id" );
+                global $wpdb, $current_user;
 
-                // Update Network
-                foreach ( $site_list as $site ) {
-                    // Ignore If Site Empty
-                    if ( empty( $site ) ) { continue; }
+                // Update Blogs This Admin Is A Member Of Only
+                if ( filter_input( INPUT_POST, 'update_method' ) == "user" || filter_input( INPUT_POST, 'update_method' ) === null ) {
 
-                    // Switch To Each Website
-                    switch_to_blog( $site->blog_id );
+                    // Current Admin User
+                    get_currentuserinfo();
+                    $this_admin_user = $current_user->ID;
 
-                    // Get Robots.txt File Data To Append
-                    $get_website_append = get_option( 'ms_robotstxt_manager_append' );
-                    $website_append_rules = $get_website_append['robotstxt'];
+                    // Blog IDs For This User
+                    $users_blogs = get_blogs_of_user( $this_admin_user );
 
-                    // Clear Previous Data
-                    delete_option( 'ms_robotstxt_manager_robotstxt' );
-                    delete_option( 'ms_robotstxt_manager_status' );
+                    // Update Allowed Blogs
+                    foreach ( $users_blogs as $users_blog_id ) {
+                        // Switch To Each Website
+                        switch_to_blog( $users_blog_id->userblog_id );
 
-                    // Enable Plugin For Website
-                    add_option( "ms_robotstxt_manager_status", '1', '', "no" );
+                        // Update Website
+                        $this->updateNetworkWebsites();
+                    }
 
-                    // Update Robots.txt File
-                    add_option( 'ms_robotstxt_manager_robotstxt', array( 'robotstxt' => apply_filters( 'msrtm_append_rules', $website_append_rules ) ), '', "no" );
+                    // Display Message
+                    $this->throwMessage( 'networkuserupdated', 'updated' );
+                }
 
-                    // Return To Root Site
-                    restore_current_blog();
+                // Update All Network Websites
+                if ( filter_input( INPUT_POST, 'update_method' ) == "network" ) {
+                    // Get blog ID's
+                    $site_list = $wpdb->get_results( "SELECT blog_id FROM $wpdb->blogs WHERE public = '1' AND archived = '0' AND mature = '0' AND spam = '0' AND deleted = '0' ORDER BY blog_id" );
+
+                    // Update Network
+                    foreach ( $site_list as $site ) {
+                        // Ignore If Site Empty
+                        if ( empty( $site ) ) { continue; }
+
+                        // Switch To Each Website
+                        switch_to_blog( $site->blog_id );
+
+                        // Update Website
+                        $this->updateNetworkWebsites();
+
+                    // Display Message
+                    $this->throwMessage( 'networkglobalupdated', 'updated' );
+                    }
                 }
             }
+        }
+
+
+        /**
+         * Network Wide Website Settings
+         * 
+         * @return void
+         */
+        final private function updateNetworkWebsites()
+        {
+            // Get Robots.txt File Data To Append
+            $get_website_append = get_option( 'ms_robotstxt_manager_append' );
+            $website_append_rules = $get_website_append['robotstxt'];
+
+            // Clear Previous Data
+            delete_option( 'ms_robotstxt_manager_robotstxt' );
+            delete_option( 'ms_robotstxt_manager_status' );
+
+            // Enable Plugin For Website
+            add_option( "ms_robotstxt_manager_status", '1', '', "no" );
+
+            // Update Robots.txt File
+            add_option( 'ms_robotstxt_manager_robotstxt', array( 'robotstxt' => apply_filters( 'msrtm_append_rules', $website_append_rules ) ), '', "no" );
+
+            // Return To Root Site
+            restore_current_blog();
         }
 
 
@@ -567,7 +687,8 @@ if ( ! class_exists( 'MsRobotstxtManager_Admin' ) )
          * 
          * @return void
          */
-	final public function protectAdmin() {
+	final public function protectAdmin()
+        {
             // Nobody Can Access
             $user_can_access = false;
 

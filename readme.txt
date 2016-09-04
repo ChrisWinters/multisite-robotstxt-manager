@@ -5,7 +5,7 @@ Donate link: http://technerdia.com/donate.html
 Tags: robotstxt, robots.txt, robots, robot, spiders, virtual, search, google, seo, plugin, network, mu, multisite, technerdia, tribalnerd
 Requires at least: 3.8
 Tested up to: 4.6.0
-Stable tag: 1.0.3
+Stable tag: 1.0.4
 
 
 A Simple Multisite Robots.txt Manager - Quickly and easily manage all robots.txt files on a Wordpress Multisite Website Network.
@@ -73,8 +73,7 @@ Visit this [Plugin on Github!](https://github.com/tribalNerd/multisite-robotstxt
 
 
 
-:: Installation
---------
+== Installation ==
 
 [View the Install Guide](http://technerdia.com/msrtm/docs/getting-started/) | 
 [Screenshots](http://technerdia.com/msrtm/screenshots/) | 
@@ -102,8 +101,7 @@ Visit this [Plugin on Github!](https://github.com/tribalNerd/multisite-robotstxt
 
 
 
-:: Frequently Asked Questions
---------
+== Frequently Asked Questions ==
 
 [F.A.Q.](http://technerdia.com/msrtm/#faq) | 
 [Screenshots](http://technerdia.com/msrtm/screenshots/) | 
@@ -230,8 +228,7 @@ A) When the plugin is disabled, no settings are deleted, however the robots.txt 
 [Frequently Asked Questions](http://technerdia.com/msrtm/#faq)
 
 
-:: Arbitrary section
---------
+== Arbitrary section ==
 
 [View the Install Guide](http://technerdia.com/msrtm/docs/getting-started/) | 
 [Screenshots](http://technerdia.com/msrtm/screenshots/) | 
@@ -306,11 +303,27 @@ The marker {APPEND_WEBSITE_ROBOTSTXT} within the Network Robots.txt File is repl
 For "real" Multisite HOST Networks, use the Wordpress plugin: BWP Google XML Sitemaps - This plugin will list each Websites Sitemap URL's in the Root Network Website's robots.txt file.
 
 
+== Changelog ==
 
+= 1.0.4 =
+* Add options to update the full network or only blogs the admin is a user of
+* Added message for missing sitemap.xml files within website plugin admin
+* Added user notice & error message to all form actions
+* Corrected readme.txt file formating
+* Corrected notice locations for all 3 detection rules
+* Corrected network admin showing website admin status messages
+* Corrected message when updating network from disabled network
+* Corrected missing new line in the preset Wordpress Limited option
+* Adjusted disable/delete input names to be code-reader friendly
+* Removed class_core.php, functions moved to plugin root
+* Commented out $rewrite_rule check/update, until new solution is found
 
+= 1.0.3 =
+* Moved upgrade process outside of activation method, into unique class
+* Added message/method to detect and replace old plugin data with new data
+* Re-added old robots.txt plugin detection and cleaning option
+* Re-added bad rewrite rule detection and cleaning option
 
-:: Changelog
---------
 = 1.0.2 =
 * Upgrade Bug Corrected
 * Changed how Extention loads in
@@ -322,8 +335,8 @@ For "real" Multisite HOST Networks, use the Wordpress plugin: BWP Google XML Sit
 = 1.0.1 =
 * Because SVN sucks!
 
-Beta Release
 = 1.0.0 =
+* Beta Release
 * Major rebuild, all files recreated, new code
 * Set network robots.txt file as global file
 * Created append rules for Websites
@@ -333,8 +346,8 @@ Beta Release
 * Adjusted how Pro Extension adapts in
 * Expanded automation features
 
-Alpha Release
 = 0.4.0 =
+* Alpha Release
 * Major rebuild
 * Modified how and when the sitemap urls are created.
 * Created top-level domain array for sitemap url breakdown.

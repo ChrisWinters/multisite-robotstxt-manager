@@ -13,8 +13,8 @@ if ( ! class_exists( 'MsRobotstxtManager_Helper' ) )
         /**
          * Inject Website Robots.txt File Rules Into Network Robots.txt File
          * 
-         * @param string $append_robotstxt_rules  Websites Append Data
-         * @return string text/html  Parsed/Appended Robots.txt File
+         * @param string $append_robotstxt_rules a websites robots.txt append rules
+         * @return string
          */
         final public function appendRobotstxt( $append_robotstxt_rules )
         {
@@ -54,6 +54,7 @@ if ( ! class_exists( 'MsRobotstxtManager_Helper' ) )
         /**
          * Get A Websites Unique Robots.txt File
          * 
+         * @param int $blog_id current website id
          * @return string
          */
         final public function getWebsiteRobotstxt( $blog_id )
@@ -78,6 +79,7 @@ if ( ! class_exists( 'MsRobotstxtManager_Helper' ) )
         /**
          * Get A Websites Append Data For Robots.txt File
          * 
+         * @param int $blog_id current website id
          * @return string
          */
         final public function getWebsiteAppend( $blog_id )
@@ -123,7 +125,7 @@ if ( ! class_exists( 'MsRobotstxtManager_Helper' ) )
             }
 
             // Website Status
-            if ( is_admin() ) {
+            if ( is_admin() && ! is_network_admin() ) {
                 global $blog_id;
 
                 // Switch Through Websites
@@ -143,8 +145,8 @@ if ( ! class_exists( 'MsRobotstxtManager_Helper' ) )
         /**
          * Get and Retrn the Theme Path Within Allow Statement
          * 
-         * @param integer $blog_id  Wordpress Website ID
-         * @return string text/html
+         * @param int $blog_id current website id
+         * @return html
          */
         final public function getThemePath( $blog_id )
         {
@@ -166,8 +168,8 @@ if ( ! class_exists( 'MsRobotstxtManager_Helper' ) )
         /**
          * Get and Retrn the Upload Path
          * 
-         * @param integer $blog_id  Wordpress Website ID
-         * @return string text/html
+         * @param int $blog_id current website id
+         * @return html
          */
         final public function getUploadPath( $blog_id )
         {
@@ -184,15 +186,16 @@ if ( ! class_exists( 'MsRobotstxtManager_Helper' ) )
             restore_current_blog();
 
             // Return The Path
-            return 'Allow: /wp-content/uploads' . end( $contents ) . '/';
+            $allow = 'Allow: /wp-content/uploads' . end( $contents ) . '/';
+            return $upload_path = ( ! empty( $upload_dir['basedir'] ) ) ? $allow : 'Upload Path Not Set';
         }
 
 
         /**
          * Get and Retrn the Sitemap URL
          * 
-         * @param integer $blog_id  Wordpress Website ID
-         * @return string text/html
+         * @param int $blog_id current website id
+         * @return html
          */
         final public function getSitemapUrl( $blog_id )
         {
@@ -220,13 +223,14 @@ if ( ! class_exists( 'MsRobotstxtManager_Helper' ) )
             restore_current_blog();
 
             // Return the url or empty if no sitemap
-            return 'Sitemap: ' . $url;
+            return $sitemap_url = ( ! empty( $url ) ) ? 'Sitemap: ' . $url : 'No Sitemap Found';
         }
 
 
         /**
          * Display Input Submit Button
          * 
+         * @param string $text submit button value
          * @return html
          */
         final public function echoSubmit( $text )
@@ -241,6 +245,8 @@ if ( ! class_exists( 'MsRobotstxtManager_Helper' ) )
         /**
          * Display Form
          * 
+         * @param string $location input post value
+         * @param bool $close form close tag
          * @return html
          */
         final public function echoForm( $location, $close = false )

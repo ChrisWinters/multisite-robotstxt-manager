@@ -11,6 +11,38 @@ if ( ! class_exists( 'MsRobotstxtManager_Disabler' ) )
     class MsRobotstxtManager_Disabler
     {
         /**
+         * Display Messages To User
+         * 
+         * @return void
+         */
+        final public function throwMessage( $slug, $notice_type = false ) {
+            // Set Message Type, Default Error
+            $type = ( $notice_type == "updated" ) ? "updated" : "error";
+
+            // Clear Message
+            $message = '';
+
+            // Switch Between Tabs
+            switch ( $slug ) {
+                case 'websitedisabled':
+                    $message = __( '<u>Website Disabled</u>: The Multisite Robots.txt Manager Plugin is no longer managing the robots.txt file on this website. Click the "update update" button to reenable the website.' );
+                break;
+                case 'networkdisabled':
+                    $message = __( '<u>Network Disabled</u>: The Multisite Robots.txt Manager Plugin is no longer managing robots.txt files across network websites. Click the "update network" button to reenable the plugin.' );
+                break;
+                case 'settingsdeleted':
+                    $message = __( '<u>Settings Deleted</u>: All Multisite Robots.txt Manager Plugin settings have been removed across the network. To re-enable: Save a preset robots.txt file or create your own robots.txt file, then click the "update network" button to update .' );
+                break;
+            }
+
+            // Throw Message
+            if ( ! empty( $message ) ) {
+                add_settings_error( $slug, $slug, $message, $type );
+            }
+        }
+
+
+        /**
          * Detect Disable Post
          * Disable Plugin On Single Website
          * 
@@ -19,12 +51,15 @@ if ( ! class_exists( 'MsRobotstxtManager_Disabler' ) )
         final public function disableWebsite()
         {
             // If MSRTM Status Change
-            if ( is_admin() && ! is_network_admin() && filter_input( INPUT_POST, 'status' ) == "disable" ) {
+            if ( is_admin() && ! is_network_admin() && filter_input( INPUT_POST, 'disable' ) == "website" ) {
                 // Form Security Check
                 do_action( 'msrtm_validate_action' );
 
                 // Clear Option
                 delete_option( "ms_robotstxt_manager_status" );
+
+                // Display Message
+                $this->throwMessage( 'websitedisabled', 'updated' );
             }
         }
 
@@ -38,7 +73,7 @@ if ( ! class_exists( 'MsRobotstxtManager_Disabler' ) )
         final public function disableNetwork()
         {
             // If MSRTM Status Change
-            if ( is_network_admin() && filter_input( INPUT_POST, 'status' ) == "disable" ) {
+            if ( is_network_admin() && filter_input( INPUT_POST, 'disable' ) == "network" ) {
                 // Form Security Check
                 do_action( 'msrtm_validate_action' );
 
@@ -67,6 +102,9 @@ if ( ! class_exists( 'MsRobotstxtManager_Disabler' ) )
                     // Return To Root Site
                     restore_current_blog();
                 }
+
+                // Display Message
+                $this->throwMessage( 'networkdisabled', 'updated' );
             }
         }
 
@@ -79,7 +117,7 @@ if ( ! class_exists( 'MsRobotstxtManager_Disabler' ) )
         final public function deleteNetwork()
         {
             // If MSRTM Status Change
-            if ( is_network_admin() && filter_input( INPUT_POST, 'delete' ) == "all" ) {
+            if ( is_network_admin() && filter_input( INPUT_POST, 'disable' ) == "all" ) {
                 // Form Security Check
                 do_action( 'msrtm_validate_action' );
 
@@ -118,6 +156,9 @@ if ( ! class_exists( 'MsRobotstxtManager_Disabler' ) )
 
                 // Return To Previous Website
                 restore_current_blog();
+
+                // Display Message
+                $this->throwMessage( 'settingsdeleted', 'updated' );
             }
         }
     }

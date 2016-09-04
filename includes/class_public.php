@@ -14,7 +14,7 @@ if ( ! class_exists( 'MsRobotstxtManager_Public' ) )
          * Detect Robots.txt File
          * Set Action To Display Robots.txt File
          */
-        public function __construct()
+        final public function initRobotstxt()
         {
             // Check if robots.txt file is being called
             if ( strpos( filter_input( INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_URL ), "robots.txt" ) !== false ){

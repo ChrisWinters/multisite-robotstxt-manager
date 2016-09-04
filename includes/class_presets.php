@@ -15,7 +15,7 @@ if ( ! class_exists( 'MsRobotstxtManager_Presets' ) )
          * 
          * @return string
          */
-        public function defaultRobotstxt()
+        final public function defaultRobotstxt()
         {
             $txt = "# robots.txt\n";
             $txt .= "User-agent: *\n";
@@ -86,7 +86,7 @@ if ( ! class_exists( 'MsRobotstxtManager_Presets' ) )
             $txt = "# robots.txt\n";
             $txt .= "User-agent: *\n";
             $txt .= "Disallow: /wp-admin/\n";
-            $txt .= "Disallow: /wp-includes/";
+            $txt .= "Disallow: /wp-includes/\n";
             $txt .= "Allow: /wp-admin/admin-ajax.php\n";
             $txt .= "{APPEND_WEBSITE_ROBOTSTXT}";
 

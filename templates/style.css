@@ -259,3 +259,16 @@ td {
     margin:0 auto;
     width:100%;
 }
+
+.notice-box {
+    background:#FEEFB3;
+    background-color:#FEEFB3;
+    border:2px solid #fde379;
+    margin:0 auto;
+    padding:0 12px;
+    width:75%;
+}
+
+.notice-box h3 {
+    color:#9F6000;
+}

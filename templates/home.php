@@ -18,10 +18,16 @@ if ( count( get_included_files() ) == 1 ){ exit(); }
     <?php $this->echoForm( 'network', false );?>
         <table class="table">
             <tr>
-                <td colspan="3"><?php $this->echoTextarea( $get_network_robotstxt, 65, 20, false );?></td>
+                <td><?php $this->echoTextarea( $get_network_robotstxt, 65, 20, false );?></td>
             </tr>
             <tr>
-                <td class="textcenter" colspan="3"><?php echo $this->echoSubmit( __( 'update network', 'multisite-robotstxt-manager' ) );?></td>
+                <td class="textcenter">
+                    <input type="radio" name="update_method" value="network" id="network_method" /> <label for="network_method"><?php _e( 'Full Network Update - All Network Websites', 'multisite-robotstxt-manager' );?></label><br />
+                    <input type="radio" name="update_method" value="user" id="user_method" /> <label for="user_method"><?php _e( 'Only Websites You Are A Member Of: Default', 'multisite-robotstxt-manager' );?></label>
+                </td>
+            </tr>
+            <tr>
+                <td class="textcenter"><?php echo $this->echoSubmit( __( 'update network', 'multisite-robotstxt-manager' ) );?></td>
             </tr>
         </table>
     <?php $this->echoForm( false, true );?>
@@ -43,6 +49,9 @@ if ( count( get_included_files() ) == 1 ){ exit(); }
     <table class="table">
         <tr>
             <td class="textcenter" colspan="2"><?php $this->echoTextarea( $get_website_append_data, 65, 8, false );?></td>
+        </tr>
+        <tr>
+            <td class="textcenter" colspan="2"><?php echo $this->echoSubmit( __( 'update website rules', 'multisite-robotstxt-manager' ) );?></td>
         </tr>
         <tr>
             <td class="textcenter" colspan="2"><b>.:: <?php _e( 'Rule Suggestions', 'multisite-robotstxt-manager' );?> ::.</b></td>
@@ -68,9 +77,6 @@ if ( count( get_included_files() ) == 1 ){ exit(); }
                 <td class="textcenter"><input type="text" name="sitemap_url" value="<?php echo $get_sitemap_url;?>" style="width:98%" onclick="select()" /></td>
             </tr>
         <?php }?>
-        <tr>
-            <td class="textcenter" colspan="2"><?php echo $this->echoSubmit( __( 'update website rules', 'multisite-robotstxt-manager' ) );?></td>
-        </tr>
     </table>
 
     <?php if ( ! empty( $get_website_robotstxt ) && get_option( "ms_robotstxt_manager_status" ) ) {?>

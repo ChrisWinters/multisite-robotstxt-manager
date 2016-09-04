@@ -12,7 +12,7 @@ if ( count( get_included_files() ) == 1 ){ exit(); }
     <div class="inside" style="clear:both;padding-top:1px;"><div class="para">
 
     <ul>
-        <?php if( isset( $this->msrtm ) ) {?>
+        <?php if( ! defined( 'MSRTM' ) ) {?>
             <li><strong><span style="color:#cc0000;font-size:16px;"><?php _e( 'Pro Automation Extension', 'multisite-robotstxt-manager' );?></span></strong> [<a href="http://technerdia.com/multisite-robotstxt-manager-pro/" target="_blank"><?php _e( 'details', 'multisite-robotstxt-manager' );?></a>]<br /><?php _e( 'Fully automate the population and creation of all network website robots.txt files!', 'multisite-robotstxt-manager' );?>!</li>
         <?php } ?>
         <li><strong>&raquo; <a href="http://wordpress.org/extend/plugins/multisite-robotstxt-manager/" target="_blank"><?php _e( 'Please Rate This Plugin', 'multisite-robotstxt-manager' );?>!</a></strong><br />

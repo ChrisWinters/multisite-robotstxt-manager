@@ -7,7 +7,7 @@
 * Tags: robotstxt, robots.txt, robots, robot, spiders, virtual, search, google, seo, plugin, network, mu, multisite, technerdia, tribalnerd
 * Requires at least: 3.8
 * Tested up to: 4.6.0
-* Stable tag: 1.0.3
+* Stable tag: 1.0.4
 
 A Simple Multisite Robots.txt Manager - Quickly and easily manage all robots.txt files on a Wordpress Multisite Website Network.
 
@@ -312,6 +312,25 @@ For "real" Multisite HOST Networks, use the Wordpress plugin: BWP Google XML Sit
 
 :: Changelog
 --------
+= 1.0.4 =
+* Add options to update the full network or only blogs the admin is a user of
+* Added message for missing sitemap.xml files within website plugin admin
+* Added user notice & error message to all form actions
+* Corrected readme.txt file formating
+* Corrected notice locations for all 3 detection rules
+* Corrected network admin showing website admin status messages
+* Corrected message when updating network from disabled network
+* Corrected missing new line in the preset Wordpress Limited option
+* Adjusted disable/delete input names to be code-reader friendly
+* Removed class_core.php, functions moved to plugin root
+* Commented out $rewrite_rule check/update, until new solution is found
+
+= 1.0.3 =
+* Moved upgrade process outside of activation method, into unique class
+* Added message/method to detect and replace old plugin data with new data
+* Re-added old robots.txt plugin detection and cleaning option
+* Re-added bad rewrite rule detection and cleaning option
+
 = 1.0.2 =
 * Upgrade Bug Corrected
 * Changed how Extention loads in
