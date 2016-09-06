@@ -115,7 +115,7 @@ if ( ! class_exists( 'MsRobotstxtManager_Admin' ) )
 
                 // Set Post Action Redirect
                 if ( filter_input( INPUT_POST, 'ms_robotstxt_manager' ) ) {
-                    //add_action( 'wp_loaded', array( &$this, 'pluginRedirect' ) );
+                    add_action( 'wp_loaded', array( &$this, 'pluginRedirect' ) );
                 }
             }
         }
