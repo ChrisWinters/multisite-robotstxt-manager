@@ -305,6 +305,10 @@ For "real" Multisite HOST Networks, use the Wordpress plugin: BWP Google XML Sit
 
 == Changelog ==
 
+= 1.0.5 =
+* Corrected commented out redirect action
+* Corrected marketup in robots.txt file, again.
+
 = 1.0.4 =
 * Add options to update the full network or only blogs the admin is a user of
 * Added message for missing sitemap.xml files within website plugin admin
