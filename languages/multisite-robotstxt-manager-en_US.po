@@ -2,10 +2,10 @@
 # This file is distributed under the same license as the Multisite Robots.txt Manager | MS Robots.txt package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Multisite Robots.txt Manager | MS Robots.txt 1.0.3\n"
+"Project-Id-Version: Multisite Robots.txt Manager | MS Robots.txt 1.0.4\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/multisite-robotstxt-manager\n"
-"POT-Creation-Date: 2016-08-30 22:26:54+00:00\n"
-"PO-Revision-Date: 2016-08-30 22:26:54+00:00\n"
+"POT-Creation-Date: 2016-09-06 09:51:57+00:00\n"
+"PO-Revision-Date: 2016-09-06 09:51:57+00:00\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "Language: en_US\n"
@@ -14,15 +14,43 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: includes/class_admin.php:356
+#: includes/class_admin.php:424
 msgid "<a href=\"%1$s/robots.txt\" target=\"_blank\">Click here</a> to view this websites customized robots.txt file."
 msgstr "<a href=\"%1$s/robots.txt\" target=\"_blank\">Click here</a> to view this websites customized robots.txt file."
 
-#: includes/class_admin.php:361
+#: includes/class_admin.php:429
 msgid "<a href=\"%1$s/robots.txt\" target=\"_blank\">Click here</a> to view this websites default Wordpress robots.txt file."
 msgstr "<a href=\"%1$s/robots.txt\" target=\"_blank\">Click here</a> to view this websites default Wordpress robots.txt file."
 
-#: includes/class_admin.php:257
+#: includes/class_admin.php:169
+msgid "<u>All Network Websites Have Been Updated</u>: The saved network robots.txt file has been published to all websites."
+msgstr "<u>All Network Websites Have Been Updated</u>: The saved network robots.txt file has been published to all websites."
+
+#: includes/class_admin.php:166
+msgid "<u>Blogs You Are Member Of Have Been Updated</u>: The saved network robots.txt file has been published to allowed websites."
+msgstr "<u>Blogs You Are Member Of Have Been Updated</u>: The saved network robots.txt file has been published to allowed websites."
+
+#: includes/class_disabler.php:31
+msgid "<u>Network Disabled</u>: The Multisite Robots.txt Manager Plugin is no longer managing robots.txt files across network websites. Click the \"update network\" button to reenable the plugin."
+msgstr "<u>Network Disabled</u>: The Multisite Robots.txt Manager Plugin is no longer managing robots.txt files across network websites. Click the \"update network\" button to reenable the plugin."
+
+#: includes/class_admin.php:160
+msgid "<u>Preset Option Updated</u>: The preset has been saved as the network robots.txt file. Click the \"update network\" button to publish the robots.txt file across the network."
+msgstr "<u>Preset Option Updated</u>: The preset has been saved as the network robots.txt file. Click the \"update network\" button to publish the robots.txt file across the network."
+
+#: includes/class_disabler.php:34
+msgid "<u>Settings Deleted</u>: All Multisite Robots.txt Manager Plugin settings have been removed across the network. To re-enable: Save a preset robots.txt file or create your own robots.txt file, then click the \"update network\" button to update ."
+msgstr "<u>Settings Deleted</u>: All Multisite Robots.txt Manager Plugin settings have been removed across the network. To re-enable: Save a preset robots.txt file or create your own robots.txt file, then click the \"update network\" button to update ."
+
+#: includes/class_disabler.php:28
+msgid "<u>Website Disabled</u>: The Multisite Robots.txt Manager Plugin is no longer managing the robots.txt file on this website. Click the \"update update\" button to reenable the website."
+msgstr "<u>Website Disabled</u>: The Multisite Robots.txt Manager Plugin is no longer managing the robots.txt file on this website. Click the \"update update\" button to reenable the website."
+
+#: includes/class_admin.php:163
+msgid "<u>Website Settings Updated</u>: "
+msgstr "<u>Website Settings Updated</u>: "
+
+#: includes/class_admin.php:326
 msgid "A Bloggers Robots.txt File: Optimized for blog focused Wordpress websites."
 msgstr "A Bloggers Robots.txt File: Optimized for blog focused Wordpress websites."
 
@@ -34,35 +62,27 @@ msgstr "A Multisite Network Robots.txt Manager. Quickly manage your Network Webs
 msgid "A Multisite Robots.txt Manager Plugin For Wordpress."
 msgstr "A Multisite Robots.txt Manager Plugin For Wordpress."
 
-#: includes/class_core.php:89
-msgid "Activation Failed: The \"Multisite Robots.txt Manager\" Plugin can only be activated on Network Enabled Wordpress installs. Download and install the plugin, \"Robots.txt Manager\" for standalone Wordpress installs."
-msgstr "Activation Failed: The \"Multisite Robots.txt Manager\" Plugin can only be activated on Network Enabled Wordpress installs. Download and install the plugin, \"Robots.txt Manager\" for standalone Wordpress installs."
-
-#: includes/class_core.php:94
-msgid "Activation Failed: The \"Multisite Robots.txt Manager\" Plugin can only be activated within the Network Admin."
-msgstr "Activation Failed: The \"Multisite Robots.txt Manager\" Plugin can only be activated within the Network Admin."
-
-#: templates/home.php:67
+#: templates/home.php:76
 msgid "Add Sitemap URL"
 msgstr "Add Sitemap URL"
 
-#: includes/class_admin.php:351
+#: includes/class_admin.php:419
 msgid "All network websites are currently displaying the default Wordpress robots.txt file. To enable, click the 'update network' button below."
 msgstr "All network websites are currently displaying the default Wordpress robots.txt file. To enable, click the 'update network' button below."
 
-#: templates/home.php:60
+#: templates/home.php:69
 msgid "Allow Theme Path"
 msgstr "Allow Theme Path"
 
-#: templates/home.php:53
+#: templates/home.php:62
 msgid "Allow Upload Path"
 msgstr "Allow Upload Path"
 
-#: includes/class_admin.php:254
+#: includes/class_admin.php:323
 msgid "Alternative Robots.txt File: Simular to the plugins default robots.txt file, with more disallows."
 msgstr "Alternative Robots.txt File: Simular to the plugins default robots.txt file, with more disallows."
 
-#: includes/class_admin.php:301 includes/class_admin.php:312
+#: includes/class_admin.php:370 includes/class_admin.php:381
 msgid "Are You Sure You Want To Submit This?"
 msgstr "Are You Sure You Want To Submit This?"
 
@@ -70,19 +90,15 @@ msgstr "Are You Sure You Want To Submit This?"
 msgid "AskAapche Robots.txt Example"
 msgstr "AskAapche Robots.txt Example"
 
-#: includes/class_upgrade.php:544
-msgid "Bad Robots.txt Rewrite Rule Found"
-msgstr "Bad Robots.txt Rewrite Rule Found"
-
-#: includes/class_upgrade.php:154
+#: includes/class_upgrade.php:163
 msgid "Click the button to automatically copy old settings over, and then purge the old settings from the database"
 msgstr "Click the button to automatically copy old settings over, and then purge the old settings from the database"
 
-#: includes/class_upgrade.php:544
-msgid "Click the button to automatically correct the bad robots.txt rewrite rule."
-msgstr "Click the button to automatically correct the bad robots.txt rewrite rule."
+#: includes/class_upgrade.php:554
+msgid "Click the button to automatically correct the missing robots.txt rewrite rule."
+msgstr "Click the button to automatically correct the missing robots.txt rewrite rule."
 
-#: includes/class_upgrade.php:434
+#: includes/class_upgrade.php:444
 msgid "Click the button to automatically remove robots.txt files left by other plugins."
 msgstr "Click the button to automatically remove robots.txt files left by other plugins."
 
@@ -94,29 +110,33 @@ msgstr "Contact Support"
 msgid "Created by"
 msgstr "Created by"
 
-#: includes/class_admin.php:253
+#: includes/class_admin.php:322
 msgid "Default Robots.txt File: The plugins default installed robots.txt file."
 msgstr "Default Robots.txt File: The plugins default installed robots.txt file."
 
-#: includes/class_admin.php:306
+#: includes/class_admin.php:375
 msgid "Disable saved robots.txt files across all network websites, restoring the default Wordpress robots.txt file."
 msgstr "Disable saved robots.txt files across all network websites, restoring the default Wordpress robots.txt file."
 
-#: includes/class_admin.php:300
+#: includes/class_admin.php:369
 msgid "Disable the saved robots.txt file on this website, restoring the default Wordpress robots.txt file."
 msgstr "Disable the saved robots.txt file on this website, restoring the default Wordpress robots.txt file."
 
-#: includes/class_core.php:120
+#: multisite-robotstxt-manager.php:173
 msgid "Donations"
 msgstr "Donations"
 
-#: includes/class_core.php:117
+#: multisite-robotstxt-manager.php:170
 msgid "F.A.Q."
 msgstr "F.A.Q."
 
-#: includes/class_core.php:119
+#: multisite-robotstxt-manager.php:172
 msgid "Feedback"
 msgstr "Feedback"
+
+#: templates/home.php:25
+msgid "Full Network Update - All Network Websites"
+msgstr "Full Network Update - All Network Websites"
 
 #: templates/sidebar.php:16
 msgid "Fully automate the population and creation of all network website robots.txt files!"
@@ -126,7 +146,7 @@ msgstr "Fully automate the population and creation of all network website robots
 msgid "Google Robots.txt F.A.Q."
 msgstr "Google Robots.txt F.A.Q."
 
-#: includes/class_admin.php:258
+#: includes/class_admin.php:327
 msgid "Google Robots.txt File: A Google friendly robots.txt file."
 msgstr "Google Robots.txt File: A Google friendly robots.txt file."
 
@@ -134,11 +154,11 @@ msgstr "Google Robots.txt File: A Google friendly robots.txt file."
 msgid "It only takes a few seconds to <a href=\"http://wordpress.org/extend/plugins/multisite-robotstxt-manager/\" target=\"_blank\">rate this plugin</a>! Your rating helps create motivation for future developments"
 msgstr "It only takes a few seconds to <a href=\"http://wordpress.org/extend/plugins/multisite-robotstxt-manager/\" target=\"_blank\">rate this plugin</a>! Your rating helps create motivation for future developments"
 
-#: includes/class_upgrade.php:434
+#: includes/class_upgrade.php:444
 msgid "Left Over Robots.txt Files Found"
 msgstr "Left Over Robots.txt Files Found"
 
-#: includes/class_admin.php:259
+#: includes/class_admin.php:328
 msgid "Lockdown Robots.txt File: Disallow everything, prevent spiders from indexing the website."
 msgstr "Lockdown Robots.txt File: Disallow everything, prevent spiders from indexing the website."
 
@@ -146,9 +166,13 @@ msgstr "Lockdown Robots.txt File: Disallow everything, prevent spiders from inde
 msgid "MS Robots.txt"
 msgstr "MS Robots.txt"
 
-#: includes/class_core.php:149
+#: includes/class_upgrade.php:633
 msgid "MSRTM PRO failed to automatically upgrade - a new version is ready! Please contact us for download instructions."
 msgstr "MSRTM PRO failed to automatically upgrade - a new version is ready! Please contact us for download instructions."
+
+#: includes/class_upgrade.php:554
+msgid "Missing Robots.txt Rewrite Rule"
+msgstr "Missing Robots.txt Rewrite Rule"
 
 #: templates/sidebar.php:35
 msgid "More Plugins!"
@@ -162,11 +186,11 @@ msgstr "Multisite Robots.txt Manager"
 msgid "Multisite Robots.txt Manager for Wordpress"
 msgstr "Multisite Robots.txt Manager for Wordpress"
 
-#: includes/class_admin.php:346 includes/class_admin.php:356
+#: includes/class_admin.php:414 includes/class_admin.php:424
 msgid "Multisite Robots.txt Manager is Active"
 msgstr "Multisite Robots.txt Manager is Active"
 
-#: includes/class_admin.php:351 includes/class_admin.php:361
+#: includes/class_admin.php:419 includes/class_admin.php:429
 msgid "Multisite Robots.txt Manager is Disabled"
 msgstr "Multisite Robots.txt Manager is Disabled"
 
@@ -174,23 +198,27 @@ msgstr "Multisite Robots.txt Manager is Disabled"
 msgid "Multisite Robots.txt Manager | MS Robots.txt"
 msgstr "Multisite Robots.txt Manager | MS Robots.txt"
 
-#: templates/home.php:91
+#: templates/home.php:97
 msgid "Network Locked Robots.txt File"
 msgstr "Network Locked Robots.txt File"
 
-#: includes/class_core.php:113
+#: multisite-robotstxt-manager.php:166
 msgid "Network Settings"
 msgstr "Network Settings"
 
-#: includes/class_upgrade.php:154
+#: includes/class_upgrade.php:163
 msgid "Old Plugin Data Found"
 msgstr "Old Plugin Data Found"
 
-#: includes/class_admin.php:256
+#: templates/home.php:26
+msgid "Only Websites You Are A Member Of: Default"
+msgstr "Only Websites You Are A Member Of: Default"
+
+#: includes/class_admin.php:325
 msgid "Open Robots.txt File: Fully open robots.txt file, no disallows."
 msgstr "Open Robots.txt File: Fully open robots.txt file, no disallows."
 
-#: includes/class_core.php:121
+#: multisite-robotstxt-manager.php:174
 msgid "PRO Details"
 msgstr "PRO Details"
 
@@ -218,7 +246,7 @@ msgstr "Quick Info"
 msgid "Robots.txt Documentation"
 msgstr "Robots.txt Documentation"
 
-#: includes/class_admin.php:263
+#: includes/class_admin.php:332
 msgid "Robots.txt File Presets"
 msgstr "Robots.txt File Presets"
 
@@ -230,15 +258,15 @@ msgstr "Robots.txt Optimization Tips"
 msgid "Robots.txt Specifications"
 msgstr "Robots.txt Specifications"
 
-#: templates/home.php:48
+#: templates/home.php:57
 msgid "Rule Suggestions"
 msgstr "Rule Suggestions"
 
-#: templates/home.php:81
+#: templates/home.php:87
 msgid "Saved Robots.txt File"
 msgstr "Saved Robots.txt File"
 
-#: includes/class_admin.php:272
+#: includes/class_admin.php:341
 msgid "Showing!"
 msgstr "Showing!"
 
@@ -246,15 +274,15 @@ msgstr "Showing!"
 msgid "Submit Feedback"
 msgstr "Submit Feedback"
 
-#: includes/class_core.php:118
+#: multisite-robotstxt-manager.php:171
 msgid "Support"
 msgstr "Support"
 
-#: templates/home.php:81
+#: templates/home.php:87
 msgid "The live robots.txt file for this website."
 msgstr "The live robots.txt file for this website."
 
-#: includes/class_admin.php:346
+#: includes/class_admin.php:414
 msgid "The robots.txt file template below is currently being used across all active network websites. The saved robots.txt file rules for each website will replace the {APPEND_WEBSITE_ROBOTSTXT} marker."
 msgstr "The robots.txt file template below is currently being used across all active network websites. The saved robots.txt file rules for each website will replace the {APPEND_WEBSITE_ROBOTSTXT} marker."
 
@@ -262,11 +290,11 @@ msgstr "The robots.txt file template below is currently being used across all ac
 msgid "Unauthorized Access."
 msgstr "Unauthorized Access."
 
-#: includes/class_core.php:149
+#: includes/class_upgrade.php:633
 msgid "Upgrade Notice"
 msgstr "Upgrade Notice"
 
-#: includes/class_admin.php:311
+#: includes/class_admin.php:380
 msgid "WARNING: Delete all settings related to the Multisite Robots.txt Manager Plugin across the entire network."
 msgstr "WARNING: Delete all settings related to the Multisite Robots.txt Manager Plugin across the entire network."
 
@@ -274,19 +302,19 @@ msgstr "WARNING: Delete all settings related to the Multisite Robots.txt Manager
 msgid "Web Robots Database"
 msgstr "Web Robots Database"
 
-#: includes/class_core.php:115
+#: multisite-robotstxt-manager.php:168
 msgid "Website Settings"
 msgstr "Website Settings"
 
-#: templates/home.php:91
+#: templates/home.php:97
 msgid "Website settings (above) will automatically be appended to the network robots.txt file and saved as the robots.txt for this website."
 msgstr "Website settings (above) will automatically be appended to the network robots.txt file and saved as the robots.txt for this website."
 
-#: includes/class_admin.php:255
+#: includes/class_admin.php:324
 msgid "Wordpress Limited Robots.txt File: Only disallows wp-includes and wp-admin."
 msgstr "Wordpress Limited Robots.txt File: Only disallows wp-includes and wp-admin."
 
-#: includes/class_core.php:67 includes/class_core.php:72
+#: multisite-robotstxt-manager.php:190 multisite-robotstxt-manager.php:195
 msgid "You are not authorized to perform this action."
 msgstr "You are not authorized to perform this action."
 
@@ -302,7 +330,7 @@ msgstr "http://techNerdia.com/"
 msgid "http://technerdia.com/msrtm/"
 msgstr "http://technerdia.com/msrtm/"
 
-#: includes/class_upgrade.php:435
+#: includes/class_upgrade.php:445
 msgid "remove old data"
 msgstr "remove old data"
 
@@ -314,18 +342,18 @@ msgstr "robotstxt, robots.txt, robots, robot, spiders, virtual, search, google, 
 msgid "tribalNerd, Chris Winters"
 msgstr "tribalNerd, Chris Winters"
 
-#: templates/home.php:24
+#: templates/home.php:30
 msgid "update network"
 msgstr "update network"
 
-#: includes/class_upgrade.php:545
+#: includes/class_upgrade.php:555
 msgid "update rewrite rules"
 msgstr "update rewrite rules"
 
-#: templates/home.php:72
+#: templates/home.php:54
 msgid "update website rules"
 msgstr "update website rules"
 
-#: includes/class_upgrade.php:155
+#: includes/class_upgrade.php:164
 msgid "upgrade and purge network"
 msgstr "upgrade and purge network"
