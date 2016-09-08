@@ -115,7 +115,7 @@ if ( ! class_exists( 'MsRobotstxtManager_Admin' ) )
 
                 // Set Post Action Redirect
                 if ( filter_input( INPUT_POST, 'ms_robotstxt_manager' ) ) {
-                    add_action( 'wp_loaded', array( &$this, 'pluginRedirect' ) );
+                    //add_action( 'wp_loaded', array( &$this, 'pluginRedirect' ) );
                 }
             }
         }
@@ -613,7 +613,7 @@ if ( ! class_exists( 'MsRobotstxtManager_Admin' ) )
                 if ( filter_input( INPUT_POST, 'update_method' ) == "user" || filter_input( INPUT_POST, 'update_method' ) === null ) {
 
                     // Current Admin User
-                    get_currentuserinfo();
+                    $current_user = wp_get_current_user();
                     $this_admin_user = $current_user->ID;
 
                     // Blog IDs For This User
@@ -647,10 +647,10 @@ if ( ! class_exists( 'MsRobotstxtManager_Admin' ) )
 
                         // Update Website
                         $this->updateNetworkWebsites();
+                    }
 
                     // Display Message
                     $this->throwMessage( 'networkglobalupdated', 'updated' );
-                    }
                 }
             }
         }

@@ -226,7 +226,7 @@ if ( ! class_exists( 'MsRobotstxtManager_Helper' ) )
             restore_current_blog();
 
             // Return the url or empty if no sitemap
-            return $sitemap_url = ( ! empty( $url ) ) ? 'Sitemap: ' . $url : 'No Sitemap Found';
+            return $sitemap_url = ( ! empty( $url ) ) ? 'Sitemap: ' . $url : '';
         }
 
 

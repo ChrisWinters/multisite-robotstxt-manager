@@ -71,12 +71,10 @@ if ( count( get_included_files() ) == 1 ){ exit(); }
         </tr>
         <?php }?>
 
-        <?php if ( ! empty( $get_sitemap_url ) ) {?>
-            <tr>
-                <td class="textright"><b><?php _e( 'Add Sitemap URL', 'multisite-robotstxt-manager' );?>:</b></td>
-                <td class="textcenter"><input type="text" name="sitemap_url" value="<?php echo $get_sitemap_url;?>" style="width:98%" onclick="select()" /></td>
-            </tr>
-        <?php }?>
+        <tr>
+            <td class="textright"><b><?php _e( 'Add Sitemap URL', 'multisite-robotstxt-manager' );?>:</b></td>
+            <td class="textcenter"><input type="text" name="sitemap_url" value="<?php if ( empty( $get_sitemap_url ) ) { _e( 'No Sitemap Found' ); } else { echo $get_sitemap_url; }?>" style="width:98%" onclick="select()" /></td>
+        </tr>
     </table>
 
     <?php if ( ! empty( $get_website_robotstxt ) && get_option( "ms_robotstxt_manager_status" ) ) {?>

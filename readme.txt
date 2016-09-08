@@ -5,7 +5,7 @@ Donate link: http://technerdia.com/donate.html
 Tags: robotstxt, robots.txt, robots, robot, spiders, virtual, search, google, seo, plugin, network, mu, multisite, technerdia, tribalnerd
 Requires at least: 3.8
 Tested up to: 4.6.0
-Stable tag: 1.0.5
+Stable tag: 1.0.6
 
 
 A Simple Multisite Robots.txt Manager - Quickly and easily manage all robots.txt files on a Wordpress Multisite Website Network.
@@ -304,6 +304,11 @@ For "real" Multisite HOST Networks, use the Wordpress plugin: BWP Google XML Sit
 
 
 == Changelog ==
+
+= 1.0.6 =
+* Bug: Corrected class_helper->getSitemapUrl() - printing "No Sitemap Found" in robots.txt files
+* Bug: Moved class_admin->updateNetwork()->throwMessage() outside of foreach when updating the network
+* Adjusted templates/home.php to display No Sitemap Found within input field
 
 = 1.0.5 =
 * Modified class_helper->getSitemapUrl(): added get_option( 'siteurl' ) check for sitemap url
