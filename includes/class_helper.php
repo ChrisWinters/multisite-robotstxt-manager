@@ -202,18 +202,21 @@ if ( ! class_exists( 'MsRobotstxtManager_Helper' ) )
             // Switch to Current Website
             switch_to_blog( $blog_id );
 
+            // Get Site URL
+            $sitemap_url_base = get_option( 'siteurl' ) ? get_option( 'siteurl' ) : MS_ROBOTSTXT_MANAGER_BASE_URL;
+
             // Base XML File Locations To check
-            $root_xml_file_location = get_headers( MS_ROBOTSTXT_MANAGER_BASE_URL . '/sitemap.xml' );
-            $alt_xml_file_location = get_headers( MS_ROBOTSTXT_MANAGER_BASE_URL . '/sitemaps/sitemap.xml' );
+            $root_xml_file_location = get_headers( $sitemap_url_base . '/sitemap.xml' );
+            $alt_xml_file_location = get_headers( $sitemap_url_base . '/sitemaps/sitemap.xml' );
 
             // Check if xml sitemap exists
             if ( $root_xml_file_location && $root_xml_file_location[0] == 'HTTP/1.1 200 OK' ) {
                 // http://domain.com/sitemap.xml
-                $url = MS_ROBOTSTXT_MANAGER_BASE_URL . '/sitemap.xml';
+                $url = $sitemap_url_base . '/sitemap.xml';
 
             } elseif ( $alt_xml_file_location && $alt_xml_file_location[0] == 'HTTP/1.1 200 OK' ) {
                 // http://domain.com/sitemaps/sitemap.xml
-                $url = MS_ROBOTSTXT_MANAGER_BASE_URL . '/sitemaps/sitemap.xml';
+                $url = $sitemap_url_base . '/sitemaps/sitemap.xml';
  
             } else {
                 $url = '';

@@ -44,7 +44,7 @@ if ( ! class_exists( 'MsRobotstxtManager_Presets' ) )
          * 
          * @return string
          */
-	public function defaultAltRobotstxt()
+	final public function defaultAltRobotstxt()
         {
             $txt = "# robots.txt\n";
             $txt .= "User-agent: *\n";
@@ -81,7 +81,7 @@ if ( ! class_exists( 'MsRobotstxtManager_Presets' ) )
          * 
          * @return string
          */
-	public function wordpressRobotstxt()
+	final public function wordpressRobotstxt()
         {
             $txt = "# robots.txt\n";
             $txt .= "User-agent: *\n";
@@ -99,7 +99,7 @@ if ( ! class_exists( 'MsRobotstxtManager_Presets' ) )
          * 
          * @return string
          */
-	public function openRobotstxt()
+	final public function openRobotstxt()
         {
             $txt = "# robots.txt\n";
             $txt .= "User-agent: *\n";
@@ -114,7 +114,7 @@ if ( ! class_exists( 'MsRobotstxtManager_Presets' ) )
          * 
          * @return string
          */
-	public function bloggerRobotstxt()
+	final public function bloggerRobotstxt()
         {
             $txt = "# robots.txt\n";
             $txt .= "User-agent: *\n";
@@ -162,7 +162,7 @@ if ( ! class_exists( 'MsRobotstxtManager_Presets' ) )
          * 
          * @return string
          */
-	public function blockedRobotstxt()
+	final public function blockedRobotstxt()
         {
             $txt = "# robots.txt\n";
             $txt .= "User-agent: *\n";
@@ -177,7 +177,7 @@ if ( ! class_exists( 'MsRobotstxtManager_Presets' ) )
          * 
          * @return string
          */
-	public function googleRobotstxt()
+	final public function googleRobotstxt()
         {
             $txt = "# robots.txt\n";
             $txt .= "User-agent: *\n";
