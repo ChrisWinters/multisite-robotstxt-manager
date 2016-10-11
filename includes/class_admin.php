@@ -34,6 +34,9 @@ if ( ! class_exists( 'MsRobotstxtManager_Admin' ) )
         // Disable Plugin Features
         private $disabler;
 
+        // Helper Class
+        private $helpers;
+
 
         /**
          * Set Class Vars
@@ -50,6 +53,9 @@ if ( ! class_exists( 'MsRobotstxtManager_Admin' ) )
             $this->plugin_version   = $args['plugin_version'];
             $this->menu_name        = $args['menu_name'];
             $this->templates        = $args['templates'];
+
+            // Call Helper Class
+            $this->helpers = new MsRobotstxtManager_Helper();
         }
 
 
@@ -67,7 +73,7 @@ if ( ! class_exists( 'MsRobotstxtManager_Admin' ) )
             add_action( 'network_admin_menu', array( &$this, 'displayMenu' ) );
 
             // Append Website Rules To Robots.txt File
-            add_filter( 'msrtm_append_rules', array( &$this, 'appendRobotstxt') );
+            add_filter( 'msrtm_append_rules', array( $this->helpers, 'appendRobotstxt') );
 
             // Update Website
             add_filter( 'msrtm_update_website', array( &$this, 'updateWebsite') );
@@ -79,16 +85,16 @@ if ( ! class_exists( 'MsRobotstxtManager_Admin' ) )
             add_filter( 'msrtm_preset_network', array( &$this, 'presetNetwork') );
 
             // Extended Class: Ge Network Robots.txt File
-            add_filter( 'msrtm_network_robotstxt', array( &$this, 'getNetworkRobotstxt') );
+            add_filter( 'msrtm_network_robotstxt', array( $this->helpers, 'getNetworkRobotstxt') );
 
             // Extended Class: Get Website Robots.txt File
-            add_filter( 'msrtm_website_robotstxt', array( &$this, 'getWebsiteRobotstxt') );
+            add_filter( 'msrtm_website_robotstxt', array( $this->helpers, 'getWebsiteRobotstxt') );
 
             // Extended Class: Get Website Append Data
-            add_filter( 'msrtm_website_append', array( &$this, 'getWebsiteAppend') );
+            add_filter( 'msrtm_website_append', array( $this->helpers, 'getWebsiteAppend') );
 
             // Extended Class: Current Plugin Status
-            add_filter( 'msrtm_plugin_status', array( &$this, 'getPluginStatus') );
+            add_filter( 'msrtm_plugin_status', array( $this->helpers, 'getPluginStatus') );
 
             // Extended Class: Website Uplaod Path
             add_filter( 'msrtm_upload_path', array( &$this, 'getUploadPath') );
@@ -362,7 +368,7 @@ if ( ! class_exists( 'MsRobotstxtManager_Admin' ) )
         final private function echoRemoves()
         {
             // Get The Plugins Status Based On The Admin Area
-            $status = $this->getPluginStatus();
+            $status = $this->helpers->getPluginStatus();
 
             // Website Disable
             if ( is_admin() && ! is_network_admin() && $status ) {
@@ -407,7 +413,7 @@ if ( ! class_exists( 'MsRobotstxtManager_Admin' ) )
         final private function statusMessages()
         {
             // Get The Plugins Status Based On The Admin Area
-            $status = $this->getPluginStatus();
+            $status = $this->helpers->getPluginStatus();
 
             // Network : Plugin Active
             if ( is_network_admin() && $status ) {
