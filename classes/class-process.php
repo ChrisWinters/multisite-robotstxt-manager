@@ -6,7 +6,7 @@ if ( count( get_included_files() ) == 1 ){ exit(); }
 /**
  * @about Process Plugin Updates/Changes
  * @location multisite-robotstxt-manager.php
- * @call add_action( 'init', array( 'MsRobotstxtManager_Process', 'instance' ) );
+ * @call MsRobotstxtManager_Process::instance();
  * 
  * @method init()       Init Admin Actions
  * @method update()     Call Update Classes
@@ -26,7 +26,7 @@ if ( ! class_exists( 'MsRobotstxtManager_Process' ) )
         final public function init()
         {
             // Plugin Admin Only
-            if ( filter_input( INPUT_POST, 'type' ) && $this->qString( 'page' ) == $this->plugin_name ) {
+            if ( filter_input( INPUT_POST, 'type' ) && parent::qString( 'page' ) == $this->plugin_name ) {
                 add_action( 'admin_init', array( $this, 'update') );
             }
         }

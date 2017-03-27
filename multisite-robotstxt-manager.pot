@@ -1,0 +1,540 @@
+# Copyright (C) 2017 Multisite Robots.txt Manager | MS Robots.txt
+# This file is distributed under the same license as the Multisite Robots.txt Manager | MS Robots.txt package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Multisite Robots.txt Manager | MS Robots.txt 1.0.8\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/multisite-"
+"robotstxt-manager\n"
+"POT-Creation-Date: 2017-03-27 18:39:28+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2017-MO-DA HO:MI+ZONE\n"
+"Last-Translator: tribalNerd <tribalnerd@technerdia.com>\n"
+"Language-Team: tribalNerd <tribalnerd@technerdia.com>\n"
+
+#: classes/class-extended.php:72
+msgid "Website"
+msgstr ""
+
+#: classes/class-extended.php:73 classes/class-extended.php:85
+msgid "Network"
+msgstr ""
+
+#: classes/class-extended.php:86
+msgid "Cleaner"
+msgstr ""
+
+#: classes/class-extended.php:118
+msgid ""
+"<u>Preset Updated</u>: The preset robots.txt has been saved as the network "
+"robots.txt file. You need to publish your changes for network websites to "
+"use the newly saved network robots.txt file."
+msgstr ""
+
+#: classes/class-extended.php:122
+msgid "The Preset Option <u>Failed</u> To Update!"
+msgstr ""
+
+#: classes/class-extended.php:126
+msgid "<u>Saved</u>: The Network Robots.txt File Has Been Saved!"
+msgstr ""
+
+#: classes/class-extended.php:130
+msgid ""
+"<u>Blogs You Are Member Of Have Been Updated</u>: The saved network robots."
+"txt file has been published to allowed websites."
+msgstr ""
+
+#: classes/class-extended.php:134
+msgid ""
+"<u>All Network Websites Have Been Updated</u>: The saved network robots.txt "
+"file has been published to all network websites."
+msgstr ""
+
+#: classes/class-extended.php:138
+msgid "Network Settings <u>Failed</u> To Update!"
+msgstr ""
+
+#: classes/class-extended.php:142
+msgid ""
+"<u>Network Disabled</u>: The Multisite Robots.txt Manager Plugin is no "
+"longer managing robots.txt files across network websites."
+msgstr ""
+
+#: classes/class-extended.php:146
+msgid ""
+"<u>All Saved Settings Deleted</u>: All Multisite Robots.txt Manager Plugin "
+"settings have been removed across the network."
+msgstr ""
+
+#: classes/class-extended.php:150
+msgid ""
+"<u>Website Disabled</u>: The Multisite Robots.txt Manager Plugin is no "
+"longer managing the robots.txt file on this website."
+msgstr ""
+
+#: classes/class-extended.php:154
+msgid "<u>Notice</u>: No Settings Disabled or Deleted!"
+msgstr ""
+
+#: classes/class-extended.php:158
+msgid "Website Robots.txt File Has Been <u>Updated</u>!"
+msgstr ""
+
+#: classes/class-extended.php:162
+msgid "<u>Notice</u>: No Robots.txt Rules or Append Rules Found!"
+msgstr ""
+
+#: classes/class-extended.php:166
+msgid "<u>Network Is Clean</u>: No Old Data Found."
+msgstr ""
+
+#: classes/class-extended.php:170
+msgid ""
+"<u>Warning</u>: Old Robots.txt File Data Found! Scroll down and click the "
+"\"remove old data\" button to remove the old data."
+msgstr ""
+
+#: classes/class-extended.php:174
+msgid ""
+"<u>Warning</u>: Missing Robots.txt Rewrite Rule! Scroll down and click the "
+"\"correct missing rules\" button to add the missing rule."
+msgstr ""
+
+#: classes/class-extended.php:178
+msgid ""
+"<u>Network Is Clean</u>: All Network Websites Have The Proper Rewrite Rule."
+msgstr ""
+
+#: classes/class-extended.php:182
+msgid "<u>Network Is Clean</u>: A physical robots.txt file was not found."
+msgstr ""
+
+#: classes/class-extended.php:186
+msgid ""
+"<u>Warning</u>: A real robots.txt file was found at the websites root "
+"directory. Scroll down and click the \"delete physical file\" to delete the "
+"real robots.txt file."
+msgstr ""
+
+#: classes/class-extended.php:190
+msgid ""
+"<u>Warning</u>: The plugin was unable to delete it due to file permissions. "
+"You will need to manually delete the real robots.txt file, then run the scan "
+"again."
+msgstr ""
+
+#: classes/class-extended.php:194
+msgid ""
+"Network robots.txt file <u>disabled</u> on this website, you can now fully "
+"customize the robots.txt file. No changes to the robots.txt file has been "
+"made. You need to create your robots.txt file below, the click the \"update "
+"website rules\" button to change the robots.txt file."
+msgstr ""
+
+#: classes/class-extended.php:198
+msgid ""
+"The network robots.txt file on this website has been <u>enabled</u>, "
+"restoring the default behavior. No changes to the robots.txt file has been "
+"made. You need to modify the append rules below, the click the \"update "
+"website rules\" button to change the robots.txt file."
+msgstr ""
+
+#: classes/class-extended.php:448 classes/class-extended.php:453
+msgid "You are not authorized to perform this action."
+msgstr ""
+
+#: multisite-robotstxt-manager.php:33
+msgid "MS Robots.txt"
+msgstr ""
+
+#: multisite-robotstxt-manager.php:34
+msgid "Multisite Robots.txt Manager for WordPress"
+msgstr ""
+
+#: multisite-robotstxt-manager.php:35
+msgid "A Multisite Robots.txt Manager Plugin For WordPress."
+msgstr ""
+
+#: multisite-robotstxt-manager.php:164
+msgid "Network Settings"
+msgstr ""
+
+#: multisite-robotstxt-manager.php:166
+msgid "Website Settings"
+msgstr ""
+
+#: multisite-robotstxt-manager.php:168
+msgid "F.A.Q."
+msgstr ""
+
+#: multisite-robotstxt-manager.php:169
+msgid "Support"
+msgstr ""
+
+#: multisite-robotstxt-manager.php:170
+msgid "Feedback"
+msgstr ""
+
+#: multisite-robotstxt-manager.php:171
+msgid "Donations"
+msgstr ""
+
+#: multisite-robotstxt-manager.php:172
+msgid "PRO Details"
+msgstr ""
+
+#: templates/cleaner.php:6
+msgid "Check For Old Robots.txt File Settings"
+msgstr ""
+
+#: templates/cleaner.php:7
+msgid ""
+"If you are having problems with a websites robots.txt file to displaying "
+"properly, it is possible that old robots.txt file data left over from other "
+"plugins is conflicting. Click the \"scan for old data\" button below to scan "
+"the network for left over data. If any is found, a notice will display with "
+"a new button to automatically clean out the left over data."
+msgstr ""
+
+#: templates/cleaner.php:14
+msgid "scan for old data"
+msgstr ""
+
+#: templates/cleaner.php:20
+msgid "Old Robots.txt File Settings Found"
+msgstr ""
+
+#: templates/cleaner.php:21
+msgid "Click the \"remove old data\" button below to purge the old settings."
+msgstr ""
+
+#: templates/cleaner.php:28
+msgid "remove old data"
+msgstr ""
+
+#: templates/cleaner.php:36
+msgid "Check For Real (physical) Robots.txt File"
+msgstr ""
+
+#: templates/cleaner.php:37
+msgid ""
+"If network/website changes do not appear to override the robots.txt file or "
+"if the file is blank, it is possible that a plugin created a physical (hard) "
+"robots.txt file. Click the \"scan for physical file\" button below to check "
+"the website for a real robots.txt file. If one is found, a notice will "
+"display with a new button allowing you to delete the file."
+msgstr ""
+
+#: templates/cleaner.php:44
+msgid "scan for physical file"
+msgstr ""
+
+#: templates/cleaner.php:50
+msgid "A Real Robots.txt File Was Found"
+msgstr ""
+
+#: templates/cleaner.php:51
+msgid ""
+"Click the \"delete physical file\" button below to delete the real robots."
+"txt file."
+msgstr ""
+
+#: templates/cleaner.php:58
+msgid "delete physical file"
+msgstr ""
+
+#: templates/cleaner.php:66
+msgid "Check That All Websites Have The Proper Rewrite Rule"
+msgstr ""
+
+#: templates/cleaner.php:67
+msgid ""
+"If your robots.txt files are blank, it is possible the website is missing "
+"the rewrite rule index.php?robots=1. Click the \"scan for missing rules\" "
+"button below to scan the network for the missing rule. If a website is "
+"missing the rule, a notice will display with a new button to automatically "
+"add the rule for you."
+msgstr ""
+
+#: templates/cleaner.php:74
+msgid "scan for missing rules"
+msgstr ""
+
+#: templates/cleaner.php:80
+msgid "At Least One Website Is Missing The Rewrite Rule"
+msgstr ""
+
+#: templates/cleaner.php:81
+msgid "Click the \"add missing rule\" button below to add the missing rule."
+msgstr ""
+
+#: templates/cleaner.php:88
+msgid "correct missing rules"
+msgstr ""
+
+#: templates/footer.php:14
+msgid "Created by"
+msgstr ""
+
+#: templates/network.php:7
+msgid "The Network Robots.txt File is Active"
+msgstr ""
+
+#: templates/network.php:8
+msgid ""
+"The network robots.txt file below is currently being used across all active "
+"network websites. Unique robots.txt file rules for each website will replace "
+"the {APPEND_WEBSITE_ROBOTSTXT} marker."
+msgstr ""
+
+#: templates/network.php:10
+msgid "The Network Robots.txt File is Disabled"
+msgstr ""
+
+#: templates/network.php:11
+msgid ""
+"All network websites are currently displaying the default WordPress robots."
+"txt file, unless modified at the local website."
+msgstr ""
+
+#: templates/network.php:25
+msgid "Publish the network robots.txt file to all network websites."
+msgstr ""
+
+#: templates/network.php:26
+msgid ""
+"Publish the network robots.txt file to network websites you are a member of."
+msgstr ""
+
+#: templates/network.php:27
+msgid "Save the network robots.txt file / does not publish changes."
+msgstr ""
+
+#: templates/network.php:33 templates/network.php:62
+msgid "update settings"
+msgstr ""
+
+#: templates/network.php:41
+msgid "Robots.txt File Presets"
+msgstr ""
+
+#: templates/network.php:42
+msgid ""
+"Select a preset robots.txt file to load in the textarea above. This action "
+"does NOT publish the robots.txt file to the network."
+msgstr ""
+
+#: templates/network.php:51
+msgid "Default Robots.txt File: The plugins default installed robots.txt file."
+msgstr ""
+
+#: templates/network.php:52
+msgid ""
+"Alternative Robots.txt File: Similar to the plugins default robots.txt file, "
+"with more disallows."
+msgstr ""
+
+#: templates/network.php:53
+msgid ""
+"WordPress Limited Robots.txt File: Only disallows wp-includes and wp-admin."
+msgstr ""
+
+#: templates/network.php:54
+msgid "Open Robots.txt File: Fully open robots.txt file, no disallows."
+msgstr ""
+
+#: templates/network.php:55
+msgid ""
+"A Bloggers Robots.txt File: Optimized for blog focused WordPress websites."
+msgstr ""
+
+#: templates/network.php:56
+msgid "Google Robots.txt File: A Google friendly robots.txt file."
+msgstr ""
+
+#: templates/network.php:57
+msgid ""
+"Lockdown Robots.txt File: Disallow everything, prevent spiders from indexing "
+"the website."
+msgstr ""
+
+#: templates/network.php:75
+msgid ""
+"Disable saved robots.txt files across all network websites, restoring the "
+"default WordPress robots.txt file."
+msgstr ""
+
+#: templates/network.php:76
+msgid ""
+"WARNING: Delete all settings related to the Multisite Robots.txt Manager "
+"Plugin across the entire network."
+msgstr ""
+
+#: templates/sidebar.php:6
+msgid "Multisite Robots.txt Manager"
+msgstr ""
+
+#: templates/sidebar.php:10
+msgid "Plugin Home Page"
+msgstr ""
+
+#: templates/sidebar.php:11
+msgid "Bugs & Feature Request"
+msgstr ""
+
+#: templates/sidebar.php:12
+msgid "Contact Support"
+msgstr ""
+
+#: templates/sidebar.php:13
+msgid "Submit Feedback"
+msgstr ""
+
+#: templates/sidebar.php:14
+msgid "More Plugins!"
+msgstr ""
+
+#: templates/sidebar.php:20
+msgid "Please Rate This Plugin At Wordpress.org!"
+msgstr ""
+
+#: templates/sidebar.php:23
+msgid "Pro Automation Extension Plugin!"
+msgstr ""
+
+#: templates/sidebar.php:27
+msgid "Robots.txt Help"
+msgstr ""
+
+#: templates/sidebar.php:31
+msgid "Robots.txt Optimization Tips"
+msgstr ""
+
+#: templates/sidebar.php:32
+msgid "AskAapche Robots.txt Example"
+msgstr ""
+
+#: templates/sidebar.php:33
+msgid "Google Robots.txt F.A.Q."
+msgstr ""
+
+#: templates/sidebar.php:34
+msgid "Robots.txt Specifications"
+msgstr ""
+
+#: templates/sidebar.php:35
+msgid "Web Robots Database"
+msgstr ""
+
+#: templates/website.php:7
+msgid "The Robots.txt File is Active on this Website"
+msgstr ""
+
+#: templates/website.php:8
+msgid ""
+"The robots.txt file below is currently being displayed on this website "
+"websites. Unique robots.txt file rules for each website will replace the "
+"{APPEND_WEBSITE_ROBOTSTXT} marker."
+msgstr ""
+
+#: templates/website.php:8
+msgid ""
+"<a href=\"%s/robots.txt\" target=\"_blank\">Click here</a> to view the "
+"customized robots.txt file."
+msgstr ""
+
+#: templates/website.php:10
+msgid "The Robots.txt File is Disabled on this Website"
+msgstr ""
+
+#: templates/website.php:11
+msgid ""
+"The default WordPress robots.txt file is currently being displayed on this "
+"website."
+msgstr ""
+
+#: templates/website.php:11
+msgid ""
+"<a href=\"%s/robots.txt\" target=\"_blank\">Click here</a> to view the "
+"default robots.txt file."
+msgstr ""
+
+#: templates/website.php:24
+msgid "update website rules"
+msgstr ""
+
+#: templates/website.php:30
+msgid "Rule Suggestions"
+msgstr ""
+
+#: templates/website.php:33
+msgid "Upload Path"
+msgstr ""
+
+#: templates/website.php:37
+msgid "Theme Path"
+msgstr ""
+
+#: templates/website.php:42
+msgid "Sitemap URL"
+msgstr ""
+
+#: templates/website.php:51
+msgid "Live Robots.txt File"
+msgstr ""
+
+#: templates/website.php:61
+msgid "Network Robots.txt File"
+msgstr ""
+
+#: templates/website.php:79
+msgid ""
+"Disable the saved robots.txt file on this website, restoring the default "
+"WordPress robots.txt file."
+msgstr ""
+
+#: templates/website.php:81
+msgid ""
+"Enable the network robots.txt file on this website, restoring the default "
+"behavior."
+msgstr ""
+
+#: templates/website.php:83
+msgid ""
+"Disable the network robots.txt file on this website, allowing you to fully "
+"customize the robots.txt file."
+msgstr ""
+
+#: uninstall.php:22
+msgid "Unauthorized Access."
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Multisite Robots.txt Manager | MS Robots.txt"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://github.com/tribalNerd/multisite-robotstxt-manager"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"A Multisite Network Robots.txt Manager. Quickly manage your Network Websites "
+"robots.txt files from a single administration area."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "tribalNerd, Chris Winters"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://techNerdia.com/"
+msgstr ""
+
+#. Tags of the plugin/theme
+msgid ""
+"robotstxt, robots.txt, robots, robot, spiders, virtual, search, google, seo, "
+"plugin, network, wpmu, multisite, technerdia, tribalnerd"
+msgstr ""

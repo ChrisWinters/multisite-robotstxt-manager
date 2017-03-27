@@ -6,7 +6,7 @@ if ( count( get_included_files() ) == 1 ){ exit(); }
 /**
  * @about Admin Area Display
  * @location multisite-robotstxt-manager.php
- * @call add_action( 'wp_loaded', array( 'MsRobotstxtManager_AdminArea', 'instance' ) );
+ * @call MsRobotstxtManager_AdminArea::instance();
  * 
  * @method init()       Init Admin Actions
  * @method menu()       Load Admin Area Menu
@@ -36,7 +36,7 @@ if ( ! class_exists( 'MsRobotstxtManager_AdminArea' ) )
             add_action( 'network_admin_menu', array( $this, 'menu' ) );
 
             // Unqueue Scripts Within Plugin Admin Area
-            if ( $this->qString( 'page' ) == $this->plugin_name ) {
+            if ( parent::qString( 'page' ) == $this->plugin_name ) {
                 add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ) );
             }
         }
@@ -87,7 +87,7 @@ if ( ! class_exists( 'MsRobotstxtManager_AdminArea' ) )
             require_once( $this->templates .'/header.php' );
 
             // Switch Between Tabs
-            switch ( $this->qString( 'tab' ) ) {
+            switch ( parent::qString( 'tab' ) ) {
                 case 'website':
                 default:
                     require_once( $this->templates .'/website.php' );
@@ -108,7 +108,7 @@ if ( ! class_exists( 'MsRobotstxtManager_AdminArea' ) )
             require_once( $this->templates .'/header.php' );
 
             // Switch Between Tabs
-            switch ( $this->qString( 'tab' ) ) {
+            switch ( parent::qString( 'tab' ) ) {
                 case 'network':
                 default:
                     require_once( $this->templates .'/network.php' );
@@ -133,14 +133,14 @@ if ( ! class_exists( 'MsRobotstxtManager_AdminArea' ) )
             $html = '<h2 class="nav-tab-wrapper">';
 
             // Set Current Tab
-            $current = ( $this->qString( 'tab' ) ) ? $this->qString( 'tab' ) : key( $this->tabs );
+            $current = ( parent::qString( 'tab' ) ) ? parent::qString( 'tab' ) : key( $this->tabs );
 
             foreach( $this->tabs as $tab => $name ) {
                 // Current Tab Class
                 $class = ( $tab == $current ) ? ' nav-tab-active' : '';
 
                 // Tab Links
-                $html .= '<a href="?page='. $this->qString( 'page' ) .'&tab='. $tab .'" class="nav-tab'. $class .'">'. $name .'</a>';
+                $html .= '<a href="?page='. parent::qString( 'page' ) .'&tab='. $tab .'" class="nav-tab'. $class .'">'. $name .'</a>';
             }
 
             $html .= '</h2><br />';
