@@ -67,9 +67,26 @@ spl_autoload_register( function ( $class )
         }
     }
 
-    // Plugin Extension Version 3.0
+    // Plugin Extension: Version 3.0.0
+    // Found in:
+    // classes/class-extended.php __construct() & getSettings()
+    // templates/network.php Upgrade Notice
+    // multisite-robotstxt-manager.php Upgrade Notice
     if ( class_exists( 'MSRTM_Api' ) && ! defined( 'MSRTM_TEMPLATES' ) ) { require_once( WP_PLUGIN_DIR . '/' . MSRTM ); }
 } );
+
+
+/**
+ * @about Pro Upgrade Notices
+ */
+function msrtmnotices() {
+    echo '<div class="notice update-nag is-dismissible"><strong><u>UPDATE NOTICE</u>!</strong> A new version of the MSRTM PRO plugin is available. An email has been sent to you. <a href="https://technerdia.com/account/" target="_blank">Login</a> to your techNerdia account to download version 4.0.0. If you need your login details or are having problems then please <a href="https://technerdia.com/help/" target="_blank">contact</a> us for further assistance.</div>';
+}
+
+if ( defined( 'MSRTM_PRO' ) && ! defined( 'MSRTM_TEMPLATES' ) ) {
+    add_action( 'network_admin_notices',  'msrtmnotices' );
+    add_action( 'admin_notices', 'msrtmnotices' );
+}
 
 
 /**

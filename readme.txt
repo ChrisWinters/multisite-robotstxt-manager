@@ -268,10 +268,11 @@ For "real" Multisite HOST Networks, use the WordPress plugin: BWP Google XML Sit
 * Added a new tab "Cleaner" to the Network Admin area.
 * Added a two stage cleaning process - check & clean.
 * Added a check for a physical robots.txt file.
-* Check for missing robots.txt file rewrite rule moved to Cleaner tab section.
-* Added a Network tab to Websites for quick access to plugin admin within the Network.
+* Added check for missing robots.txt file rewrite rule.
+* Added network tab to Websites for quick access to plugin admin within the Network.
+* Added option to disable network robots.txt file on websites, allowing for full customization of websites robots.txt file.
 * Modified the plugin admin areas to be more visually friendly.
-* Moved screenshots/header/thumbnail images into the assets folder.
+* Moved screenshots/header/thumbnail images into the svn/assets folder.
 
 = 1.0.7 =
 * Bug: Fixed bad calls from helper class causing options not saving for each site. Thanks Benjamin https://github.com/benjaminniess
@@ -409,6 +410,14 @@ For "real" Multisite HOST Networks, use the WordPress plugin: BWP Google XML Sit
 
 == Screenshots ==
 
-- More Screenshots --> http://technerdia.com/msrtm/screenshots/
+1. Network Admin - All Features Shown
 
-1. Collage of the Multisite Robots.txt Manager Features.
+2. Network Admin - Preset Robots.txt File Loaded & Published
+
+3. Network Admin - Cleaner Tab
+
+4. Website Admin - All Features Shown
+
+5. Website Admin - Robots.txt File Using Append Rules
+
+6. Website Admin - Custom Robots.txt File In Use

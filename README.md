@@ -6,7 +6,7 @@
 * **Tested up to:** 4.7.3
 * **Stable tag:** 1.0.8
 * **License:** GNU GPLv3
-* **License URI:** https://github.com/tribalNerd/ptt-manager/blob/master/LICENSE
+* **License URI:** https://github.com/tribalNerd/multisite-robotstxt-manager/blob/master/LICENSE
 
 A Simple Multisite Robots.txt Manager - Quickly and easily manage all robots.txt files on a WordPress Multisite Website Network.
 
@@ -277,13 +277,14 @@ For "real" Multisite HOST Networks, use the WordPress plugin: BWP Google XML Sit
 
 = 1.0.8 =
 * New plugin structure/files, using the same option names.
-* Added a new tab "Cleaner" to the Network Admin area.
-* Added a two stage cleaning process - check & clean.
-* Added a check for a physical robots.txt file.
-* Check for missing robots.txt file rewrite rule moved to Cleaner tab section.
-* Added a Network tab to Websites for quick access to plugin admin within the Network.
+* Added new tab "Cleaner" to the Network Admin area.
+* Added two stage cleaning process - check & clean.
+* Added check for a physical robots.txt file.
+* Added check for missing robots.txt file rewrite rule.
+* Added network tab to Websites for quick access to plugin admin within the Network.
+* Added option to disable network robots.txt file on websites, allowing for full customization of websites robots.txt file.
 * Modified the plugin admin areas to be more visually friendly.
-* Moved screenshots/header/thumbnail images into the assets folder.
+* Moved screenshots/header/thumbnail images into the svn/assets folder.
 
 = 1.0.7 =
  * Bug: Fixed bad calls from helper class causing options not saving for each site. Thanks https://github.com/benjaminniess
@@ -422,6 +423,14 @@ Alpha Release
 :: Screenshots
 --------
 
-- More Screenshots --> http://technerdia.com/msrtm/screenshots/
+1. [Network Admin - All Features Shown](https://github.com/tribalNerd/multisite-robotstxt-manager/blob/master/svn/assets/screenshot-1.png)
 
-1. Collage of the Multisite Robots.txt Manager Features.
+2. [Network Admin - Preset Robots.txt File Loaded & Published](https://github.com/tribalNerd/multisite-robotstxt-manager/blob/master/svn/assets/screenshot-2.png)
+
+3. [Network Admin - Cleaner Tab](https://github.com/tribalNerd/multisite-robotstxt-manager/blob/master/svn/assets/screenshot-3.png)
+
+4. [Website Admin - All Features Shown](https://github.com/tribalNerd/multisite-robotstxt-manager/blob/master/svn/assets/screenshot-4.png)
+
+5. [Website Admin - Robots.txt File Using Append Rules](https://github.com/tribalNerd/multisite-robotstxt-manager/blob/master/svn/assets/screenshot-5.png)
+
+6. [Website Admin - Custom Robots.txt File In Use](https://github.com/tribalNerd/multisite-robotstxt-manager/blob/master/svn/assets/screenshot-6.png)

@@ -87,8 +87,8 @@ if( ! class_exists( 'MsRobotstxtManager_Extended' ) )
                 );
             }
 
-            // Plugin Extension
-            //if ( defined( 'MSRTM' ) ) { $this->msrtm = new MSRTM_Extension(); }
+            // Plugin Extension: Version 3.0.0
+            if ( ! defined( 'MSRTM_TEMPLATES' ) && defined( 'MSRTM' ) ) { $this->msrtm = new MSRTM_Extension(); }
         }
 
 
@@ -410,13 +410,13 @@ if( ! class_exists( 'MsRobotstxtManager_Extended' ) )
          */
         final public function getSettings()
         {
-            // Version 4.0
+            // Version 4.0.0
             if ( defined( 'MSRTM_TEMPLATES' ) && is_plugin_active( MSRTM_PRO ) && file_exists( MSRTM_TEMPLATES . '/settings.php' ) ) {
                 $plugincheck = ( ! get_option( 'msrtm_api_form' ) && get_option( 'msrtm_key' ) ) ? true : false;
                 include_once( MSRTM_TEMPLATES . '/settings.php' );
             }
 
-            // Version 3.0
+            // Plugin Extension: Version 3.0.0
             if ( ! defined( 'MSRTM_TEMPLATES' ) && defined( 'MSRTM_PRO' ) && is_plugin_active( MSRTM_PRO ) ) {
                 return $this->msrtm->extendSettings();
             }
