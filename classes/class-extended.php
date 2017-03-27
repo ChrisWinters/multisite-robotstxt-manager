@@ -1,0 +1,457 @@
+<?php
+if ( ! defined( 'ABSPATH' ) ) { exit; }
+if ( count( get_included_files() ) == 1 ){ exit(); }
+
+/**
+ * @about Core Manager Class
+ * 
+ * @method __construct()            Set Parent Variables
+ * @method pluginRedirect()         Redirect if Network Tab is Opened
+ * @method message()                Display Messages To User
+ * @method status()                 Get The Current Status Of The Plugin
+ * @method getNetworkRobotstxt()    Get Root/Network Robots.txt File
+ * @method getWebsiteRobotstxt()    Get A Websites Unique Robots.txt File
+ * @method getAppendRules()         Get A Websites Append Rules For Robots.txt File
+ * @method getUploadPath()          Get the Upload Path
+ * @method getThemePath()           Get the Theme Path Within Allow Statement
+ * @method getSitemapUrl()          Get the Sitemap URL
+ * @method getSettings()            Extend Setting Options
+ * @method qString()                Get Query String Item
+ * @method validate()               Form Validation
+ */
+if( ! class_exists( 'MsRobotstxtManager_Extended' ) )
+{
+    class MsRobotstxtManager_Extended
+    {
+        // Website URL
+        public $base_url;
+
+        // The plugin-slug-name
+        public $plugin_name;
+        
+        // Plugin Page Title
+        public $plugin_title;
+        
+        // Plugin filename.php
+        public $plugin_file;
+        
+        // Current Plugin Version
+        public $plugin_version;
+        
+        // Plugin Menu Name
+        public $menu_name;
+        
+        // Path To Plugin Templates
+        public $templates;
+
+        // Tab Names
+        public $tabs;
+
+        // Base Option Name
+        public $option_name;
+
+
+        /**
+         * @about Set Class Vars
+         */
+        function __construct()
+        {
+            // Set Vars
+            $this->base_url         = MS_ROBOTSTXT_MANAGER_BASE_URL;
+            $this->plugin_name      = MS_ROBOTSTXT_MANAGER_PLUGIN_NAME;
+            $this->plugin_title     = MS_ROBOTSTXT_MANAGER_PAGE_NAME;
+            $this->plugin_file      = MS_ROBOTSTXT_MANAGER_PLUGIN_FILE;
+            $this->plugin_version   = MS_ROBOTSTXT_MANAGER_VERSION;
+            $this->menu_name        = MS_ROBOTSTXT_MANAGER_MENU_NAME;
+            $this->templates        = MS_ROBOTSTXT_MANAGER_TEMPLATES;
+            $this->option_name      = MS_ROBOTSTXT_MANAGER_OPTION_NAME;
+
+            // Website Tabs Names: &tab=home
+            if ( ! is_network_admin() ) {
+                $this->tabs = array(
+                    'website' => __( 'Website', 'multisite-robotstxt-manager' ),
+                    'network' => __( 'Network', 'multisite-robotstxt-manager' ),
+                );
+
+                // Redirect if Network Tab is Opened
+                if ( $this->qString( 'tab' ) == 'network' ) {
+                    $this->pluginRedirect();
+                }
+            }
+
+            // Network Tabs Names: &tab=home
+            if ( is_network_admin() ) {
+                $this->tabs = array(
+                    'network' => __( 'Network', 'multisite-robotstxt-manager' ),
+                    'cleaner' => __( 'Cleaner', 'multisite-robotstxt-manager' ),
+                );
+            }
+
+            // Plugin Extension
+            //if ( defined( 'MSRTM' ) ) { $this->msrtm = new MSRTM_Extension(); }
+        }
+
+
+        /**
+         * @about Redirect if Network Tab is Opened
+         */
+        final public function pluginRedirect()
+        {
+            wp_safe_redirect( $this->base_url . '/wp-admin/network/settings.php?page=' . $this->plugin_name );
+            exit;
+        }
+
+
+        /**
+         * @about Display Messages To User
+         * @param string $slug Which switch to load
+         * @param string $notice_type Either updated/error
+         */
+        final public function message( $slug, $notice_type = false )
+        {
+            // Clear Message
+            $message = '';
+
+            // Message Switch
+            switch ( $slug ) {
+                case 'presetupdated':
+                    $message = __( '<u>Preset Updated</u>: The preset robots.txt has been saved as the network robots.txt file. You need to publish your changes for network websites to use the newly saved network robots.txt file.', 'multisite-robotstxt-manager' );
+                break;
+
+                case 'presetfailed':
+                    $message = __( 'The Preset Option <u>Failed</u> To Update!', 'multisite-robotstxt-manager' );
+                break;
+
+                case 'networkrobotstxtsaved':
+                    $message = __( '<u>Saved</u>: The Network Robots.txt File Has Been Saved!', 'multisite-robotstxt-manager' );
+                break;
+
+                case 'networkmemberupdated':
+                    $message = __( '<u>Blogs You Are Member Of Have Been Updated</u>: The saved network robots.txt file has been published to allowed websites.', 'multisite-robotstxt-manager' );
+                break;
+
+                case 'networkglobalupdated':
+                    $message = __( '<u>All Network Websites Have Been Updated</u>: The saved network robots.txt file has been published to all network websites.', 'multisite-robotstxt-manager' );
+                break;
+
+                case 'networkfailed':
+                    $message = __( 'Network Settings <u>Failed</u> To Update!', 'multisite-robotstxt-manager' );
+                break;
+
+                case 'disablenetwork':
+                    $message = __( '<u>Network Disabled</u>: The Multisite Robots.txt Manager Plugin is no longer managing robots.txt files across network websites.', 'multisite-robotstxt-manager' );
+                break;
+
+                case 'deletenetwork':
+                    $message = __( '<u>All Saved Settings Deleted</u>: All Multisite Robots.txt Manager Plugin settings have been removed across the network.', 'multisite-robotstxt-manager' );
+                break;
+
+                case 'disablewebsite':
+                    $message = __( '<u>Website Disabled</u>: The Multisite Robots.txt Manager Plugin is no longer managing the robots.txt file on this website.', 'multisite-robotstxt-manager' );
+                break;
+
+                case 'disablefailed':
+                    $message = __( '<u>Notice</u>: No Settings Disabled or Deleted!', 'multisite-robotstxt-manager' );
+                break;
+
+                case 'websiteupdated':
+                    $message = __( 'Website Robots.txt File Has Been <u>Updated</u>!', 'multisite-robotstxt-manager' );
+                break;
+
+                case 'noappendrules':
+                    $message = __( '<u>Notice</u>: No Robots.txt Rules or Append Rules Found!', 'multisite-robotstxt-manager' );
+                break;
+
+                case 'noolddata':
+                    $message = __( '<u>Network Is Clean</u>: No Old Data Found.', 'multisite-robotstxt-manager' );
+                break;
+
+                case 'yesolddata':
+                    $message = __( '<u>Warning</u>: Old Robots.txt File Data Found! Scroll down and click the "remove old data" button to remove the old data.', 'multisite-robotstxt-manager' );
+                break;
+
+                case 'norewrite':
+                    $message = __( '<u>Warning</u>: Missing Robots.txt Rewrite Rule! Scroll down and click the "correct missing rules" button to add the missing rule.', 'multisite-robotstxt-manager' );
+                break;
+
+                case 'yesrewrite':
+                    $message = __( '<u>Network Is Clean</u>: All Network Websites Have The Proper Rewrite Rule.', 'multisite-robotstxt-manager' );
+                break;
+
+                case 'nophysical':
+                    $message = __( '<u>Network Is Clean</u>: A physical robots.txt file was not found.', 'multisite-robotstxt-manager' );
+                break;
+
+                case 'yesphysical':
+                    $message = __( '<u>Warning</u>: A real robots.txt file was found at the websites root directory. Scroll down and click the "delete physical file" to delete the real robots.txt file.', 'multisite-robotstxt-manager' );
+                break;
+
+                case 'badphysical':
+                    $message = __( '<u>Warning</u>: The plugin was unable to delete it due to file permissions. You will need to manually delete the real robots.txt file, then run the scan again.', 'multisite-robotstxt-manager' );
+                break;
+            
+                case 'disabledefault':
+                    $message = __( 'Network robots.txt file <u>disabled</u> on this website, you can now fully customize the robots.txt file. No changes to the robots.txt file has been made. You need to create your robots.txt file below, the click the "update website rules" button to change the robots.txt file.', 'multisite-robotstxt-manager' );
+                break;
+            
+                case 'enabledefault':
+                    $message = __( 'The network robots.txt file on this website has been <u>enabled</u>, restoring the default behavior. No changes to the robots.txt file has been made. You need to modify the append rules below, the click the "update website rules" button to change the robots.txt file.', 'multisite-robotstxt-manager' );
+                break;
+            }
+
+            // Throw Message
+            if ( ! empty( $message ) ) {
+                // Set Message Type, Default Error
+                $type = ( $notice_type == "updated" ) ? "updated" : "error";
+
+                // Return Message
+                add_settings_error( $slug, $slug, $message, $type );
+            }
+        }
+
+
+        /**
+         * @about Get The Current Status Of The Plugin
+         * 
+         * @return bool
+         */
+        final public function status()
+        {
+            // Default Status
+            $status = false;
+
+            // Network Admin Status
+            if ( is_network_admin() ) {
+
+                // Change To Network
+                switch_to_blog( '1' );
+
+                // Get Plugin Status
+                $status = get_option( $this->option_name . 'network_status' ) ? true : false;
+
+                // Return To Previous Website
+                restore_current_blog();
+            }
+
+            // Website Status
+            if ( is_admin() && ! is_network_admin() ) {
+                global $blog_id;
+
+                // Switch Through Websites
+                switch_to_blog( $blog_id );
+
+                // Get Plugin Status
+                $status = get_option( $this->option_name . 'status' ) ? true : false;
+
+                // Return To Previous Website
+                restore_current_blog();
+            }
+
+            return $status;
+        }
+
+
+        /**
+         * @about Get Root/Network Robots.txt File
+         * @return string $robotstxt Network Robots.txt File
+         */
+        final public function getNetworkRobotstxt()
+        {
+            // Switch to Network
+            switch_to_blog( '1' );
+
+            // Get Websites Robots.txt File
+            if ( get_option( $this->option_name . 'network_robotstxt' ) ) {
+                $option = get_option( $this->option_name . 'network_robotstxt' );
+            }
+
+            // Return To Previous Website
+            restore_current_blog();
+
+            // Return Robots.txt or Return Empty
+            return $robotstxt = isset( $option[ 'robotstxt' ] ) ? $option[ 'robotstxt' ] : '';
+        }
+
+
+        /**
+         * @about Get A Websites Unique Robots.txt File
+         * @return string $robotstxt Websites Robots.txt File
+         */
+        final public function getWebsiteRobotstxt()
+        {
+            // Switch to Current Website
+            switch_to_blog( get_current_blog_id() );
+
+            // Get Websites Robots.txt File
+            if ( get_option( $this->option_name . 'robotstxt' ) ) {
+                $option = get_option( $this->option_name . 'robotstxt' );
+            }
+
+            // Return To Previous Website
+            restore_current_blog();
+
+            // Return Robots.txt or Return Empty
+            return $robotstxt = isset( $option[ 'robotstxt' ] ) ? $option[ 'robotstxt' ] : '';
+        }
+
+
+        /**
+         * @about Get A Websites Append Rules For Robots.txt File
+         * @return string $rules The Append Rules
+         */
+        final public function getAppendRules()
+        {
+            // Switch to Current Website
+            switch_to_blog( get_current_blog_id() );
+
+            // Get Websites Robots.txt File
+            if ( get_option( $this->option_name . 'append' ) ) {
+                $option = get_option( $this->option_name . 'append' );
+            }
+
+            // Return To Previous Website
+            restore_current_blog();
+
+            // Return Robots.txt or Return Empty
+            return $rules = isset( $option[ 'robotstxt' ] ) ? $option[ 'robotstxt' ] : '';
+        }
+
+
+        /**
+         * @about Get the Upload Path
+         * @return string $upload_path Robots.txt Rule
+         */
+        final public function getUploadPath( $blogid = false )
+        {
+            $blog_id = ( ! $blogid ) ? get_current_blog_id() : $blogid;
+
+            // Switch to Current Website
+            switch_to_blog( $blog_id );
+
+            // Get Upload Dir For This Website
+            $upload_dir = wp_upload_dir( null, false, true );
+
+            // Split The Path
+            $contents = explode( 'uploads', $upload_dir['basedir'] );
+
+            // Return To Previous Website
+            restore_current_blog();
+
+            // Return The Path
+            $allow = 'Allow: /wp-content/uploads' . end( $contents ) . '/';
+            return $upload_path = ( ! empty( $upload_dir['basedir'] ) ) ? $allow : 'Upload Path Not Set';
+        }
+
+
+        /**
+         * @about Get the Theme Path Within Allow Statement
+         * @return string $theme_path Robots.txt Rule
+         */
+        final public function getThemePath( $blogid = false )
+        {
+            $blog_id = ( ! $blogid ) ? get_current_blog_id() : $blogid;
+
+            // Switch to Current Website
+            switch_to_blog( $blog_id );
+
+            // Build Path For Theme
+            $path_to_themes = get_stylesheet_directory();
+            $theme_path = 'Allow: ' . strstr( $path_to_themes, '/wp-content/themes' ) . '/';
+
+            // Return To Previous Website
+            restore_current_blog();
+
+            // Return The Path
+            return $theme_path;
+        }
+
+
+        /**
+         * @about Get the Sitemap URL
+         * @return string $sitemap_url Robots.txt Rule
+         */
+        final public function getSitemapUrl( $blogid = false )
+        {
+            $blog_id = ( ! $blogid ) ? get_current_blog_id() : $blogid;
+
+            // Switch to Current Website
+            switch_to_blog( $blog_id );
+
+            // Get Site URL
+            $sitemap_url_base = get_option( 'siteurl' ) ? get_option( 'siteurl' ) : MS_ROBOTSTXT_MANAGER_BASE_URL;
+
+            // Base XML File Locations To check
+            $root_xml_file_location = get_headers( $sitemap_url_base . '/sitemap.xml' );
+            $alt_xml_file_location = get_headers( $sitemap_url_base . '/sitemaps/sitemap.xml' );
+
+            // Check if xml sitemap exists
+            if ( $root_xml_file_location && $root_xml_file_location[0] == 'HTTP/1.1 200 OK' ) {
+                // http://domain.com/sitemap.xml
+                $url = $sitemap_url_base . '/sitemap.xml';
+
+            } elseif ( $alt_xml_file_location && $alt_xml_file_location[0] == 'HTTP/1.1 200 OK' ) {
+                // http://domain.com/sitemaps/sitemap.xml
+                $url = $sitemap_url_base . '/sitemaps/sitemap.xml';
+ 
+            } else {
+                $url = '';
+            }
+
+            // Return To Previous Website
+            restore_current_blog();
+
+            // Return the url or empty if no sitemap
+            return $sitemap_url = ( ! empty( $url ) ) ? 'Sitemap: ' . $url : '';
+        }
+
+
+        /**
+         * @about Extend Setting Options
+         */
+        final public function getSettings()
+        {
+            // Version 4.0
+            if ( defined( 'MSRTM_TEMPLATES' ) && is_plugin_active( MSRTM_PRO ) && file_exists( MSRTM_TEMPLATES . '/settings.php' ) ) {
+                $plugincheck = ( ! get_option( 'msrtm_api_form' ) && get_option( 'msrtm_key' ) ) ? true : false;
+                include_once( MSRTM_TEMPLATES . '/settings.php' );
+            }
+
+            // Version 3.0
+            if ( ! defined( 'MSRTM_TEMPLATES' ) && defined( 'MSRTM_PRO' ) && is_plugin_active( MSRTM_PRO ) ) {
+                return $this->msrtm->extendSettings();
+            }
+        }
+
+
+        /**
+         * @about Get Query String Item
+         * @param string $get Query String Get Item
+         * @return string Query String Item Sanitized
+         */
+        final public function qString( $get )
+        {
+            // Lowercase & Sanitize String
+            $filter = strtolower( filter_input( INPUT_GET, $get, FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH | FILTER_FLAG_STRIP_BACKTICK ) );
+
+            // Return No Spaces/Tabs, Stripped/Cleaned String
+            return sanitize_text_field( preg_replace( '/\s/', '', $filter ) );
+        }
+
+
+        /**
+         * @about Form Validation
+         */
+        final public function validate()
+        {
+            // Plugin Admin Area Only
+            if ( filter_input( INPUT_GET, 'page', FILTER_UNSAFE_RAW ) != $this->plugin_name ) {
+                wp_die( __( 'You are not authorized to perform this action.', 'multisite-robotstxt-manager' ) );
+            }
+
+            // Validate Nonce Action
+            if( ! check_admin_referer( $this->option_name . 'action', $this->option_name . 'nonce' ) ) {
+                wp_die( __( 'You are not authorized to perform this action.', 'multisite-robotstxt-manager' ) );
+            }
+        }
+    }
+}

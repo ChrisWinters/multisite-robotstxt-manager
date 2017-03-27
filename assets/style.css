@@ -1,0 +1,14 @@
+td span.dashicons{color:#0073aa;font-size:30px;margin:0 12px 0 0;}
+table{border:1px solid #eeeeee;margin:25px auto;width:100%;}
+.form-table th{background:#f7f7f7;border:1px solid #eeeeee;color:#333333;font-size:11px;padding:10px 6px;text-align:left;}
+.form-table td{background:#fefefe;border:1px solid #eeeeee;color:#333333;font-size:14px;padding:10px 6px;vertical-align:top;}
+#poststuff {min-width: 320px;}
+.td30{font-weight:bold;width:30%;}
+.textcenter, .form-table th.textcenter, .textcenter p.submit{text-align:center;}
+.wrap-left{float:left;width:48%;}
+.wrap-right{float:right;width:48%;}
+.nosettings{color:#0073aa;font-size:20px;font-weight:bold;text-align:center;}
+.warning{color:#b20000;font-size:20px;font-weight:bold;text-align:center;}
+.active {color:#00cc00;font-weight:bold;text-decoration:underline;}
+.inactive {color:#cc0000;font-weight:bold;text-decoration:underline;}
+.showing {color:#00cc00;}

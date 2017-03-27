@@ -4,37 +4,34 @@ if ( count( get_included_files() ) == 1 ){ exit(); }
 
 
 /**
- * Forward Facing: Full Time Classes & Functions
+ * @about Display Robots.txt File
+ * @location multisite-robotstxt-manager.php
+ * @call new MsRobotstxtManager_Robotstxt();
+ * 
+ * @method __construct()    Check File Being Called
+ * @method robotstxt()      Display Robots.txt File
  */
-if ( ! class_exists( 'MsRobotstxtManager_Public' ) )
+if ( ! class_exists( 'MsRobotstxtManager_Robotstxt' ) )
 {
-    class MsRobotstxtManager_Public
+    class MsRobotstxtManager_Robotstxt
     {
         /**
-         * Detect Robots.txt File
-         * Set Action To Display Robots.txt File
+         * @about Check File Being Called
          */
-        final public function initRobotstxt()
+        final public function __construct()
         {
-            // Check if robots.txt file is being called
-            if ( strpos( filter_input( INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_URL ), "robots.txt" ) !== false ){
-                // Initiate Robots.txt File
-                add_action( 'init', array( &$this, 'displayRobotstxt' ) );
+            // Request URI: robots.txt
+            if ( strpos( filter_input( INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_URL ), "robots.txt" ) !== false ) {
+                $this->robotstxt();
             }
         }
 
 
         /**
-         * Display Robots.txt File
-         * 
-         * @return string
+         * @about Display Robots.txt File
          */
-        final public function displayRobotstxt()
+        final private function robotstxt()
         {
-            // Current Website
-            global $blog_id;
-            switch_to_blog( $blog_id );
-
             // If Active, Display Robots.txt File
             if( get_option( 'ms_robotstxt_manager_status' ) ) {
                 // Return Proper Headers
@@ -53,9 +50,6 @@ if ( ! class_exists( 'MsRobotstxtManager_Public' ) )
                 // Stop WP
                 exit;
             }
-
-            // Website Return
-            restore_current_blog();
         }
     }
 }

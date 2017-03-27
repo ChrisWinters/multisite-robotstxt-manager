@@ -14,25 +14,23 @@ if ( ! class_exists( 'MsRobotstxtManager_Uninstall' ) )
     class MsRobotstxtManager_Uninstall
     {
         /**
-         * Run Uninstall Function
-         * 
-         * @return void
+         * Run Uninstall
          */
-        public function __construct() {
+        public function __construct()
+        {
             // Valid Users Only
             if( ! is_user_logged_in() && ! current_user_can( 'manage_options' ) ) { wp_die( __( 'Unauthorized Access.', 'multisite-robotstxt-manager' ) ); }
 
-            // Run Function
-            $this->uninstall();																										/** run uninstall */
+            // Do Uninstall
+            $this->uninstall();
         }
 
 
         /**
          * Remove Features
-         * 
-         * @return void
          */
-        final public function uninstall() {
+        final public function uninstall()
+        {
             // Remove Options
             delete_option( 'ms_robotstxt_manager_network_robotstxt' );
             delete_option( 'ms_robotstxt_manager_network_status' );
@@ -42,8 +40,8 @@ if ( ! class_exists( 'MsRobotstxtManager_Uninstall' ) )
             delete_option( 'ms_robotstxt_manager_append' );
             delete_option( 'ms_robotstxt_manager_robotstxt' );
             delete_option( 'ms_robotstxt_manager_upgraded' );
-            delete_option( 'ms_robotstxt_manager_plugin_check' );
-            delete_option( 'ms_robotstxt_manager_rewrite_check' );
+            delete_option( 'ms_robotstxt_manager_rewrite' );
+            delete_option( 'ms_robotstxt_manager_old_data' );
 
             global $wpdb;
 
@@ -62,6 +60,7 @@ if ( ! class_exists( 'MsRobotstxtManager_Uninstall' ) )
                 delete_option( 'ms_robotstxt_manager_status' );
                 delete_option( 'ms_robotstxt_manager_append' );
                 delete_option( 'ms_robotstxt_manager_robotstxt' );
+                delete_option( 'ms_robotstxt_manager_default' );
 
                 // Return To Root Site
                 restore_current_blog();

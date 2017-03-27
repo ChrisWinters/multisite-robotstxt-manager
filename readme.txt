@@ -1,23 +1,18 @@
 === Multisite Robots.txt Manager ===
 Plugin Name: Multisite Robots.txt Manager | MS Robots.txt
 Contributors: tribalNerd, Chris Winters
-Donate link: http://technerdia.com/donate.html
 Tags: robotstxt, robots.txt, robots, robot, spiders, virtual, search, google, seo, plugin, network, mu, multisite, technerdia, tribalnerd
 Requires at least: 3.8
-Tested up to: 4.6.0
-Stable tag: 1.0.7
+Tested up to: 4.7.3
+Stable tag: 1.0.8
+License: GNU GPLv3
+License URI: https://github.com/tribalNerd/ptt-manager/blob/master/LICENSE
 
-
-A Simple Multisite Robots.txt Manager - Quickly and easily manage all robots.txt files on a Wordpress Multisite Website Network.
-
+A Simple Multisite Robots.txt Manager - Quickly and easily manage all robots.txt files on a WordPress Multisite Website Network.
 
 == Description ==
 
-= UPGRADE NOTICE =
-
-After auto upgrading: return to the network plugin admin, this will deactivate the plugin, then click the Network Activate link to activate the plugin again.
-
-A Simple Multisite Robots.txt Manager - Quickly and easily manage all robots.txt files on a Wordpress Multisite Website Network.
+A Simple Multisite Robots.txt Manager - Quickly and easily manage all robots.txt files on a WordPress Multisite Website Network.
 
 !!! Network Enabled Multisite Installs Only !!!
 
@@ -26,7 +21,7 @@ This Plugin Was Created For Multisite Networks > Network Activations Only!
 
 = For Support & Bugs =
 
-Please [contact us directly](http://technerdia.com/help/) if you need assistance or have found a bug.
+Please [contact us directly](http://technerdia.com/help/) if you need assistance or have found a bug. The WordPress Support forum does not notify us of new support tickets, no idea why, so contact us directly.
 
 
 = View, Report Bugs, Contribute! =
@@ -38,14 +33,13 @@ Visit this [Plugin on Github!](https://github.com/tribalNerd/multisite-robotstxt
 
 * Network wide robots.txt file, shared across all sites.
 * Append extra robots.txt file data per-website Admin.
+* Create unique robots.txt files for each network Website.
 * Manage all Websites from Network Administration Area.
 * Manage a single Website through the Website Settings Admins.
 * Auto-generated Sitemap URL's, Upload Path & Theme Path.
 * Mass update the all Websites on the Network in a single click.
-* Disable plugin features to create unique robots.txt files for each Website.
 * Quickly publish preset robots.txt files across the Network.
-* Auto detection and one click correction for 404 robots.txt files.
-* Auto detection and one click correction of old robots.txt data.
+* Scan and clean old robots.txt file plugin data to clear out conflicts.
 
 
 = Quick Info: =
@@ -61,28 +55,15 @@ Visit this [Plugin on Github!](https://github.com/tribalNerd/multisite-robotstxt
 
 = Make It Work: =
 
-* Network Admin: Modify and save the default robots.txt file, then click the "update network" button to copy the default robots.txt file to all Websites on the Network.
-* Website Admin: Modify the appended robots.txt file data then click the "update website rules" button to publish your changes.
-
-** You must click the "update network" or "update website rules" button before any robots.txt files are set live.
-
-
-[Submit Feedback For Improvements](http://technerdia.com/feedback/) | 
-[Screenshots](http://technerdia.com/msrtm/screenshots/) | 
-[Plugin Home](http://technerdia.com/msrtm/)
-
+* Network Admin: Select either either with "Publish the network robots.txt file to all network websites" or "Publish the network robots.txt file to network websites you are a member of" then click the "update settings" button to publish the robots.txt files.
+* Website Admin: Modify the appended robots.txt file (or create a website unique robots.txt file) then click the "update website rules" button to publish your changes.
 
 
 == Installation ==
 
-[View the Install Guide](http://technerdia.com/msrtm/docs/getting-started/) | 
-[Screenshots](http://technerdia.com/msrtm/screenshots/) | 
-[Feedback](http://technerdia.com/feedback/)
+= Install through the WordPress Admin =
 
-
-= Install through the Wordpress Admin =
-
-* It is recommended that you use the built in Wordpress installer to install plugins.
+* It is recommended that you use the built in WordPress installer to install plugins.
 	* Multisite Networks: Network Admin > Plugins Menu > Add New Button
 * In the Search box, enter: robots.txt
 * Find the Plugin "Multisite Robots.txt Manager"
@@ -90,24 +71,16 @@ Visit this [Plugin on Github!](https://github.com/tribalNerd/multisite-robotstxt
 	* Activate / Network Activate the plugin when asked.
 	* If you have returned to the Plugin Admin, locate the "Multisite Robots.txt Manager" Plugin and click the Activate link.
 
-
 = Upload and Install =
 
-* If uploading, upload the /ms-robotstxt-manager/ folder to /wp-content/plugins/ folder for your Worpdress install.
-* Then open the Wordpress Admin:
+* If uploading, upload the /multisite-robotstxt-manager/ folder to /wp-content/plugins/ directory for your Worpdress install.
+* Then open the WordPress Network Admin:
 	* Multisite Networks: Network Admin > Plugins Menu
 * Locate the "Multisite Robots.txt Manager" Plugin in your listing of plugins. (sort by Inactive)
 * Click the Activate link to start the plugin.
 
 
-
 == Frequently Asked Questions ==
-
-[F.A.Q.](http://technerdia.com/msrtm/#faq) | 
-[Screenshots](http://technerdia.com/msrtm/screenshots/) | 
-[Feedback](http://technerdia.com/feedback/)
-
-= Frequently Asked Questions: =
 
 = Q) Can the plugin update all Websites at once? =
 
@@ -119,7 +92,7 @@ A) Yes.
 A) No, your install MUST be Multisite/Network enabled.
 
 
-= Q) Does this plugin work on Wordpress.COM (free hosted) Websites? =
+= Q) Does this plugin work on WordPress.COM (free hosted) Websites? =
 
 A) No.
 
@@ -141,11 +114,14 @@ A) Yes.
 
 = Q) Can every Website have a different robots.txt file? =
 
-A) Yes and No.
+A) Yes.
 
-Each Website uses the Network robots.txt file as the 'base' robots.txt file. Websites can then inject unique robots.txt file rules into the Network robots.txt file.
+Typically, each Website uses the Network robots.txt file as the 'base' robots.txt file. Websites can then inject unique robots.txt file rules into the Network robots.txt file.
 
-Alternatively, you can disable the "network robots.txt file," allowing you to manually add your own robots.txt file to each Network Website.
+However, within the Admin Area for each website, scroll down and click the "Disable the network robots.txt file..." checkbox. Allowing you to fully customize the robots.txt file.
+
+You can also: Disable the "network robots.txt file," allowing you to manually add your own robots.txt file to each Network Website.
+You can also: Save/publish a blank robots.txt file from the network admin.
 
 
 = Q) Does this plugin add Sitemap links to the robots.txt file? =
@@ -197,16 +173,16 @@ A) From what I understand, no.... The root / network Website will contain the on
 
 = Q) My robots.txt files are 404 - file not found, what's wrong? =
 
-A) The issue is due to an option called "rewrite rules" - it's missing the robots.txt entry.
+A) The issue is due to an option called "rewrite rules" missing the robots.txt entry.
 
-Visit the plugin admin area, a Rewrite Rules Error Notice should appear. Click the "check for missing rewrite rules" button. This will scan all Websites for the missing entry or missing rewrite rules. If any are found a new button will appear allow you to correct the issue.
+Visit the Network Admin for the plugin, then click the Cleaner tab. If the Rewrite Rule an error message and a unique button will appear allowing you scan and update the rule for all Websites.
 
 
 = Q) The incorrect robots.txt file is displaying, what's wrong? =
 
 A) Typically this issue is due to either an a different robots.txt file plugin is active or that plugins robots.txt file data was never deleted when the plugin was removed.
 
-Visit the plugin admin area, a Scan For Old Robots.txt Files Notice should appear. Click the "check for old robots.txt garbage" button. This will scan all Websites for old robots.txt plugin data. If any are found a new button will appear allow you to clean the old data out.
+Visit the Network Admin for the plugin, then click the Cleaner tab. Click the "scan for old data" button to check for left over plugin data by other robots.txt file plugins.
 
 
 = Q) Can I use other robots.txt file plugins with the MS Robots.txt Manager Plugin? =
@@ -216,7 +192,7 @@ A) No, multiple plugins will cause display issues with the robots.txt files.
 
 = Q) Can I use other Sitemap Plugins to add more Sitemap URL's to the robots.txt files? =
 
-A) Yes, however they only work for the default Wordpress robots.txt file.
+A) Yes, however they typically only work for the default WordPress robots.txt file.
 
 
 = Q) Does the plugin remove the settings when it is disabled or deleted? =
@@ -224,25 +200,16 @@ A) Yes, however they only work for the default Wordpress robots.txt file.
 A) When the plugin is disabled, no settings are deleted, however the robots.txt file created by the plugin will no longer display. When the plugin is deleted, all settings the plugin created are removed from the database.
 
 
-
-[Frequently Asked Questions](http://technerdia.com/msrtm/#faq)
-
-
 == Arbitrary section ==
-
-[View the Install Guide](http://technerdia.com/msrtm/docs/getting-started/) | 
-[Screenshots](http://technerdia.com/msrtm/screenshots/) | 
-[Feedback](http://technerdia.com/feedback/)
-
 
 = Understanding the Default Settings =
 
-When you first enter the plugin admin via the Network Admin, the shown robots.txt file is the default "network only" or "network wide" working copy. Modify the default robots.txt file, when done click the "update network" button to replicate the robots.txt file to all Network Websites.
+When you first enter the plugin admin via the Network Admin, the displayed robots.txt file is the default "network only" copy.
 
 
 = The Network Append Marker =
 
-The marker {APPEND_WEBSITE_ROBOTSTXT} within the Network Robots.txt File is replaced by Website unique robots.txt file rules. Use the marker in your customized Network robots.txt files to automatically append the Website robots.txt file rules when the Network is updated.
+The marker {APPEND_WEBSITE_ROBOTSTXT} within the Network Robots.txt File is replaced by Website unique robots.txt file append rules. Use the marker in your customized Network robots.txt files to automatically append the Website robots.txt file rules when the Network is updated.
 
 
 = Robots.txt Files within Directories =
@@ -270,28 +237,19 @@ The marker {APPEND_WEBSITE_ROBOTSTXT} within the Network Robots.txt File is repl
 
 = New Website Added to Network =
 
-* If all Websites use the saved Network default robots.txt file, click the "update network" button to copy the default robots.txt file over to any new Websites you have.
+* If all Websites use the saved Network default robots.txt file, click the "update setting" button to copy the default robots.txt file over to any new Websites you have.
 * Per Site: Then click the "update website rules" button to copy the default robots.txt file to this Website.
 
 
 = Disabling =
 
-* Disable a Website: To disable the Multisite Robots.txt Manager on a Website, select the Website from the dropdown menu, then click the "change sites" button. With the Website's robots.txt file open, click the "disable this website" button. This will clear the robots.txt file and sitemap structure settings for this Website only, making the Wordpress default robots.txt file display.
-* Disable across the Network: Select the default robots.txt file within the Text Area, click the delete on your keyboard, then click the "publish to network" button. You can not save a blank default robots.txt file, but you can publish a blank robots.txt file, which will disable the robots.txt file option for each Website within the Network.
+* Disable a Website: Within the website plugin admin, for each unique website, scroll down and click the "Disable the saved robots.txt file..." checkbox then click the submit button. This will disable the robots.txt file the Website only, making the WordPress default robots.txt file display.
+* Disable Across Network: Within the network plugin admin, scroll down and click the "Disable saved robots.txt files..." checkbox, then click the submit button.
 
 
-= Resetting =
+= Presets
 
-* Reset Default: Something wrong? No worries! When viewing the Networks robots.txt file, click the "reset to default" button to replace the displayed robots.txt file with the core "coded in" default robots.txt file.
-* Reset Website: To reset a Websites robots.txt file, change to the Website within the dropdown, then click the "reset this website" button to pull in the "Networks Default Robots.txt file" (not the coded in default file).
-
-
-= Presets / Examples Tab =
-
-* This feature allows you to quickly duplicate premade robots.txt files and a sitemap structure url, to either the default network wide robots.txt file or a selected Websites robots.txt file.
-* To use: Select the Network or a Website from the dropdown. Check the box to add a sitemap structure, modify/enter a Sitemap Structure (not required). Finally, click the "set as default" button above the robots.txt file example you want to use.
-
-* Presets can also use the Sitemap URL Structure setting. Read above on how to use this feature.
+* This feature allows you to quickly duplicate premade robots.txt files and a sitemap structure url to the default network robots.txt file. This action does not publish the robots.txt files to the network.
 
 
 = Recommended Sitemap Plugins =
@@ -300,13 +258,23 @@ The marker {APPEND_WEBSITE_ROBOTSTXT} within the Network Robots.txt File is repl
 * Better WordPress Google XML Sitemaps: http://wordpress.org/extend/plugins/bwp-google-xml-sitemaps/
 * Search For Others: http://wordpress.org/extend/plugins/search.php?q=multisite+sitemap
 
-For "real" Multisite HOST Networks, use the Wordpress plugin: BWP Google XML Sitemaps - This plugin will list each Websites Sitemap URL's in the Root Network Website's robots.txt file.
+For "real" Multisite HOST Networks, use the WordPress plugin: BWP Google XML Sitemaps - This plugin will list each Websites Sitemap URL's in the Root Network Website's robots.txt file.
 
 
 == Changelog ==
 
+= 1.0.8 =
+* New plugin structure/files, using the same option names.
+* Added a new tab "Cleaner" to the Network Admin area.
+* Added a two stage cleaning process - check & clean.
+* Added a check for a physical robots.txt file.
+* Check for missing robots.txt file rewrite rule moved to Cleaner tab section.
+* Added a Network tab to Websites for quick access to plugin admin within the Network.
+* Modified the plugin admin areas to be more visually friendly.
+* Moved screenshots/header/thumbnail images into the assets folder.
+
 = 1.0.7 =
- * Bug: Fixed bad calls from helper class causing options not saving for each site. Thanks Benjamin https://github.com/benjaminniess
+* Bug: Fixed bad calls from helper class causing options not saving for each site. Thanks Benjamin https://github.com/benjaminniess
 
 = 1.0.6 =
 * Bug: Corrected class_helper->getSitemapUrl() - printing "No Sitemap Found" in robots.txt files
@@ -327,7 +295,7 @@ For "real" Multisite HOST Networks, use the Wordpress plugin: BWP Google XML Sit
 * Corrected notice locations for all 3 detection rules
 * Corrected network admin showing website admin status messages
 * Corrected message when updating network from disabled network
-* Corrected missing new line in the preset Wordpress Limited option
+* Corrected missing new line in the preset WordPress Limited option
 * Adjusted disable/delete input names to be code-reader friendly
 * Removed class_core.php, functions moved to plugin root
 * Commented out $rewrite_rule check/update, until new solution is found
@@ -426,7 +394,7 @@ For "real" Multisite HOST Networks, use the Wordpress plugin: BWP Google XML Sit
 * Adjusted uninstall.php to use new option names.
 * Removed transient cache and related db calls.
 * New screenshot file and readme.txt updated.
-* Updated Wordpress Function References.
+* Updated WordPress Function References.
 * Added non-network check on install.
 * Serialize proper option data.
 

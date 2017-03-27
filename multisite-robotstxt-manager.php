@@ -1,59 +1,52 @@
 <?php
 /**
  * Plugin Name: Multisite Robots.txt Manager | MS Robots.txt
- * Plugin URI: http://technerdia.com/msrtm/
+ * Plugin URI: https://github.com/tribalNerd/multisite-robotstxt-manager
  * Description: A Multisite Network Robots.txt Manager. Quickly manage your Network Websites robots.txt files from a single administration area.
  * Tags: robotstxt, robots.txt, robots, robot, spiders, virtual, search, google, seo, plugin, network, wpmu, multisite, technerdia, tribalnerd
- * Version: 1.0.7
- * License: GPL
- * Copyright (c) 2016, techNerdia LLC.
+ * Version: 1.0.8
+ * License: GNU GPLv3
+ * Copyright (c) 2017 Chris Winters
  * Author: tribalNerd, Chris Winters
  * Author URI: http://techNerdia.com/
  * Text Domain: multisite-robotstxt-manager
- * Domain Path: /languages/
  */
-
-// Wordpress check
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 if ( count( get_included_files() ) == 1 ){ exit(); }
 
 
 /**
- * Define Constants
- * 
- * @return array
+ * @about Define Constants
  */
 if( function_exists( 'MsRobotstxtManagerConstants' ) )
 {
     MsRobotstxtManagerConstants( Array(
-        'MS_ROBOTSTXT_MANAGER_BASE_URL'         => get_bloginfo( 'url' ),
-        'MS_ROBOTSTXT_MANAGER_VERSION'          => '1.0.7',
-        'MS_ROBOTSTXT_MANAGER_WP_MIN_VERSION'   => '3.8',
+        'MS_ROBOTSTXT_MANAGER'                  => true,
+        'MS_ROBOTSTXT_MANAGER_BASE_URL'          => get_bloginfo( 'url' ),
+        'MS_ROBOTSTXT_MANAGER_VERSION'           => '1.0.8',
+        'MS_ROBOTSTXT_MANAGER_WP_MIN_VERSION'    => '3.8',
 
-        'MS_ROBOTSTXT_MANAGER_PLUGIN_FILE'      => __FILE__,
-        'MS_ROBOTSTXT_MANAGER_PLUGIN_DIR'       => dirname( __FILE__ ),
-        'MS_ROBOTSTXT_MANAGER_PLUGIN_BASE'      => plugin_basename( __FILE__ ),
+        'MS_ROBOTSTXT_MANAGER_PLUGIN_FILE'       => __FILE__,
+        'MS_ROBOTSTXT_MANAGER_PLUGIN_DIR'        => dirname( __FILE__ ),
+        'MS_ROBOTSTXT_MANAGER_PLUGIN_BASE'       => plugin_basename( __FILE__ ),
 
-        'MS_ROBOTSTXT_MANAGER_MENU_NAME'        => __( 'MS Robots.txt', 'multisite-robotstxt-manager' ),
-        'MS_ROBOTSTXT_MANAGER_PAGE_NAME'        => __( 'Multisite Robots.txt Manager for Wordpress', 'multisite-robotstxt-manager' ),
-        'MS_ROBOTSTXT_MANAGER_PAGE_ABOUT'       => __( 'A Multisite Robots.txt Manager Plugin For Wordpress.', 'multisite-robotstxt-manager' ),
-        'MS_ROBOTSTXT_MANAGER_PLUGIN_NAME'      => 'ms_robotstxt_manager' ,
+        'MS_ROBOTSTXT_MANAGER_MENU_NAME'         => __( 'MS Robots.txt' ),
+        'MS_ROBOTSTXT_MANAGER_PAGE_NAME'         => __( 'Multisite Robots.txt Manager for WordPress' ),
+        'MS_ROBOTSTXT_MANAGER_PAGE_ABOUT'        => __( 'A Multisite Robots.txt Manager Plugin For WordPress.' ),
+        'MS_ROBOTSTXT_MANAGER_OPTION_NAME'       => 'ms_robotstxt_manager_',
+        'MS_ROBOTSTXT_MANAGER_PLUGIN_NAME'       => 'multisite-robotstxt-manager',
 
-        'MS_ROBOTSTXT_MANAGER_INCLUDES'         => dirname( __FILE__ ) .'/includes',
-        'MS_ROBOTSTXT_MANAGER_TEMPLATES'        => dirname( __FILE__ ) .'/templates'
+        'MS_ROBOTSTXT_MANAGER_CLASSES'           => dirname( __FILE__ ) .'/classes',
+        'MS_ROBOTSTXT_MANAGER_TEMPLATES'         => dirname( __FILE__ ) .'/templates'
     ) );
 }
 
 
 /**
- * Loop Through Constants
- * 
- * @param $constants_array array
- * @return void
+ * @about Loop Through Constants
  */
 function MsRobotstxtManagerConstants( $constants_array )
 {
-    // Define Constants
     foreach( $constants_array as $name => $value ) {
         define( $name, $value, true );
     }
@@ -61,77 +54,69 @@ function MsRobotstxtManagerConstants( $constants_array )
 
 
 /**
- * Register Classes & Include
- * 
- * @param $class string Class Name
- * @return void
+ * @about Register Classes & Include
  */
 spl_autoload_register( function ( $class )
 {
     if( strpos( $class, 'MsRobotstxtManager_' ) !== false ) {
         $class_name = str_replace( 'MsRobotstxtManager_', "", $class );
 
-        // If The Class Exists
-        if( file_exists( MS_ROBOTSTXT_MANAGER_INCLUDES .'/class_'. strtolower( $class_name ) .'.php' ) ) {
-            // Include Classes
-            include_once( MS_ROBOTSTXT_MANAGER_INCLUDES .'/class_'. strtolower( $class_name ) .'.php' );
+        // If the Class Exists, Include the Class
+        if( file_exists( MS_ROBOTSTXT_MANAGER_CLASSES .'/class-'. strtolower( $class_name ) .'.php' ) ) {
+            include_once( MS_ROBOTSTXT_MANAGER_CLASSES .'/class-'. strtolower( $class_name ) .'.php' );
         }
     }
 
-    // Plugin Extension
-    if ( class_exists( 'MSRTM_Api' ) ) { require_once( WP_PLUGIN_DIR . '/' . MSRTM ); }
+    // Plugin Extension Version 3.0
+    if ( class_exists( 'MSRTM_Api' ) && ! defined( 'MSRTM_TEMPLATES' ) ) { require_once( WP_PLUGIN_DIR . '/' . MSRTM ); }
 } );
 
 
 /**
- * Load Plugin
+ * @about Run Plugin
  */
-class multisite_robotstxt_manager
+if( ! class_exists( 'multisite_robotstxt_manager' ) )
 {
-    /**
-     * Backend Facing
-     */
-    final public static function backend() {
-        if( is_admin() || is_network_admin() ) {
-
-            // Form Validation
-            add_filter( 'msrtm_validate_action', array( 'multisite_robotstxt_manager', 'validateActions' ) );
-
-            // Admin Area Display & Functionality
-            $MsRobotstxtManager_Admin = new MsRobotstxtManager_Admin( array(
-                'base_url' => MS_ROBOTSTXT_MANAGER_BASE_URL,
-                'plugin_name' => MS_ROBOTSTXT_MANAGER_PLUGIN_NAME,
-                'plugin_file' => MS_ROBOTSTXT_MANAGER_PLUGIN_FILE,
-                'plugin_version' => MS_ROBOTSTXT_MANAGER_VERSION,
-                'menu_name' => MS_ROBOTSTXT_MANAGER_MENU_NAME,
-                'templates' => MS_ROBOTSTXT_MANAGER_TEMPLATES
-            ) );
-
-            // Init Admin Functions & Filters
-            $MsRobotstxtManager_Admin->initAdmin();
-        }
-
-        if( is_network_admin() ) {
-            // Upgrade Detection & Manager
-            $MsRobotstxtManager_Upgrade = new MsRobotstxtManager_Upgrade( array(
-                'plugin_name' => MS_ROBOTSTXT_MANAGER_PLUGIN_NAME
-            ) );
-
-            // Init Upgrade Actions & Filters
-            $MsRobotstxtManager_Upgrade->initUpgrade();
-        }
-    }
+    class multisite_robotstxt_manager
+    {
+        // Holds Instance Object
+        protected static $instance = NULL;
 
 
         /**
-         * Activate Plugin: Validate Plugin & Install Default Features
-         * 
-         * @return void
+         * @about Initiate Plugin
          */
-        final public static function activate()
+        final public function init()
+        {
+            // Activate Plugin
+            register_activation_hook( __FILE__, array( $this, 'activate' ) );
+
+            // Inject Plugin Links
+            add_filter( 'plugin_row_meta', array( $this, 'links' ), 10, 2 );
+
+            // Display Robots.txt File
+            add_action( 'init', array( $this, 'robotstxt' ), 0 );
+
+            // Load Admin Area
+            MsRobotstxtManager_AdminArea::instance();
+
+            // Update Settings
+            MsRobotstxtManager_Process::instance();
+        }
+
+
+        /**
+         * @about Activate Plugin
+         */
+        final public function activate()
         {
             // Wordpress Version Check
             global $wp_version;
+
+            // Version Check
+            if( version_compare( $wp_version, MS_ROBOTSTXT_MANAGER_WP_MIN_VERSION, "<" ) ) {
+                wp_die( __( '<b>Activation Failed</b>: The ' . MS_ROBOTSTXT_MANAGER_PAGE_NAME . ' plugin requires WordPress version ' . MS_ROBOTSTXT_MANAGER_WP_MIN_VERSION . ' or higher. Please Upgrade Wordpress, then try activating this plugin again.', 'multisite-robotstxt-manager' ) );
+            }
 
             // Multisite Networks Only
             if( ! function_exists( 'switch_to_blog' ) ) {
@@ -142,20 +127,16 @@ class multisite_robotstxt_manager
             if( ! is_network_admin() ) {
                 wp_die( __( '<b>Activation Failed</b>: The ' . MS_ROBOTSTXT_MANAGER_PAGE_NAME . ' Plugin can only be activated within the Network Admin.', 'multisite-robotstxt-manager' ) );
             }
-
-            // Version Check
-            if( version_compare( $wp_version, MS_ROBOTSTXT_MANAGER_WP_MIN_VERSION, "<" ) ) {
-                wp_die( __( '<b>Activation Failed</b>: The ' . MS_ROBOTSTXT_MANAGER_PAGE_NAME . ' plugin requires WordPress ' . MS_ROBOTSTXT_MANAGER_WP_MIN_VERSION . ' or higher. Please Upgrade Wordpress, then try activating this plugin again.', 'multisite-robotstxt-manager' ) );
-            }
         }
 
 
         /**
-         * Inject Plugin Links
-         * 
-         * @return array
+         * @about Inject Links Into Plugin Admin
+         * @param array $links Default links for this plugin
+         * @param string $file The name of the plugin being displayed
+         * @return array $links The links to inject
          */
-        final public static function links( $links, $file )
+        final public function links( $links, $file )
         {
             // Get Current URL
             $request_uri = filter_input( INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_URL );
@@ -179,46 +160,28 @@ class multisite_robotstxt_manager
 
 
         /**
-         * Form / Plugin Validation
-         * 
-         * @return void
+         * Display Robots.txt File
          */
-        final public static function validateActions()
-        {
-            // Plugin Admin Area Only
-            if ( filter_input( INPUT_GET, 'page', FILTER_UNSAFE_RAW ) != MS_ROBOTSTXT_MANAGER_PLUGIN_NAME ) {
-                wp_die( __( 'You are not authorized to perform this action.', 'multisite-robotstxt-manager' ) );
-            }
-
-            // Validate Nonce Action
-            if( ! check_admin_referer( MS_ROBOTSTXT_MANAGER_PLUGIN_NAME . '_action', MS_ROBOTSTXT_MANAGER_PLUGIN_NAME . '_nonce' ) ) {
-                wp_die( __( 'You are not authorized to perform this action.', 'multisite-robotstxt-manager' ) );
+        final public function robotstxt() {
+            if( ! is_admin() && ! is_network_admin() ) {
+                new MsRobotstxtManager_Robotstxt();
             }
         }
 
 
         /**
-         * Frontend Facing
-         */
-        final public static function frontend() {
-            if( ! is_admin() & ! is_network_admin() ) {
-                // Display Robots.txt File
-                $MsRobotstxtManager_Public = new MsRobotstxtManager_Public();
-
-                // Detect Robots.txt File & Set Display Action
-                $MsRobotstxtManager_Public->initRobotstxt();
+        * @about Create Instance
+        */
+        final public static function instance()
+        {
+            if ( ! self::$instance ) {
+                self::$instance = new self();
+                self::$instance->init();
             }
+
+            return self::$instance;
         }
     }
+}
 
-// Activate Plugin
-register_activation_hook( __FILE__, array( 'multisite_robotstxt_manager', 'activate' ) );
-
-// Inject Links Into Plugin Admins
-add_filter( 'plugin_row_meta', array( 'multisite_robotstxt_manager', 'links' ), 10, 2 );
-
-// Init Frontend
-add_action( 'plugins_loaded', array( 'multisite_robotstxt_manager', 'frontend' ), 0 );
-
-// Init Backend
-add_action( 'init', array( 'multisite_robotstxt_manager', 'backend' ), 0 );
+add_action( 'after_setup_theme', array( 'multisite_robotstxt_manager', 'instance' ), 0 );

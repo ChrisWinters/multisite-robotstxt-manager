@@ -28,17 +28,17 @@
 .Trash-*
 .travis.yml
 
-bin
-bin/
+psds
+psds/
 nbproject
 nbproject/
-test
-test/
-vendor
-vendor/
 
+copy.sh
 access_log
 error_log
 license.txt
 phpunit.xml
 readme.html
+
+.sublime-project
+.sublime-workspace
