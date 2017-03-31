@@ -92,16 +92,14 @@ if ( ! class_exists( 'MsRobotstxtManager_Cleaner' ) )
 
             if ( $warning == true ) {
                 // Set Old Data Found Marker
-                update_option( $this->option_name . 'old_data', '1', '', 'no' );
+                update_option( $this->option_name . 'cleaner_old_data', true, 'no' );
 
                 // Display Message
                 parent::message( 'yesolddata', 'error' );
 
             } else {
                 // Remove Old Data Marker
-                if ( get_option( $this->option_name . 'old_data' ) ) {
-                    delete_option( $this->option_name . 'old_data' );
-                }
+                delete_option( $this->option_name . 'cleaner_old_data' );
 
                 // Display Message
                 parent::message( 'noolddata', 'updated' );
@@ -146,7 +144,7 @@ if ( ! class_exists( 'MsRobotstxtManager_Cleaner' ) )
             }
 
             // Run Full Check Again
-            $this->check();
+            $this->checkData();
         }
 
 
@@ -165,16 +163,14 @@ if ( ! class_exists( 'MsRobotstxtManager_Cleaner' ) )
 
             if ( $warning == true ) {
                 // Set Old Data Found Marker
-                update_option( $this->option_name . 'physical', '1', '', 'no' );
+                update_option( $this->option_name . 'cleaner_physical', true, 'no' );
 
                 // Display Message
                 parent::message( 'yesphysical', 'error' );
 
             } else {
                 // Remove Old Data Marker
-                if ( get_option( $this->option_name . 'physical' ) ) {
-                    delete_option( $this->option_name . 'physical' );
-                }
+                delete_option( $this->option_name . 'cleaner_physical' );
 
                 // Display Message
                 parent::message( 'nophysical', 'updated' );
@@ -191,7 +187,7 @@ if ( ! class_exists( 'MsRobotstxtManager_Cleaner' ) )
         final private function cleanPhysical()
         {
             // Remove Real Robots.txt File
-            if ( file_exists ( get_home_path() . 'robots.txt' ) ) {
+            if ( is_writable( get_home_path() . 'robots.txt' ) ) {
                 unlink( get_home_path() . 'robots.txt' );
             }
             
@@ -204,9 +200,7 @@ if ( ! class_exists( 'MsRobotstxtManager_Cleaner' ) )
                 parent::message( 'nophysical', 'updated' );
 
                 // Remove Old Data Marker
-                if ( get_option( $this->option_name . 'physical' ) ) {
-                    delete_option( $this->option_name . 'physical' );
-                }
+                delete_option( $this->option_name . 'cleaner_physical' );
             }
         }
 
@@ -250,7 +244,7 @@ if ( ! class_exists( 'MsRobotstxtManager_Cleaner' ) )
 
             // Bad Rewrite Rules
             if( $warning == true ) {
-                update_option( $this->option_name . 'rewrite', '1', 'no' );
+                update_option( $this->option_name . 'cleaner_rewrite', true, 'no' );
 
                 // Display Message
                 parent::message( 'norewrite', 'error' );
@@ -258,9 +252,7 @@ if ( ! class_exists( 'MsRobotstxtManager_Cleaner' ) )
 
             // Good Rule Found
             if( $warning == false ) {
-                if ( delete_option( $this->option_name . 'rewrite' ) ) {
-                    delete_option( $this->option_name . 'rewrite' );
-                }
+                delete_option( $this->option_name . 'cleaner_rewrite' );
 
                 // Display Message
                 parent::message( 'yesrewrite', 'updated' );

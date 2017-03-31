@@ -49,10 +49,10 @@ if ( ! class_exists( 'MsRobotstxtManager_Website' ) )
             switch_to_blog( get_current_blog_id() );
 
             // Enable Plugin For Website
-            update_option( $this->option_name . 'status', '1', '', 'no' );
+            update_option( $this->option_name . 'status', true, 'yes' );
 
             // Update Append Data For Robots.txt File
-            update_option( $this->option_name . 'append', array( 'robotstxt' => $append_rules ), '', 'no' );
+            update_option( $this->option_name . 'append', array( 'robotstxt' => $append_rules ), 'no' );
 
             // Disabled Network Robots.txt File On Local Website
             if ( get_option( $this->option_name . 'default' ) ) {
@@ -64,7 +64,7 @@ if ( ! class_exists( 'MsRobotstxtManager_Website' ) )
             }
 
             // Update Robots.txt File
-            update_option( $this->option_name . 'robotstxt', array( 'robotstxt' => $robotstxt ), '', 'no' );
+            update_option( $this->option_name . 'robotstxt', array( 'robotstxt' => $robotstxt ), 'yes' );
 
             // Return To Current Website
             restore_current_blog();

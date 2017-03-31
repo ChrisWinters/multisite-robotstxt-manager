@@ -54,10 +54,10 @@ if ( ! class_exists( 'MsRobotstxtManager_Presets' ) )
                 switch_to_blog( '1' );
 
                 // Update Robots.txt File
-                update_option( $this->option_name . 'network_robotstxt', array( 'robotstxt' => $this->robotstxt( $type ) ), '', 'no' );
+                update_option( $this->option_name . 'network_robotstxt', array( 'robotstxt' => $this->robotstxt( $type ) ), 'no' );
 
                 // Define Preset Being Used
-                update_option( $this->option_name . 'network_preset', $type, '', 'no' );
+                update_option( $this->option_name . 'network_preset', $type, 'no' );
 
                 // Return To Previous Website
                 restore_current_blog();

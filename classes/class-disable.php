@@ -108,8 +108,10 @@ if ( ! class_exists( 'MsRobotstxtManager_Disable' ) )
             delete_option( $this->option_name . 'network_robotstxt' );
             delete_option( $this->option_name . 'network_preset' );
             delete_option( $this->option_name . 'network_status' );
-            delete_option( $this->option_name . 'old_data' );
             delete_option( $this->option_name . 'settings' );
+            delete_option( $this->option_name . 'cleaner_old_data' );
+            delete_option( $this->option_name . 'cleaner_physical' );
+            delete_option( $this->option_name . 'cleaner_rewrite' );
             delete_option( 'msrtm_settings' );
 
             // Return To Previous Website
@@ -163,7 +165,7 @@ if ( ! class_exists( 'MsRobotstxtManager_Disable' ) )
         final private function disableDefault()
         {
             // Set Disable
-            update_option( $this->option_name . 'default', true );
+            update_option( $this->option_name . 'default', true, 'no' );
 
             // Display Message
             parent::message( 'disabledefault', 'updated' );

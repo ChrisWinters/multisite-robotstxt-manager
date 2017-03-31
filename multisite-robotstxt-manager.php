@@ -4,7 +4,7 @@
  * Plugin URI: https://github.com/tribalNerd/multisite-robotstxt-manager
  * Description: A Multisite Network Robots.txt Manager. Quickly manage your Network Websites robots.txt files from a single administration area.
  * Tags: robotstxt, robots.txt, robots, robot, spiders, virtual, search, google, seo, plugin, network, wpmu, multisite, technerdia, tribalnerd
- * Version: 1.0.8
+ * Version: 1.0.9
  * License: GNU GPLv3
  * Copyright (c) 2017 Chris Winters
  * Author: tribalNerd, Chris Winters
@@ -23,16 +23,16 @@ if( function_exists( 'MsRobotstxtManagerConstants' ) )
     MsRobotstxtManagerConstants( Array(
         'MS_ROBOTSTXT_MANAGER'                  => true,
         'MS_ROBOTSTXT_MANAGER_BASE_URL'          => get_bloginfo( 'url' ),
-        'MS_ROBOTSTXT_MANAGER_VERSION'           => '1.0.8',
+        'MS_ROBOTSTXT_MANAGER_VERSION'           => '1.0.9',
         'MS_ROBOTSTXT_MANAGER_WP_MIN_VERSION'    => '3.8',
 
         'MS_ROBOTSTXT_MANAGER_PLUGIN_FILE'       => __FILE__,
         'MS_ROBOTSTXT_MANAGER_PLUGIN_DIR'        => dirname( __FILE__ ),
         'MS_ROBOTSTXT_MANAGER_PLUGIN_BASE'       => plugin_basename( __FILE__ ),
 
-        'MS_ROBOTSTXT_MANAGER_MENU_NAME'         => __( 'MS Robots.txt' ),
-        'MS_ROBOTSTXT_MANAGER_PAGE_NAME'         => __( 'Multisite Robots.txt Manager for WordPress' ),
-        'MS_ROBOTSTXT_MANAGER_PAGE_ABOUT'        => __( 'A Multisite Robots.txt Manager Plugin For WordPress.' ),
+        'MS_ROBOTSTXT_MANAGER_MENU_NAME'         => __( 'MS Robots.txt', 'multisite-robotstxt-manager' ),
+        'MS_ROBOTSTXT_MANAGER_PAGE_NAME'         => __( 'Multisite Robots.txt Manager for WordPress', 'multisite-robotstxt-manager' ),
+        'MS_ROBOTSTXT_MANAGER_PAGE_ABOUT'        => __( 'A Multisite Robots.txt Manager Plugin For WordPress.', 'multisite-robotstxt-manager' ),
         'MS_ROBOTSTXT_MANAGER_OPTION_NAME'       => 'ms_robotstxt_manager_',
         'MS_ROBOTSTXT_MANAGER_PLUGIN_NAME'       => 'multisite-robotstxt-manager',
 

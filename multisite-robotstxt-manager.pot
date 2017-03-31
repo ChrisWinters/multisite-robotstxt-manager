@@ -2,10 +2,10 @@
 # This file is distributed under the same license as the Multisite Robots.txt Manager | MS Robots.txt package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Multisite Robots.txt Manager | MS Robots.txt 1.0.8\n"
+"Project-Id-Version: Multisite Robots.txt Manager | MS Robots.txt 1.0.9\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/multisite-"
 "robotstxt-manager\n"
-"POT-Creation-Date: 2017-03-27 18:39:28+00:00\n"
+"POT-Creation-Date: 2017-03-31 12:56:41+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,135 +13,134 @@ msgstr ""
 "Last-Translator: tribalNerd <tribalnerd@technerdia.com>\n"
 "Language-Team: tribalNerd <tribalnerd@technerdia.com>\n"
 
-#: classes/class-extended.php:72
+#: classes/class-adminarea.php:50
 msgid "Website"
 msgstr ""
 
-#: classes/class-extended.php:73 classes/class-extended.php:85
+#: classes/class-adminarea.php:51 classes/class-adminarea.php:63
 msgid "Network"
 msgstr ""
 
-#: classes/class-extended.php:86
+#: classes/class-adminarea.php:64
 msgid "Cleaner"
 msgstr ""
 
-#: classes/class-extended.php:118
+#: classes/class-extended.php:83
 msgid ""
 "<u>Preset Updated</u>: The preset robots.txt has been saved as the network "
 "robots.txt file. You need to publish your changes for network websites to "
 "use the newly saved network robots.txt file."
 msgstr ""
 
-#: classes/class-extended.php:122
-msgid "The Preset Option <u>Failed</u> To Update!"
+#: classes/class-extended.php:87
+msgid "<u>Error</u>: Preset robots.txt file failed to update."
 msgstr ""
 
-#: classes/class-extended.php:126
-msgid "<u>Saved</u>: The Network Robots.txt File Has Been Saved!"
+#: classes/class-extended.php:91
+msgid "<u>Saved</u>: The network robots.txt file has been saved."
 msgstr ""
 
-#: classes/class-extended.php:130
+#: classes/class-extended.php:95
 msgid ""
-"<u>Blogs You Are Member Of Have Been Updated</u>: The saved network robots."
-"txt file has been published to allowed websites."
+"<u>Success</u>: The saved network robots.txt file has been published to "
+"allowed websites."
 msgstr ""
 
-#: classes/class-extended.php:134
+#: classes/class-extended.php:99
 msgid ""
-"<u>All Network Websites Have Been Updated</u>: The saved network robots.txt "
-"file has been published to all network websites."
+"<u>Success</u>: The saved network robots.txt file has been published to all "
+"network websites."
 msgstr ""
 
-#: classes/class-extended.php:138
-msgid "Network Settings <u>Failed</u> To Update!"
+#: classes/class-extended.php:103
+msgid "<u>Error</u>: Network settings failed to update."
 msgstr ""
 
-#: classes/class-extended.php:142
+#: classes/class-extended.php:107
 msgid ""
-"<u>Network Disabled</u>: The Multisite Robots.txt Manager Plugin is no "
+"<u>Network Disabled</u>: The Multisite Robots.txt Manager plugin is no "
 "longer managing robots.txt files across network websites."
 msgstr ""
 
-#: classes/class-extended.php:146
+#: classes/class-extended.php:111
 msgid ""
-"<u>All Saved Settings Deleted</u>: All Multisite Robots.txt Manager Plugin "
-"settings have been removed across the network."
+"<u>Settings Deleted</u>: All Multisite Robots.txt Manager plugin settings "
+"have been removed across the network."
 msgstr ""
 
-#: classes/class-extended.php:150
+#: classes/class-extended.php:115
 msgid ""
 "<u>Website Disabled</u>: The Multisite Robots.txt Manager Plugin is no "
 "longer managing the robots.txt file on this website."
 msgstr ""
 
-#: classes/class-extended.php:154
-msgid "<u>Notice</u>: No Settings Disabled or Deleted!"
+#: classes/class-extended.php:119
+msgid "<u>Notice</u>: No settings disabled or deleted!"
 msgstr ""
 
-#: classes/class-extended.php:158
-msgid "Website Robots.txt File Has Been <u>Updated</u>!"
+#: classes/class-extended.php:123
+msgid "<u>Success</u>: The robots.txt file has been updated."
 msgstr ""
 
-#: classes/class-extended.php:162
-msgid "<u>Notice</u>: No Robots.txt Rules or Append Rules Found!"
+#: classes/class-extended.php:127
+msgid "<u>Notice</u>: No robots.txt rules or append rules found!"
 msgstr ""
 
-#: classes/class-extended.php:166
-msgid "<u>Network Is Clean</u>: No Old Data Found."
+#: classes/class-extended.php:131
+msgid "<u>Network Is Clean</u>: No old data found."
 msgstr ""
 
-#: classes/class-extended.php:170
+#: classes/class-extended.php:135
 msgid ""
-"<u>Warning</u>: Old Robots.txt File Data Found! Scroll down and click the "
+"<u>Warning</u>: Old robots.txt file data found! Scroll down and click the "
 "\"remove old data\" button to remove the old data."
 msgstr ""
 
-#: classes/class-extended.php:174
+#: classes/class-extended.php:139
 msgid ""
-"<u>Warning</u>: Missing Robots.txt Rewrite Rule! Scroll down and click the "
+"<u>Warning</u>: Missing robots.txt rewrite rule! Scroll down and click the "
 "\"correct missing rules\" button to add the missing rule."
 msgstr ""
 
-#: classes/class-extended.php:178
+#: classes/class-extended.php:143
 msgid ""
-"<u>Network Is Clean</u>: All Network Websites Have The Proper Rewrite Rule."
+"<u>Network Is Clean</u>: All network websites have the proper rewrite rule."
 msgstr ""
 
-#: classes/class-extended.php:182
+#: classes/class-extended.php:147
 msgid "<u>Network Is Clean</u>: A physical robots.txt file was not found."
 msgstr ""
 
-#: classes/class-extended.php:186
+#: classes/class-extended.php:151
 msgid ""
 "<u>Warning</u>: A real robots.txt file was found at the websites root "
 "directory. Scroll down and click the \"delete physical file\" to delete the "
 "real robots.txt file."
 msgstr ""
 
-#: classes/class-extended.php:190
+#: classes/class-extended.php:155
 msgid ""
-"<u>Warning</u>: The plugin was unable to delete it due to file permissions. "
-"You will need to manually delete the real robots.txt file, then run the scan "
-"again."
+"<u>Warning</u>: The plugin was unable to delete the robots.txt file due to "
+"file permissions. You will need to manually delete the real robots.txt file."
 msgstr ""
 
-#: classes/class-extended.php:194
+#: classes/class-extended.php:159
 msgid ""
-"Network robots.txt file <u>disabled</u> on this website, you can now fully "
-"customize the robots.txt file. No changes to the robots.txt file has been "
-"made. You need to create your robots.txt file below, the click the \"update "
-"website rules\" button to change the robots.txt file."
+"<u>Success</u>: The network robots.txt file disabled on this website, you "
+"can now fully customize the robots.txt file. No changes to the robots.txt "
+"file has been made. You need to create your robots.txt file below, the click "
+"the \"update website rules\" button to change the robots.txt file."
 msgstr ""
 
-#: classes/class-extended.php:198
+#: classes/class-extended.php:163
 msgid ""
-"The network robots.txt file on this website has been <u>enabled</u>, "
-"restoring the default behavior. No changes to the robots.txt file has been "
-"made. You need to modify the append rules below, the click the \"update "
-"website rules\" button to change the robots.txt file."
+"<u>Success</u>: The network robots.txt file on this website has been "
+"enabled, restoring the default behavior. No changes to the robots.txt file "
+"has been made. You need to modify the append rules below, the click the "
+"\"update website rules\" button to change the robots.txt file."
 msgstr ""
 
-#: classes/class-extended.php:448 classes/class-extended.php:453
+#: classes/class-extended.php:413 classes/class-extended.php:418
 msgid "You are not authorized to perform this action."
 msgstr ""
 
@@ -505,10 +504,6 @@ msgstr ""
 msgid ""
 "Disable the network robots.txt file on this website, allowing you to fully "
 "customize the robots.txt file."
-msgstr ""
-
-#: uninstall.php:22
-msgid "Unauthorized Access."
 msgstr ""
 
 #. Plugin Name of the plugin/theme

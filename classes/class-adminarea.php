@@ -9,6 +9,7 @@ if ( count( get_included_files() ) == 1 ){ exit(); }
  * @call MsRobotstxtManager_AdminArea::instance();
  * 
  * @method init()       Init Admin Actions
+ * @method redirect()   Redirect if Network Tab is Opened
  * @method menu()       Load Admin Area Menu
  * @method enqueue()    Enqueue Stylesheet and jQuery
  * @method website()    Display Website Admin Templates
@@ -22,6 +23,9 @@ if ( ! class_exists( 'MsRobotstxtManager_AdminArea' ) )
     {
         // Holds Instance Object
         protected static $instance = NULL;
+
+        // Tab Names
+        private $tabs;
 
 
         /**
@@ -39,6 +43,37 @@ if ( ! class_exists( 'MsRobotstxtManager_AdminArea' ) )
             if ( parent::qString( 'page' ) == $this->plugin_name ) {
                 add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ) );
             }
+
+            // Website Tabs Names: &tab=home
+            if ( ! is_network_admin() ) {
+                $this->tabs = array(
+                    'website' => __( 'Website', 'multisite-robotstxt-manager' ),
+                    'msrobotstxt' => __( 'Network', 'multisite-robotstxt-manager' ),
+                );
+
+                // Redirect if Network Tab is Opened
+                if ( $this->qString( 'tab' ) == 'msrobotstxt' ) {
+                    $this->redirect();
+                }
+            }
+
+            // Network Tabs Names: &tab=home
+            if ( is_network_admin() ) {
+                $this->tabs = array(
+                    'network' => __( 'Network', 'multisite-robotstxt-manager' ),
+                    'cleaner' => __( 'Cleaner', 'multisite-robotstxt-manager' ),
+                );
+            }
+        }
+
+
+        /**
+         * @about Redirect if Network Tab is Opened
+         */
+        final private function redirect()
+        {
+            wp_safe_redirect( network_admin_url( '/settings.php?page=' . $this->plugin_name ) );
+            exit;
         }
 
 

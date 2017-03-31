@@ -68,7 +68,7 @@ if ( ! class_exists( 'MsRobotstxtManager_Network' ) )
         final private function saveRobotstxt()
         {
             // Update Robots.txt File
-            update_option( $this->option_name . 'network_robotstxt', array( 'robotstxt' => $this->network_robotstxt ), '', 'no' );
+            update_option( $this->option_name . 'network_robotstxt', array( 'robotstxt' => $this->network_robotstxt ), 'no' );
 
             // Delete Preset Setting
             delete_option( $this->option_name . 'network_preset' );
@@ -85,8 +85,11 @@ if ( ! class_exists( 'MsRobotstxtManager_Network' ) )
         {
             global $current_user;
 
+            // Update Robots.txt File
+            update_option( $this->option_name . 'network_robotstxt', array( 'robotstxt' => $this->network_robotstxt ), 'no' );
+
             // Enable Network
-            update_option( $this->option_name . 'network_status', '1', '', 'no' );
+            update_option( $this->option_name . 'network_status', true, 'no' );
 
             // Delete Preset Setting
             delete_option( $this->option_name . 'network_preset' );
@@ -122,8 +125,11 @@ if ( ! class_exists( 'MsRobotstxtManager_Network' ) )
         {
             global $wpdb;
 
+            // Update Robots.txt File
+            update_option( $this->option_name . 'network_robotstxt', array( 'robotstxt' => $this->network_robotstxt ), 'no' );
+
             // Enable Network
-            update_option( $this->option_name . 'network_status', '1', '', 'no' );
+            update_option( $this->option_name . 'network_status', true, 'no' );
 
             // Delete Preset Setting
             delete_option( $this->option_name . 'network_preset' );
@@ -165,7 +171,7 @@ if ( ! class_exists( 'MsRobotstxtManager_Network' ) )
             $append_rules = ( $append_option ) ? $append_option['robotstxt'] : '';
 
             // Enable For Website
-            update_option( $this->option_name . 'status', '1', '', 'no' );
+            update_option( $this->option_name . 'status', true, 'yes' );
             
             // Append Website Rules to Network Robots.txt File
             if ( isset( $append_rules ) ) {
@@ -173,11 +179,15 @@ if ( ! class_exists( 'MsRobotstxtManager_Network' ) )
                 $new_robotstxt = str_replace( '{APPEND_WEBSITE_ROBOTSTXT}', $append_rules, $this->network_robotstxt );
 
                 // Update Website Robots.txt File
-                update_option( $this->option_name . 'robotstxt', array( 'robotstxt' => $new_robotstxt ), '', 'no' );
+                update_option( $this->option_name . 'robotstxt', array( 'robotstxt' => $new_robotstxt ), 'yes' );
 
             // No Append Rules, Network Robots.txt File Only
             } else {
-                update_option( $this->option_name . 'robotstxt', array( 'robotstxt' => $this->network_robotstxt ), '', 'no' );
+                // Return Replaced String
+                $new_robotstxt = str_replace( '{APPEND_WEBSITE_ROBOTSTXT}', '', $this->network_robotstxt );
+
+                // Update Website Robots.txt File
+                update_option( $this->option_name . 'robotstxt', array( 'robotstxt' => $new_robotstxt ), 'yes' );
             }
         }
 

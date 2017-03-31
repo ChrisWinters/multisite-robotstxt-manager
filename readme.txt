@@ -4,7 +4,7 @@ Contributors: tribalNerd, Chris Winters
 Tags: robotstxt, robots.txt, robots, robot, spiders, virtual, search, google, seo, plugin, network, mu, multisite, technerdia, tribalnerd
 Requires at least: 3.8
 Tested up to: 4.7.3
-Stable tag: 1.0.8
+Stable tag: 1.0.9
 License: GNU GPLv3
 License URI: https://github.com/tribalNerd/ptt-manager/blob/master/LICENSE
 
@@ -197,7 +197,7 @@ A) Yes, however they typically only work for the default WordPress robots.txt fi
 
 = Q) Does the plugin remove the settings when it is disabled or deleted? =
 
-A) When the plugin is disabled, no settings are deleted, however the robots.txt file created by the plugin will no longer display. When the plugin is deleted, all settings the plugin created are removed from the database.
+A) No! However you can disable the plugin and delete settings within the plugin admin area.
 
 
 == Arbitrary section ==
@@ -263,24 +263,34 @@ For "real" Multisite HOST Networks, use the WordPress plugin: BWP Google XML Sit
 
 == Changelog ==
 
+= 1.0.9 =
+* Fixed: Bad method call in class-cleaner.php.
+* Fixed: Multiple incorrect update_option formats.
+* Fixed: Network Robots.txt now saves when published per GitHub Issue #5.
+* Fixed: Removed append marker, if no append rules found.
+* Fixed: Wrapped is_writable() check to physical robots.txt removal.
+* Change: Option names for cleaner, appended cleaner_.
+* Change: Modified update success/fail messages.
+* Change: Deleted uninstall.php per GitHub issue #6.
+
 = 1.0.8 =
 * New plugin structure/files, using the same option names.
-* Added a new tab "Cleaner" to the Network Admin area.
-* Added a two stage cleaning process - check & clean.
-* Added a check for a physical robots.txt file.
-* Added check for missing robots.txt file rewrite rule.
-* Added network tab to Websites for quick access to plugin admin within the Network.
-* Added option to disable network robots.txt file on websites, allowing for full customization of websites robots.txt file.
-* Modified the plugin admin areas to be more visually friendly.
-* Moved screenshots/header/thumbnail images into the svn/assets folder.
+* Added: New tab "Cleaner" to the Network Admin area.
+* Added: Two stage cleaning process - check & clean.
+* Added: Check for a physical robots.txt file.
+* Added: Check for missing robots.txt file rewrite rule.
+* Added: Network tab to Websites for quick access to plugin admin within the Network.
+* Added: Option to disable network robots.txt file on websites, allowing for full customization of websites robots.txt file.
+* Change: Plugin admin areas to be more visually friendly.
+* Moved: Screenshots/header/thumbnail images into the svn/assets folder.
 
 = 1.0.7 =
-* Bug: Fixed bad calls from helper class causing options not saving for each site. Thanks Benjamin https://github.com/benjaminniess
+ * Bug: Fixed bad calls from helper class causing options not saving for each site. Thanks https://github.com/benjaminniess
 
 = 1.0.6 =
 * Bug: Corrected class_helper->getSitemapUrl() - printing "No Sitemap Found" in robots.txt files
 * Bug: Moved class_admin->updateNetwork()->throwMessage() outside of foreach when updating the network
-* Adjusted templates/home.php to display No Sitemap Found within input field
+* Change: templates/home.php to display No Sitemap Found within input field
 
 = 1.0.5 =
 * Modified class_helper->getSitemapUrl(): added get_option( 'siteurl' ) check for sitemap url
