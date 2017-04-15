@@ -17,7 +17,7 @@ if ( count( get_included_files() ) == 1 ){ exit(); }?>
 </div></div> <!-- end inside-pad & inside -->
 </div> <!-- end postbox -->
 
-<p><a href="https://wordpress.org/plugins/multisite-robotstxt-manager/" target="_blank"><img src="<?php echo MS_ROBOTSTXT_MANAGER_BASE_URL;?>/wp-content/plugins/multisite-robotstxt-manager/assets/sidebar_rate-plugin.gif" alt="<?php _e( 'Please Rate This Plugin At Wordpress.org!', 'multisite-robotstxt-manager' );?>" /></a></p>
+<p><a href="https://wordpress.org/support/plugin/multisite-robotstxt-manager/reviews/?rate=5#new-post" target="_blank"><img src="<?php echo MS_ROBOTSTXT_MANAGER_BASE_URL;?>/wp-content/plugins/multisite-robotstxt-manager/assets/sidebar_rate-plugin.gif" alt="<?php _e( 'Please Rate This Plugin At Wordpress.org!', 'multisite-robotstxt-manager' );?>" /></a></p>
 
 <?php if( ! defined( 'MSRTM' ) ) {?>
     <p><a href="https://technerdia.com/msrtm/" target="_blank"><img src="<?php echo MS_ROBOTSTXT_MANAGER_BASE_URL;?>/wp-content/plugins/multisite-robotstxt-manager/assets/sidebar_pro-plugin.gif" alt="<?php _e( 'Pro Automation Extension Plugin!', 'multisite-robotstxt-manager' );?>" /></a></p>
