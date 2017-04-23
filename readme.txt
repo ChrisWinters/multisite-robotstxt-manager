@@ -3,8 +3,8 @@ Plugin Name: Multisite Robots.txt Manager | MS Robots.txt
 Contributors: tribalNerd, Chris Winters
 Tags: robotstxt, robots.txt, robots, robot, spiders, virtual, search, google, seo, plugin, network, mu, multisite, technerdia, tribalnerd
 Requires at least: 3.8
-Tested up to: 4.7.3
-Stable tag: 1.0.9
+Tested up to: 4.7.4
+Stable tag: 1.0.10
 License: GNU GPLv3
 License URI: https://github.com/tribalNerd/ptt-manager/blob/master/LICENSE
 
@@ -263,15 +263,21 @@ For "real" Multisite HOST Networks, use the WordPress plugin: BWP Google XML Sit
 
 == Changelog ==
 
+= 1.0.10 =
+* Tested: Wordpress Version 4.7.4
+* Changed: Review/Rating URL within templates/sidebar.php
+* Fixed: Cleaner option name checks, using previous version names.
+* Fixed: Cleaner rewrite_rule to delete/update the option when missing the robots.txt array.
+
 = 1.0.9 =
 * Fixed: Bad method call in class-cleaner.php.
 * Fixed: Multiple incorrect update_option formats.
-* Fixed: Network Robots.txt now saves when published per GitHub Issue #5.
+* Fixed: Network Robots.txt now saves when published | https://github.com/tribalNerd/multisite-robotstxt-manager/issues/5
 * Fixed: Removed append marker, if no append rules found.
 * Fixed: Wrapped is_writable() check to physical robots.txt removal.
 * Change: Option names for cleaner, appended cleaner_.
 * Change: Modified update success/fail messages.
-* Change: Deleted uninstall.php per GitHub issue #6.
+* Change: Deleted uninstall.php | https://github.com/tribalNerd/multisite-robotstxt-manager/issues/6
 
 = 1.0.8 =
 * New plugin structure/files, using the same option names.

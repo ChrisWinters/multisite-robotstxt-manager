@@ -285,8 +285,6 @@ if ( ! class_exists( 'MsRobotstxtManager_Presets' ) )
             $txt .= "Disallow: /wp-content/cache/\n";
             $txt .= "Disallow: /wp-content/themes/\n";
             $txt .= "Disallow: /wp-content/plugins/\n";
-            $txt .= "Allow: /wp-content/uploads\n";
-            $txt .= "Allow: /wp-content/uploads/\n";
             $txt .= "Allow: /wp-admin/admin-ajax.php\n";
             $txt .= "{APPEND_WEBSITE_ROBOTSTXT}";
             $txt .= "\n";

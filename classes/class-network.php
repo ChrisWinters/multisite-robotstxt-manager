@@ -172,11 +172,18 @@ if ( ! class_exists( 'MsRobotstxtManager_Network' ) )
 
             // Enable For Website
             update_option( $this->option_name . 'status', true, 'yes' );
-            
+
+            // Get Domain URL Base
+            $sitemap_url_base = get_option( 'site_url' ) ? get_option( 'site_url' ) : MS_ROBOTSTXT_MANAGER_BASE_URL;
+
+            // MSRM PRO: Parse Sitemap Marker
+            // @version 4.0.1
+            $network_robotstxt = apply_filters( 'msrtm_parse_sitemap_marker', $this->network_robotstxt, site_url() );
+
             // Append Website Rules to Network Robots.txt File
-            if ( isset( $append_rules ) ) {
+            if ( isset( $robotstxt_append_rules ) ) {
                 // Return Replaced String
-                $new_robotstxt = str_replace( '{APPEND_WEBSITE_ROBOTSTXT}', $append_rules, $this->network_robotstxt );
+                $new_robotstxt = str_replace( '{APPEND_WEBSITE_ROBOTSTXT}', $append_rules, $network_robotstxt );
 
                 // Update Website Robots.txt File
                 update_option( $this->option_name . 'robotstxt', array( 'robotstxt' => $new_robotstxt ), 'yes' );
@@ -184,7 +191,7 @@ if ( ! class_exists( 'MsRobotstxtManager_Network' ) )
             // No Append Rules, Network Robots.txt File Only
             } else {
                 // Return Replaced String
-                $new_robotstxt = str_replace( '{APPEND_WEBSITE_ROBOTSTXT}', '', $this->network_robotstxt );
+                $new_robotstxt = str_replace( '{APPEND_WEBSITE_ROBOTSTXT}', '', $network_robotstxt );
 
                 // Update Website Robots.txt File
                 update_option( $this->option_name . 'robotstxt', array( 'robotstxt' => $new_robotstxt ), 'yes' );

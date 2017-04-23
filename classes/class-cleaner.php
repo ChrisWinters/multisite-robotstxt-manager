@@ -279,15 +279,12 @@ if ( ! class_exists( 'MsRobotstxtManager_Cleaner' ) )
                 switch_to_blog( $site->blog_id );
 
                 // Get Rewrite Rules
-                $rules = get_option( 'rewrite_rules' );
+                $rewrite_rules = get_option( 'rewrite_rules' );
 
-                // Add Missing Rule
-                if( ! in_array( "index.php?robots=1", (array) $rules ) ) {
-                    // Set Proper Keys
-                    $rule_key = "robots\.txt$";
-                    $rules[ $rule_key ] = 'index.php?robots=1';
-
-                    // Update Rules
+                // Force Update of Missing Rule
+                if( ! in_array( "index.php?robots=1", (array) $rewrite_rules ) ) {
+                    $rules = array_merge( $rewrite_rules, array( 'robots\.txt$' => 'index.php?robots=1' ) );
+                    delete_option( 'rewrite_rules' );
                     update_option( 'rewrite_rules', $rules );
 
                     // Flush Rules

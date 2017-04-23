@@ -24,7 +24,7 @@ if ( parent::status() == true ) {?>
             <td class="textleft">
                 <p><input type="radio" name="update" value="network" id="network" /> <label for="network"><?php _e( 'Publish the network robots.txt file to all network websites.', 'multisite-robotstxt-manager' );?></label></p>
                 <p><input type="radio" name="update" value="member" id="user" /> <label for="user"><?php _e( 'Publish the network robots.txt file to network websites you are a member of.', 'multisite-robotstxt-manager' );?></label></p>
-                <p><input type="radio" name="update" value="save" id="save" /> <label for="save"><?php _e( 'Save the network robots.txt file / does not publish changes.', 'multisite-robotstxt-manager' );?></label></p>
+                <p><input type="radio" name="update" value="save" id="save" checked="checked" /> <label for="save"><?php _e( 'Save the network robots.txt file / does not publish changes.', 'multisite-robotstxt-manager' );?></label></p>
             </td>
             <td class="td30"></td>
         </tr>

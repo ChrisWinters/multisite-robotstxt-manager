@@ -58,8 +58,8 @@ if ( ! class_exists( 'MsRobotstxtManager_Website' ) )
             if ( get_option( $this->option_name . 'default' ) ) {
                 $robotstxt = $append_rules;
 
-            // Get Network Robots.txt File And Append Rules
             } else {
+                // Get Network Robots.txt File And Append Rules
                 $robotstxt = ( parent::getNetworkRobotstxt() ) ? str_replace( '{APPEND_WEBSITE_ROBOTSTXT}', $append_rules, parent::getNetworkRobotstxt() ) : $append_rules;
             }
 
