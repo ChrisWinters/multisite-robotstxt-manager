@@ -283,7 +283,8 @@ if( ! class_exists( 'MsRobotstxtManager_Extended' ) )
 
 
         /**
-         * @about Get the Upload Path
+         * @about Build Upload Path Rule
+         * @param int $blogid Website ID
          * @return string $upload_path Robots.txt Rule
          */
         final public function getUploadPath( $blogid = false )
@@ -309,7 +310,8 @@ if( ! class_exists( 'MsRobotstxtManager_Extended' ) )
 
 
         /**
-         * @about Get the Theme Path Within Allow Statement
+         * @about Build Theme Path Rule
+         * @param int $blogid Website ID
          * @return string $theme_path Robots.txt Rule
          */
         final public function getThemePath( $blogid = false )
@@ -332,34 +334,75 @@ if( ! class_exists( 'MsRobotstxtManager_Extended' ) )
 
 
         /**
-         * @about Get the Sitemap URL
+         * @about Build Sitemap Rule
+         * @param int $blogid Website ID
          * @return string $sitemap_url Robots.txt Rule
          */
         final public function getSitemapUrl( $blogid = false )
         {
-            $blog_id = ( ! $blogid ) ? get_current_blog_id() : $blogid;
+            // Clear URL
+            $url = '';
 
             // Switch to Current Website
-            switch_to_blog( $blog_id );
+            switch_to_blog( $blogid );
 
-            // Get Site URL
-            $sitemap_url_base = get_option( 'siteurl' ) ? get_option( 'siteurl' ) : MS_ROBOTSTXT_MANAGER_BASE_URL;
+            // Set Blog ID
+            $blog_id = ( ! $blogid ) ? get_current_blog_id() : $blogid;
 
-            // Base XML File Locations To check
-            $root_xml_file_location = get_headers( $sitemap_url_base . '/sitemap.xml' );
-            $alt_xml_file_location = get_headers( $sitemap_url_base . '/sitemaps/sitemap.xml' );
+            // Set Site URL
+            $site_url = get_site_url( $blog_id );
 
-            // Check if xml sitemap exists
-            if ( $root_xml_file_location && $root_xml_file_location[0] == 'HTTP/1.1 200 OK' ) {
-                // http://domain.com/sitemap.xml
-                $url = $sitemap_url_base . '/sitemap.xml';
+            // No fopen, Check Rewrite Rules
+            if ( ! ini_get( 'allow_url_fopen' ) ) {
+                // Get Rewrite Rules
+                $rules = get_option( 'rewrite_rules' );
 
-            } elseif ( $alt_xml_file_location && $alt_xml_file_location[0] == 'HTTP/1.1 200 OK' ) {
-                // http://domain.com/sitemaps/sitemap.xml
-                $url = $sitemap_url_base . '/sitemaps/sitemap.xml';
- 
-            } else {
-                $url = '';
+                // Check Sitemap Rule Within Rewrite Rules Array
+                if( array_key_exists( "sitemap\.xml$", (array) $rules ) || array_key_exists( "sitemap(-+([a-zA-Z0-9_-]+))?\.xml$", (array) $rules ) ) {
+                    $url = $site_url . '/sitemap.xml';
+                }
+            }
+
+            // No fopen, URL Not Set, Check For Physical File
+            if ( empty( $url ) && ! ini_get( 'allow_url_fopen' ) ) {
+                if ( file_exists( get_home_path() . 'sitemap.xml' ) ) {
+                    $url = $site_url . '/sitemap.xml';
+
+                } elseif ( file_exists( get_home_path() . 'wp-content/plugins/xml-sitemap-generator/sitemap.xml' ) {
+                    $url = $site_url . '/wp-content/plugins/xml-sitemap-generator/sitemap.xml';
+
+                } elseif ( file_exists( get_home_path() . 'wp-content/uploads/ap-sitemap/sitemap-ap-monthly-index.xml' ) {
+                    $url = $site_url . '/wp-content/uploads/ap-sitemap/sitemap-ap-monthly-index.xml';
+
+                } elseif ( file_exists( get_home_path() . 'sitemap_' . str_replace( '.', '_', preg_replace( '(^https?://)', '', $site_url ) ) . '.xml' ) {
+                    $url = $site_url . '/sitemap_' . str_replace( '.', '_', preg_replace( '(^https?://)', '', $site_url ) ) . '.xml';
+                }
+            }
+
+            // URL Not Set & fopen Allowed
+            if ( empty( $url ) && ini_get( 'allow_url_fopen' ) ) {
+                // Sitemap Files To Check
+                $sitemaps = array(
+                    'sitemap.xml',
+                    'sitemaps.xml',
+                    'xmlsitemap.xml',
+                    'sitemap_index.xml',
+                    'sitemap/sitemap.xml',
+                    'sitemap/sitemaps.xml',
+                    'sitemaps/sitemap.xml',
+                    'sitemaps/sitemaps.xml',
+                    'sitemap_' . str_replace( '.', '_', preg_replace( '(^https?://)', '', $site_url ) ) . '.xml',
+                    'wpms-sitemap_' . str_replace( '.', '_', preg_replace( '(^https?://)', '', $site_url ) ) . '.xml',
+                );
+
+                // Loop Through Sitemap Names
+                foreach ( $sitemaps as $sitemap ) {
+                    $get_headers = get_headers( $site_url . '/' . $sitemap );
+
+                    if ( isset( $get_headers[0] ) && strpos( $get_headers[0], '200 OK' ) !== false ) {
+                        $url = $site_url . '/' . $sitemap;
+                    }
+                }
             }
 
             // Return To Previous Website
