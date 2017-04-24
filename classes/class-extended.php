@@ -368,13 +368,13 @@ if( ! class_exists( 'MsRobotstxtManager_Extended' ) )
                 if ( file_exists( get_home_path() . 'sitemap.xml' ) ) {
                     $url = $site_url . '/sitemap.xml';
 
-                } elseif ( file_exists( get_home_path() . 'wp-content/plugins/xml-sitemap-generator/sitemap.xml' ) {
+                } elseif ( file_exists( get_home_path() . 'wp-content/plugins/xml-sitemap-generator/sitemap.xml' ) ) {
                     $url = $site_url . '/wp-content/plugins/xml-sitemap-generator/sitemap.xml';
 
-                } elseif ( file_exists( get_home_path() . 'wp-content/uploads/ap-sitemap/sitemap-ap-monthly-index.xml' ) {
+                } elseif ( file_exists( get_home_path() . 'wp-content/uploads/ap-sitemap/sitemap-ap-monthly-index.xml' ) ) {
                     $url = $site_url . '/wp-content/uploads/ap-sitemap/sitemap-ap-monthly-index.xml';
 
-                } elseif ( file_exists( get_home_path() . 'sitemap_' . str_replace( '.', '_', preg_replace( '(^https?://)', '', $site_url ) ) . '.xml' ) {
+                } elseif ( file_exists( get_home_path() . 'sitemap_' . str_replace( '.', '_', preg_replace( '(^https?://)', '', $site_url ) ) . '.xml' ) ) {
                     $url = $site_url . '/sitemap_' . str_replace( '.', '_', preg_replace( '(^https?://)', '', $site_url ) ) . '.xml';
                 }
             }
