@@ -4,7 +4,7 @@
 * **Tags:** robotstxt, robots.txt, robots, robot, spiders, virtual, search, google, seo, plugin, network, mu, multisite, technerdia, tribalnerd
 * **Requires at least:** 3.8
 * **Tested up to:** 4.7.4
-* **Stable tag:** 1.0.11
+* **Stable tag:** 1.0.12
 * **License:** GNU GPLv3
 * **License URI:** https://github.com/tribalNerd/multisite-robotstxt-manager/blob/master/LICENSE
 
@@ -262,10 +262,16 @@ The marker {APPEND_WEBSITE_ROBOTSTXT} within the Network Robots.txt File is repl
 * Better WordPress Google XML Sitemaps: http://wordpress.org/extend/plugins/bwp-google-xml-sitemaps/
 * Search For Others: http://wordpress.org/extend/plugins/search.php?q=multisite+sitemap
 
-For "real" Multisite HOST Networks, use the WordPress plugin: BWP Google XML Sitemaps - This plugin will list each Websites Sitemap URL's in the Root Network Website's robots.txt file.
+Multisite HOST Networks, use the WordPress plugin: BWP Google XML Sitemaps - This plugin will list each Websites Sitemap URL's in the Root Network Website's robots.txt file.
 
 
 ## Changelog
+
+#### 1.0.12 2017-9-6
+
+* Tested: Wordpress Version 4.8
+* Changed: Network & Admin Area Plugin Update Notice Handler.
+* Fixed: Remove Rewrite Rule Flush After Correcting Rewrite Rules.
 
 #### 1.0.11 2017-24-4
 

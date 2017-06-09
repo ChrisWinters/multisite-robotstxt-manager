@@ -164,13 +164,37 @@ if( ! class_exists( 'MsRobotstxtManager_Extended' ) )
                 break;
             }
 
-            // Throw Message
+            // Set Message
             if ( ! empty( $message ) ) {
                 // Set Message Type, Default Error
                 $type = ( $notice_type == "updated" ) ? "updated" : "error";
 
-                // Return Message
-                add_settings_error( $slug, $slug, $message, $type );
+                // Create Message Option
+                update_option( $this->option_name . 'message', array( 'type' => $type, 'message' => $message ), 'no' );
+
+                // Throw Notice
+                add_action( 'network_admin_notices', array( $this, 'notice' ) );
+                add_action( 'admin_notices', array( $this, 'notice' ) );
+            }
+        }
+
+
+        /**
+         * @about Display Messages To User
+         */
+        final public function notice()
+        {
+            // Get Message
+            $notice = get_option( $this->option_name . 'message' );
+
+            if ( $notice && is_array( $notice ) ) {
+                // Delete Message
+                delete_option( $this->option_name . 'message' );
+
+                // Message HTML
+                echo '<div class="' . esc_html( $notice['type'] ) . ' notice is-dismissible">';
+                echo '<p><strong>' . esc_html( $notice['message'] ) . '</strong></p>';
+                echo '<button type="button" class="notice-dismiss"><span class="screen-reader-text">Dismiss this notice.</span></button></div>';
             }
         }
 

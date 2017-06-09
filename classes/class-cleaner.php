@@ -286,9 +286,6 @@ if ( ! class_exists( 'MsRobotstxtManager_Cleaner' ) )
                     $rules = array_merge( $rewrite_rules, array( 'robots\.txt$' => 'index.php?robots=1' ) );
                     delete_option( 'rewrite_rules' );
                     update_option( 'rewrite_rules', $rules );
-
-                    // Flush Rules
-                    flush_rewrite_rules();
                 }
 
                 // Return Home

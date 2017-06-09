@@ -3,7 +3,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 if ( count( get_included_files() ) == 1 ){ exit(); }?>
 
 <div class="wrap">
-<h2><span class="dashicons dashicons-category"></span> <?php echo MS_ROBOTSTXT_MANAGER_PAGE_NAME;?></h2>
+<h2><span class="dashicons dashicons-category"></span> <?php echo $this->plugin_name;?></h2>
 
 <?php echo $this->tabs();?>
 
