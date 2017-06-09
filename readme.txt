@@ -269,7 +269,6 @@ Multisite HOST Networks, use the WordPress plugin: BWP Google XML Sitemaps - Thi
 * Changed: Network & Admin Area Plugin Update Notice Handler.
 * Fixed: Remove Rewrite Rule Flush After Correcting Rewrite Rules.
 
-
 = 1.0.11 2017-24-4 =
 
 * Added: Added more Sitemap filenames to check/build for.

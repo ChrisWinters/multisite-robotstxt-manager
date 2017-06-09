@@ -3,7 +3,7 @@
 * **Contributors:** tribalNerd, Chris Winters
 * **Tags:** robotstxt, robots.txt, robots, robot, spiders, virtual, search, google, seo, plugin, network, mu, multisite, technerdia, tribalnerd
 * **Requires at least:** 3.8
-* **Tested up to:** 4.7.4
+* **Tested up to:** 4.8
 * **Stable tag:** 1.0.12
 * **License:** GNU GPLv3
 * **License URI:** https://github.com/tribalNerd/multisite-robotstxt-manager/blob/master/LICENSE
