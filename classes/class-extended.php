@@ -421,7 +421,7 @@ if( ! class_exists( 'MsRobotstxtManager_Extended' ) )
 
                 // Loop Through Sitemap Names
                 foreach ( $sitemaps as $sitemap ) {
-                    $get_headers = get_headers( $site_url . '/' . $sitemap );
+                    $get_headers = @get_headers( $site_url . '/' . $sitemap );
 
                     if ( isset( $get_headers[0] ) && strpos( $get_headers[0], '200 OK' ) !== false ) {
                         $url = $site_url . '/' . $sitemap;

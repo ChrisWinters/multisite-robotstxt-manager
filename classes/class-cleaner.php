@@ -229,6 +229,11 @@ if ( ! class_exists( 'MsRobotstxtManager_Cleaner' ) )
                 // Get Rewrite Rules
                 $rules = get_option( 'rewrite_rules' );
 
+                // Testing
+                //unset( $rules['robots\.txt$'] );
+                //print_r($rules); die();
+                //update_option( 'rewrite_rules', $rules );
+
                 // Flush Rules If Needed
                 if( empty( $rules ) ) { flush_rewrite_rules(); }
 

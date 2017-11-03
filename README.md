@@ -3,8 +3,8 @@
 * **Contributors:** tribalNerd, Chris Winters
 * **Tags:** robotstxt, robots.txt, robots, robot, spiders, virtual, search, google, seo, plugin, network, mu, multisite, technerdia, tribalnerd
 * **Requires at least:** 3.8
-* **Tested up to:** 4.8
-* **Stable tag:** 1.0.12
+* **Tested up to:** 4.8.3
+* **Stable tag:** 1.0.14
 * **License:** GNU GPLv3
 * **License URI:** https://github.com/tribalNerd/multisite-robotstxt-manager/blob/master/LICENSE
 
@@ -71,7 +71,6 @@ Visit this [Plugin on Github!](https://github.com/tribalNerd/multisite-robotstxt
 	* Activate / Network Activate the plugin when asked.
 	* If you have returned to the Plugin Admin, locate the "Multisite Robots.txt Manager" Plugin and click the Activate link.
 
-
 ### Upload and Install
 
 * If uploading, upload the /multisite-robotstxt-manager/ folder to /wp-content/plugins/ directory for your Worpdress install.
@@ -79,7 +78,6 @@ Visit this [Plugin on Github!](https://github.com/tribalNerd/multisite-robotstxt
 	* Multisite Networks: Network Admin > Plugins Menu
 * Locate the "Multisite Robots.txt Manager" Plugin in your listing of plugins. (sort by Inactive)
 * Click the Activate link to start the plugin.
-
 
 
 ## Frequently Asked Questions
@@ -180,6 +178,17 @@ A) The issue is due to an option called "rewrite rules" missing the robots.txt e
 Visit the Network Admin for the plugin, then click the Cleaner tab. If the Rewrite Rule an error message and a unique button will appear allowing you scan and update the rule for all Websites.
 
 
+= Q) I'm using NGINX and my robots.txt files are white/blank, what's wrong? =
+
+A) You may need to add the lines below to your NGINX configuration.
+
+`location = /robots.txt {
+   rewrite ^ /index.php;
+}`
+
+
+~ Thanks to Michael Murray from [madewithmerit.com](https://madewithmerit.com/) for this solution.
+
 
 = Q) The incorrect robots.txt file is displaying, what's wrong? =
 
@@ -248,7 +257,6 @@ The marker {APPEND_WEBSITE_ROBOTSTXT} within the Network Robots.txt File is repl
 
 * Disable a Website: Within the website plugin admin, for each unique website, scroll down and click the "Disable the saved robots.txt file..." checkbox then click the submit button. This will disable the robots.txt file the Website only, making the WordPress default robots.txt file display.
 * Disable Across Network: Within the network plugin admin, scroll down and click the "Disable saved robots.txt files..." checkbox, then click the submit button.
-* Disable Across Network v2: Either save or publish a blank network robots.txt file, which will disable the robots.txt file option for each Website within the Network.
 
 
 ### Presets
@@ -266,6 +274,15 @@ Multisite HOST Networks, use the WordPress plugin: BWP Google XML Sitemaps - Thi
 
 
 ## Changelog
+
+#### 1.0.14 2017-3-11 =
+
+* Tested: Wordpress Version 4.8.3
+* Silenced @get_headers errors, class-extended.php line 424. ~ Thanks Stephan
+
+#### 1.0.13 2017-3-8
+
+* Tested: Wordpress Version 4.8.1
 
 #### 1.0.12 2017-9-6
 

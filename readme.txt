@@ -3,8 +3,8 @@ Plugin Name: Multisite Robots.txt Manager | MS Robots.txt
 Contributors: tribalNerd, Chris Winters
 Tags: robotstxt, robots.txt, robots, robot, spiders, virtual, search, google, seo, plugin, network, mu, multisite, technerdia, tribalnerd
 Requires at least: 3.8
-Tested up to: 4.8
-Stable tag: 1.0.12
+Tested up to: 4.8.3
+Stable tag: 1.0.14
 License: GNU GPLv3
 License URI: https://github.com/tribalNerd/ptt-manager/blob/master/LICENSE
 
@@ -178,6 +178,18 @@ A) The issue is due to an option called "rewrite rules" missing the robots.txt e
 Visit the Network Admin for the plugin, then click the Cleaner tab. If the Rewrite Rule an error message and a unique button will appear allowing you scan and update the rule for all Websites.
 
 
+= Q) I'm using NGINX and my robots.txt files are white/blank, what's wrong? =
+
+A) You may need to add the lines below to your NGINX configuration.
+
+`location = /robots.txt {
+   rewrite ^ /index.php;
+}`
+
+
+~ Thanks to Michael Murray from [madewithmerit.com](https://madewithmerit.com/) for this solution.
+
+
 = Q) The incorrect robots.txt file is displaying, what's wrong? =
 
 A) Typically this issue is due to either an a different robots.txt file plugin is active or that plugins robots.txt file data was never deleted when the plugin was removed.
@@ -262,6 +274,15 @@ Multisite HOST Networks, use the WordPress plugin: BWP Google XML Sitemaps - Thi
 
 
 == Changelog ==
+
+= 1.0.14 2017-3-11 =
+
+* Tested: Wordpress Version 4.8.3
+* Silenced @get_headers errors, class-extended.php line 424. ~ Thanks Stephan
+
+= 1.0.13 2017-3-8 =
+
+* Tested: Wordpress Version 4.8.1
 
 = 1.0.12 2017-9-6 =
 
