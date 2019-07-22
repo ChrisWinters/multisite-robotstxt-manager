@@ -17,7 +17,6 @@
  * @license    GNU GPLv3
  * @link       /LICENSE
  *
- * @fs_premium_only /inc/classes/class-pro-build-append-rules.php, /inc/classes/class-pro-generate-robotstxt, /inc/classes/class-pro-plugin-admin-save.php, /inc/templates/automate.php
  */
 
 namespace MsRobotstxtManager;
