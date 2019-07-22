@@ -6,7 +6,7 @@ Requires at least: 3.8
 Tested up to: 5.2.2
 Stable tag: 2.0.0
 License: GNU GPLv3
-License URI: https://github.com/ChrisWinters/multisite-robotstxt-managerr/blob/master/LICENSE
+License URI: https://github.com/ChrisWinters/multisite-robotstxt-manager/blob/master/LICENSE
 
 A Robots.txt Manager Plugin for WordPress Multisite Networks. Quickly and easily manage all robots.txt files on a WordPress Multisite Website Network.
 
@@ -265,7 +265,7 @@ For "real" Multisite HOST Networks, use the WordPress plugin: BWP Google XML Sit
 
 = 2.0.0 =
 * Released: 2019-07-22
-* Changelog: https://github.com/ChrisWinters/multisite-robotstxt-manager/blob/master/CHANGELOG.md#300
+* Changelog: https://github.com/ChrisWinters/multisite-robotstxt-manager/blob/master/CHANGELOG.md#200
 
 
 
