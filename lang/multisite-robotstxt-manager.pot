@@ -1,0 +1,341 @@
+# Copyright (C) 2019 multisite-robotstxt-manager
+# This file is distributed under the same license as the multisite-robotstxt-manager package.
+msgid ""
+msgstr ""
+"Project-Id-Version: multisite-robotstxt-manager\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language-Team: ChrisW. <chrisw@null.net>\n"
+"Last-Translator: ChrisW. <chrisw@null.net>\n"
+"Report-Msgid-Bugs-To: https://github.com/ChrisWinters/multisite-robotstxt-manager/issues\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: inc/classes/class-get-robotstxt-rules.php:32
+msgid "Upload Path Not Set"
+msgstr ""
+
+#: inc/classes/class-plugin-activate.php:41
+msgid "WordPress 3.8 is required. Please upgrade WordPress and try again."
+msgstr ""
+
+#: inc/classes/class-plugin-admin.php:83, inc/classes/class-plugin-admin.php:99, inc/templates/sidebar.php:30
+msgid "Robots.txt Manager"
+msgstr ""
+
+#: inc/classes/class-plugin-admin.php:195
+msgid "Settings"
+msgstr ""
+
+#: inc/classes/class-plugin-admin.php:207
+msgid "Network"
+msgstr ""
+
+#: inc/classes/class-plugin-admin.php:208
+msgid "Cleaner"
+msgstr ""
+
+#: inc/classes/class-trait-security-check.php:26
+msgid "You are not authorized to perform this action."
+msgstr ""
+
+#: inc/templates/automate.php:39
+msgid "Automation"
+msgstr ""
+
+#: inc/templates/automate.php:40
+msgid "Check to activate."
+msgstr ""
+
+#: inc/templates/automate.php:46
+msgid "Automatically build/save robots.txt files when new websites are added to the network."
+msgstr ""
+
+#: inc/templates/automate.php:47
+msgid "Automatically build/save robots.txt files that have not generated when the robots.txt file is viewed."
+msgstr ""
+
+#: inc/templates/automate.php:48
+msgid "Automatically add upload path to website append rules."
+msgstr ""
+
+#: inc/templates/automate.php:49
+msgid "Automatically add theme path to website append rules."
+msgstr ""
+
+#: inc/templates/automate.php:50
+msgid "Automatically add sitemap urls to website append rules."
+msgstr ""
+
+#: inc/templates/automate.php:56
+msgid " save rules "
+msgstr ""
+
+#: inc/templates/cleaner.php:50
+msgid "Check For Old Robots.txt File Settings"
+msgstr ""
+
+#: inc/templates/cleaner.php:51
+msgid "If you are having problems with a websites robots.txt file to displaying properly, it is possible that old robots.txt file data left over from other plugins is conflicting. Click the \"scan for old data\" button below to scan the network for left over data. If any is found, a notice will display with a new button to automatically clean out the left over data."
+msgstr ""
+
+#: inc/templates/cleaner.php:56
+msgid "Old Robots.txt File Settings Found"
+msgstr ""
+
+#: inc/templates/cleaner.php:57
+msgid "Click the \"remove old data\" button below to purge the old settings."
+msgstr ""
+
+#: inc/templates/cleaner.php:63
+msgid "Check For Real (physical) Robots.txt File"
+msgstr ""
+
+#: inc/templates/cleaner.php:64
+msgid "If network/website changes do not appear to override the robots.txt file or if the file is blank, it is possible that a plugin created a physical (hard) robots.txt file. Click the \"scan for physical file\" button below to check the website for a real robots.txt file. If one is found, a notice will display with a new button allowing you to delete the file."
+msgstr ""
+
+#: inc/templates/cleaner.php:69
+msgid "A Real Robots.txt File Was Found"
+msgstr ""
+
+#: inc/templates/cleaner.php:70
+msgid "Click the \"delete physical file\" button below to delete the real robots.txt file."
+msgstr ""
+
+#: inc/templates/cleaner.php:76
+msgid "Check For Robots.txt Rewrite Rule"
+msgstr ""
+
+#: inc/templates/cleaner.php:77
+msgid "If your robots.txt files are blank, it is possible the website is missing the rewrite rule index.php?robots=1. Click the \"scan for missing rule\" button below to scan the for the missing rule. If the rule is missing, a notice will display with a new button to automatically add the rule for you."
+msgstr ""
+
+#: inc/templates/cleaner.php:82
+msgid "Website Rewrite Rule Missing"
+msgstr ""
+
+#: inc/templates/cleaner.php:83
+msgid "Click the \"add missing rule\" button below to add the missing rule."
+msgstr ""
+
+#: inc/templates/footer.php:38, inc/templates/header.php:24
+msgid "Multisite Robots.txt Manager"
+msgstr ""
+
+#: inc/templates/footer.php:39
+msgid "top"
+msgstr ""
+
+#: inc/templates/header.php:24
+msgid "A Multisite Robots.txt Manager Plugin For WordPress."
+msgstr ""
+
+#: inc/templates/network.php:45
+msgid "Network Robots.txt File"
+msgstr ""
+
+#: inc/templates/network.php:46
+msgid "If used, the {APPEND_WEBSITE_ROBOTSTXT} marker will be replaced at the website level if the website has unique append rules. Saving and publishing an empty network robots.txt file will restore the default WordPress robots.txt file."
+msgstr ""
+
+#: inc/templates/network.php:53
+msgid "Rebuild all network websites robots.txt files."
+msgstr ""
+
+#: inc/templates/network.php:54
+msgid "Rebuild all robots.txt files only on network websites you are a member of."
+msgstr ""
+
+#: inc/templates/network.php:55
+msgid "Save the network robots.txt file / does not rebuild robots.txt files."
+msgstr ""
+
+#: inc/templates/network.php:61
+msgid " submit "
+msgstr ""
+
+#: inc/templates/network.php:90
+msgid "Robots.txt File Presets"
+msgstr ""
+
+#: inc/templates/network.php:91
+msgid "Select a preset robots.txt file to save as the network robots.txt file."
+msgstr ""
+
+#: inc/templates/network.php:95
+msgid "Plugin Default Robots.txt File"
+msgstr ""
+
+#: inc/templates/network.php:96
+msgid "The plugins default installed robots.txt file."
+msgstr ""
+
+#: inc/templates/network.php:99
+msgid "Alternative Robots.txt File"
+msgstr ""
+
+#: inc/templates/network.php:100
+msgid "Similar to the plugins default robots.txt file, with more disallows."
+msgstr ""
+
+#: inc/templates/network.php:103
+msgid "WordPress Limited Robots.txt File"
+msgstr ""
+
+#: inc/templates/network.php:104
+msgid "Only disallows wp-includes and wp-admin."
+msgstr ""
+
+#: inc/templates/network.php:107
+msgid "Open Robots.txt File"
+msgstr ""
+
+#: inc/templates/network.php:108
+msgid "Fully open robots.txt file, no disallows."
+msgstr ""
+
+#: inc/templates/network.php:111
+msgid "A Bloggers Robots.txt File"
+msgstr ""
+
+#: inc/templates/network.php:112
+msgid "Optimized for blog focused WordPress websites."
+msgstr ""
+
+#: inc/templates/network.php:115
+msgid "Google Robots.txt File"
+msgstr ""
+
+#: inc/templates/network.php:116
+msgid "A Google friendly robots.txt file."
+msgstr ""
+
+#: inc/templates/network.php:119
+msgid "Lockdown Robots.txt File"
+msgstr ""
+
+#: inc/templates/network.php:120
+msgid "Disallow everything, prevent spiders from indexing the website."
+msgstr ""
+
+#: inc/templates/network.php:125
+msgid "update robots.txt file"
+msgstr ""
+
+#: inc/templates/network.php:146
+msgid "WARNING: Delete all settings related to the Multisite Robots.txt Manager Plugin across the entire network."
+msgstr ""
+
+#: inc/templates/settings.php:47
+msgid "WARNING"
+msgstr ""
+
+#: inc/templates/settings.php:47
+msgid "The Default WordPress Robots.txt File Is Current Displaying! Update the append rules to enable the robots.txt manager for this website."
+msgstr ""
+
+#: inc/templates/settings.php:54
+msgid "Robots.txt Custom Append Rules"
+msgstr ""
+
+#: inc/templates/settings.php:55
+msgid "The custom append rules below will replace the {APPEND_WEBSITE_ROBOTSTXT} marker from the network robots.txt file, potentially creating a unique robots.txt file for this website."
+msgstr ""
+
+#: inc/templates/settings.php:55
+msgid "View robots.txt file"
+msgstr ""
+
+#: inc/templates/settings.php:66
+msgid "update append rules"
+msgstr ""
+
+#: inc/templates/settings.php:72
+msgid "Manual Rule Suggestions"
+msgstr ""
+
+#: inc/templates/settings.php:73
+msgid "The rules below will need to be manually added to the end of the robots.txt file."
+msgstr ""
+
+#: inc/templates/settings.php:77
+msgid "Upload Path"
+msgstr ""
+
+#: inc/templates/settings.php:81
+msgid "Theme Path"
+msgstr ""
+
+#: inc/templates/settings.php:85
+msgid "Sitemap URL"
+msgstr ""
+
+#: inc/templates/settings.php:99
+msgid "Live Robots.txt File"
+msgstr ""
+
+#: inc/templates/settings.php:116
+msgid "Current Network Robots.txt File"
+msgstr ""
+
+#: inc/templates/settings.php:146
+msgid "Restore the default WordPress robots.txt file on this website."
+msgstr ""
+
+#: inc/templates/sidebar.php:35
+msgid "Automate Plugin"
+msgstr ""
+
+#: inc/templates/sidebar.php:37
+msgid "Plugin Home Page"
+msgstr ""
+
+#: inc/templates/sidebar.php:38
+msgid "Contact Support"
+msgstr ""
+
+#: inc/templates/sidebar.php:39
+msgid "Bugs & Feature Request"
+msgstr ""
+
+#: inc/templates/sidebar.php:40
+msgid "WordPress Forum"
+msgstr ""
+
+#: inc/templates/sidebar.php:46
+msgid "Pro Automation Plugin!"
+msgstr ""
+
+#: inc/templates/sidebar.php:49
+msgid "Please Rate This Plugin At Wordpress.org!"
+msgstr ""
+
+#: inc/templates/sidebar.php:52
+msgid "Robots.txt Help"
+msgstr ""
+
+#: inc/templates/sidebar.php:56
+msgid "Robots.txt Optimization Tips"
+msgstr ""
+
+#: inc/templates/sidebar.php:57
+msgid "AskAapche Robots.txt Example"
+msgstr ""
+
+#: inc/templates/sidebar.php:58
+msgid "Google Robots.txt F.A.Q."
+msgstr ""
+
+#: inc/templates/sidebar.php:59
+msgid "Robots.txt Specifications"
+msgstr ""
+
+#: inc/templates/sidebar.php:60
+msgid "Web Robots Database"
+msgstr ""
