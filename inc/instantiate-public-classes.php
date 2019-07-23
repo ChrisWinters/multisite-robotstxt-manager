@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Public Facing Class Instances
  *
@@ -9,10 +8,12 @@
  * @license    GNU GPLv3
  * @link       /LICENSE
  */
+
 namespace MsRobotstxtManager;
 
 if ( false === defined( 'ABSPATH' ) ) {
-    exit;
+	exit;
 }
+
 // Display Robots.txt File.
 $ms_robotstxt_manager_robotstxt = new \MsRobotstxtManager\Robotstxt();
