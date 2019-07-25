@@ -24,6 +24,7 @@ if ( false === defined( 'ABSPATH' ) ) {
 <h2><span class="dashicons dashicons-admin-site-alt3 mt-1 pt-1"></span> <?php esc_html_e( 'Multisite Robots.txt Manager', 'multisite-robotstxt-manager' ); ?> &#8594; <small><?php esc_html_e( 'A Multisite Robots.txt Manager Plugin For WordPress.', 'multisite-robotstxt-manager' ); ?></small></h2>
 <?php
 require_once dirname( MS_ROBOTSTXT_MANAGER_FILE ) . '/inc/templates/notice.php';
+require_once dirname( MS_ROBOTSTXT_MANAGER_FILE ) . '/inc/templates/upgrade.php';
 
 /*
  * Sanitizes content for allowed HTML tags for post content.

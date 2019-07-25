@@ -160,6 +160,7 @@ final class Plugin_Admin {
 			}
 
 			$network_robotstxt = $option->get_site_setting( 'robotstxt' );
+			$network_upgrade   = $option->get_site_setting( 'upgraded' );
 
 			$sdk = $option->get_site_setting( 'sdk_action' );
 		}

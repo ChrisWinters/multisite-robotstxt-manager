@@ -112,6 +112,14 @@ final class Plugin_Admin_Notices {
 				'Default WordPress robots.txt file restored.',
 				'includes'
 			),
+			'upgraded_already'     => __(
+				'Plugin has already been upgraded.',
+				'includes'
+			),
+			'upgrade_success'      => __(
+				'Plugin upgraded. Please check the saved rules to ensure everything is correct.',
+				'includes'
+			),
 		];
 
 		if ( true !== empty( $messages[ $message ] ) ) {

@@ -19,11 +19,7 @@ if ( true !== is_network_admin() ) {
 	return;
 }
 
-if ( true !== empty( $sdk ) ) {
-	return;
-}
-
-if ( true !== $network_upgrade || 'delete' === $network_upgrade ) {
+if ( true === $network_upgrade ) {
 	return;
 }
 
@@ -53,11 +49,14 @@ wp_nonce_field(
  * https://developer.wordpress.org/reference/functions/esc_html_e/
  */
 ?>
-	<input type="hidden" name="action" value="sdk" />
-		<p><?php esc_html_e( 'Never miss an important update! Opt-in to our security and feature update notifications, and non-sensitive diagnostic tracking with freemius.', 'multisite-robotstxt-manager' ); ?></p>
+	<input type="hidden" name="action" value="upgrade" />
+		<p><?php esc_html_e( 'Notice! Plugin setting migration upgrade avaiable. Click the Migrate button below to maybe migrate old settings over, or click the dismiss button to ignore and remove this message.', 'multisite-robotstxt-manager' ); ?></p>
 		<p>
-			<button class="button button-primary" role="button" type="submit" name="optin" value="1"><?php esc_html_e( 'Opt-In', 'multisite-robotstxt-manager' ); ?></button>
-			<a class="button button-secondary" href="#" role="button"><?php esc_html_e( 'Learn More', 'multisite-robotstxt-manager' ); ?></a>
+			<?php if ( 'delete' === $network_upgrade ) { ?>
+				<button class="button button-primary" role="button" type="submit" name="delete" value="1"><?php esc_html_e( 'Delete Old Settings', 'multisite-robotstxt-manager' ); ?></button>
+			<?php } else { ?>
+				<button class="button button-primary" role="button" type="submit" name="migrate" value="1"><?php esc_html_e( 'Migrate', 'multisite-robotstxt-manager' ); ?></button>
+			<?php } ?>
 			<button class="button button-secondary float-right" role="button" type="submit" name="dismiss" value="1"><?php esc_html_e( 'Dismiss', 'multisite-robotstxt-manager' ); ?></button>
 		</p>
 	</form>

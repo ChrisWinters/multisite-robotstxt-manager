@@ -61,6 +61,7 @@ final class Do_Member_Robotstxt_Build {
 	 */
 	public $build_robotstxt = [];
 
+
 	/**
 	 * Setup Class
 	 *
@@ -160,4 +161,5 @@ final class Do_Member_Robotstxt_Build {
 			$this->admin_notices->add_notice( 'success', 'member_updated', 'network' );
 		}
 	}
+
 }//end class

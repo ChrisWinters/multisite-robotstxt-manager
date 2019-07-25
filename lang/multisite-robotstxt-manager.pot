@@ -28,15 +28,15 @@ msgstr ""
 msgid "Robots.txt Manager"
 msgstr ""
 
-#: inc/classes/class-plugin-admin.php:197
+#: inc/classes/class-plugin-admin.php:198
 msgid "Settings"
 msgstr ""
 
-#: inc/classes/class-plugin-admin.php:209
+#: inc/classes/class-plugin-admin.php:210
 msgid "Network"
 msgstr ""
 
-#: inc/classes/class-plugin-admin.php:210
+#: inc/classes/class-plugin-admin.php:211
 msgid "Cleaner"
 msgstr ""
 
@@ -232,19 +232,19 @@ msgstr ""
 msgid "WARNING: Delete all settings related to the Multisite Robots.txt Manager Plugin across the entire network."
 msgstr ""
 
-#: inc/templates/notice.php:53
+#: inc/templates/notice.php:57
 msgid "Never miss an important update! Opt-in to our security and feature update notifications, and non-sensitive diagnostic tracking with freemius."
 msgstr ""
 
-#: inc/templates/notice.php:55
+#: inc/templates/notice.php:59
 msgid "Opt-In"
 msgstr ""
 
-#: inc/templates/notice.php:56
+#: inc/templates/notice.php:60
 msgid "Learn More"
 msgstr ""
 
-#: inc/templates/notice.php:57
+#: inc/templates/notice.php:61, inc/templates/upgrade.php:60
 msgid "Dismiss"
 msgstr ""
 
@@ -362,4 +362,16 @@ msgstr ""
 
 #: inc/templates/sidebar.php:76
 msgid "Web Robots Database"
+msgstr ""
+
+#: inc/templates/upgrade.php:53
+msgid "Notice! Plugin setting migration upgrade avaiable. Click the Migrate button below to maybe migrate old settings over, or click the dismiss button to ignore and remove this message."
+msgstr ""
+
+#: inc/templates/upgrade.php:56
+msgid "Delete Old Settings"
+msgstr ""
+
+#: inc/templates/upgrade.php:58
+msgid "Migrate"
 msgstr ""

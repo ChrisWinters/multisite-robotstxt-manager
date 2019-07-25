@@ -1,5 +1,10 @@
 # Changelog
 
+# 2.0.1
+**2019-07-25 - Hotfix**
+
+* Created manual upgrade and delete old settings notice.
+
 # 2.0.0
 **2019-07-22 - Release**
 

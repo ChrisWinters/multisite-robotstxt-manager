@@ -20,6 +20,10 @@ if ( false === defined( 'ABSPATH' ) ) {
  * https://developer.wordpress.org/reference/functions/is_network_admin/
  */
 if ( true === is_network_admin() ) {
+	// Maybe Upgrade Plugin.
+	$ms_robotstxt_upgrade = new \MsRobotstxtManager\Plugin_Upgrade( $ms_robotstxt_manager_post_object );
+	$ms_robotstxt_upgrade->init();
+
 	// SDK: Save Dismiss Status.
 	$ms_robotstxt_manager_sdk = new \MsRobotstxtManager\Do_Save_Sdk( $ms_robotstxt_manager_post_object );
 	$ms_robotstxt_manager_sdk->init();
