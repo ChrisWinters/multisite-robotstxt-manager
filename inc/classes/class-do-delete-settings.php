@@ -101,7 +101,7 @@ final class Do_Delete_Settings {
 
 		// Set Disable Marker For Website.
 		if ( 'delete' === $this->post_action ) {
-			$this->delete_website();
+			$this->do_delete();
 		}
 	}//end update()
 
@@ -109,12 +109,31 @@ final class Do_Delete_Settings {
 	/**
 	 * Init Delete
 	 */
-	private function delete_website() {
-		$this->option_manager->delete_option();
+	private function do_delete() {
+		/*
+		 * Retrieves a list of sites matching requested arguments.
+		 * https://developer.wordpress.org/reference/functions/get_sites/
+		 */
+		foreach ( get_sites() as $website ) {
+			/*
+			 * Switch the current blog.
+			 * https://developer.wordpress.org/reference/functions/switch_to_blog/
+			 */
+			switch_to_blog( $website->blog_id );
+
+			$this->option_manager->delete_option();
+
+			/*
+			 * Restore the current blog, after calling switch_to_blog.
+			 * https://developer.wordpress.org/reference/functions/restore_current_blog/
+			 */
+			restore_current_blog();
+		}
+
 		$this->option_manager->delete_site_option();
 
 		if ( true === empty( $this->option_manager->get_option() ) && true === empty( $this->option_manager->get_site_option() ) ) {
 			$this->admin_notices->add_notice( 'success', 'delete_success', 'network' );
 		}
-	}//end delete_website()
+	}//end do_delete()
 }//end class

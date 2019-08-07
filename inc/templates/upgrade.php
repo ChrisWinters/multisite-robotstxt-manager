@@ -50,7 +50,7 @@ wp_nonce_field(
  */
 ?>
 	<input type="hidden" name="action" value="upgrade" />
-		<p><?php esc_html_e( 'Notice! Plugin setting migration upgrade avaiable. Click the Migrate button below to maybe migrate old settings over, or click the dismiss button to ignore and remove this message.', 'multisite-robotstxt-manager' ); ?></p>
+		<p><?php esc_html_e( 'Notice! - Possible Setting Migration Needed! NEW INSTALLS CAN DISMISS THIS NOTICE! Click the Migrate button below to maybe migrate old plugin settings to the new format, or click the dismiss button to ignore and remove this message. (This message will be removed in the next major version release.)', 'multisite-robotstxt-manager' ); ?></p>
 		<p>
 			<?php if ( 'delete' === $network_upgrade ) { ?>
 				<button class="button button-primary" role="button" type="submit" name="delete" value="1"><?php esc_html_e( 'Delete Old Settings', 'multisite-robotstxt-manager' ); ?></button>

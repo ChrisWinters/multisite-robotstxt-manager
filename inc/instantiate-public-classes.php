@@ -15,5 +15,8 @@ if ( false === defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+// Loads Translated Strings.
+$translate = new \MsRobotstxtManager\Translate();
+
 // Display Robots.txt File.
-$ms_robotstxt_manager_robotstxt = new \MsRobotstxtManager\Robotstxt();
+$robotstxt = new \MsRobotstxtManager\Robotstxt();

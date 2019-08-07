@@ -151,7 +151,7 @@ final class Do_Robotstxt_Cleaner {
 			$this->option_manager->update_option( [ 'checkdata' => 'error' ] );
 			$message = true;
 		} else {
-			$this->option_manager->del_setting( 'checkdata' );
+			$this->option_manager->delete_setting( 'checkdata' );
 		}
 
 		if ( true === $message ) {
@@ -192,7 +192,7 @@ final class Do_Robotstxt_Cleaner {
 			$this->option_manager->update_option( [ 'checkphysical' => 'error' ] );
 			$message = true;
 		} else {
-			$this->option_manager->del_setting( 'checkphysical' );
+			$this->option_manager->delete_setting( 'checkphysical' );
 		}
 
 		if ( true === $message ) {
@@ -214,7 +214,7 @@ final class Do_Robotstxt_Cleaner {
 
 		// Robots.txt File Found.
 		if ( true === file_exists( get_home_path() . 'robots.txt' ) ) {
-			$this->option_manager->del_setting( 'checkphysical' );
+			$this->option_manager->delete_setting( 'checkphysical' );
 			$this->admin_notices->add_notice( 'error', 'checkphysical_error', 'network' );
 		} else {
 			$this->checkphysical();
@@ -241,7 +241,7 @@ final class Do_Robotstxt_Cleaner {
 			$this->option_manager->update_option( [ 'checkrewrite' => 'error' ] );
 			$message = true;
 		} else {
-			$this->option_manager->del_setting( 'checkrewrite' );
+			$this->option_manager->delete_setting( 'checkrewrite' );
 		}
 
 		if ( true === $message ) {

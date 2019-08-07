@@ -183,6 +183,13 @@ final class Plugin_Upgrade {
 			// Set Upgrade Delte Marker & Send Notice.
 			$this->option_manager->update_site_setting( 'upgraded', 'delete' );
 			$this->admin_notices->add_notice( 'success', 'upgrade_success', 'network' );
+			return;
+		}
+
+		if ( true === empty( $network_robotstxt['robotstxt'] ) ) {
+			$this->option_manager->update_site_setting( 'upgraded', true );
+			$this->admin_notices->add_notice( 'success', 'upgraded_already', 'network' );
+			return;
 		}
 	}//end upgrade()
 

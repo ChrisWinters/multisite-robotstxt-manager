@@ -1,5 +1,18 @@
 # Changelog
 
+# 2.0.2
+**2019-08-07 - Hotfix**
+
+* Removed plugin-activation level upgrade in favor of manual upgrade
+* Moved admin/network/public class includes into plugins_loaded hook
+* Modified class-translate.php to use new translation call format
+* Modified sidebar hardcoded images to use plugin_dir_url()
+* Modified plugin settings upgrade message for new installs
+* Corrected network delete all settings to correctly delete all settings
+* Corrected function call in class-do-network-robotstxt-build.php
+* Corrected function call in class-do-robotstxt-cleaner.php
+* Corrected bump.js gulp task
+
 # 2.0.1
 **2019-07-25 - Hotfix**
 
@@ -37,12 +50,12 @@
 
 * Fixed: Bad method call in class-cleaner.php.
 * Fixed: Multiple incorrect update_option formats.
-* Fixed: Network Robots.txt now saves when published | https://github.com/tribalNerd/multisite-robotstxt-manager/issues/5
+* Fixed: Network Robots.txt now saves when published | https://github.com/ChrisWinters/multisite-robotstxt-manager/issues/5
 * Fixed: Removed append marker, if no append rules found.
 * Fixed: Wrapped is_writable() check to physical robots.txt removal.
 * Change: Option names for cleaner, appended cleaner_.
 * Change: Modified update success/fail messages.
-* Change: Deleted uninstall.php | https://github.com/tribalNerd/multisite-robotstxt-manager/issues/6
+* Change: Deleted uninstall.php | https://github.com/ChrisWinters/multisite-robotstxt-manager/issues/6
 
 # 1.0.8
 

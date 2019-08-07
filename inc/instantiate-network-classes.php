@@ -21,10 +21,10 @@ if ( false === defined( 'ABSPATH' ) ) {
  */
 if ( true === is_network_admin() ) {
 	// Maybe Upgrade Plugin.
-	$ms_robotstxt_upgrade = new \MsRobotstxtManager\Plugin_Upgrade( $ms_robotstxt_manager_post_object );
-	$ms_robotstxt_upgrade->init();
+	$maybe_upgrade_plugin = new \MsRobotstxtManager\Plugin_Upgrade( $post_object );
+	$maybe_upgrade_plugin->init();
 
 	// SDK: Save Dismiss Status.
-	$ms_robotstxt_manager_sdk = new \MsRobotstxtManager\Do_Save_Sdk( $ms_robotstxt_manager_post_object );
-	$ms_robotstxt_manager_sdk->init();
+	$freemius = new \MsRobotstxtManager\Do_Save_Sdk( $post_object );
+	$freemius->init();
 }

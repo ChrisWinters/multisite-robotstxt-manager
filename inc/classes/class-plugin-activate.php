@@ -41,9 +41,6 @@ final class Plugin_Activate {
 			wp_die( esc_html__( 'WordPress 3.8 is required. Please upgrade WordPress and try again.', 'multisite-robotstxt-manager' ) );
 		}
 
-		// Maybe Upgade Robots.txt Manager Plugin.
-		self::upgrade_plugin();
-
 		// Maybe Save Robots.txt As Plugin Robots.txt.
 		self::set_robotstxt();
 
@@ -106,77 +103,4 @@ final class Plugin_Activate {
 
 		return $robotstxt;
 	}//end get_website_robotstxt()
-
-
-	/**
-	 * Maybe Upgade Robots.txt Manager Plugin
-	 */
-	public static function upgrade_plugin() {
-		$network_robotstxt = get_option( 'ms_robotstxt_manager_network_robotstxt' );
-
-		if ( true !== empty( $network_robotstxt['robotstxt'] ) ) {
-			update_site_option(
-				MS_ROBOTSTXT_MANAGER_PLUGIN_NAME,
-				[
-					'robotstxt' => $network_robotstxt['robotstxt'],
-				]
-			);
-
-			delete_option( 'ms_robotstxt_manager_network_robotstxt' );
-			delete_option( 'ms_robotstxt_manager_network_preset' );
-			delete_option( 'ms_robotstxt_manager_network_status' );
-			delete_option( 'ms_robotstxt_manager_settings' );
-			delete_option( 'ms_robotstxt_manager_cleaner_old_data' );
-			delete_option( 'ms_robotstxt_manager_cleaner_physical' );
-			delete_option( 'ms_robotstxt_manager_cleaner_rewrite' );
-			delete_option( 'msrtm_settings' );
-
-			$option_array = [];
-
-			/*
-			 * Retrieves a list of sites matching requested arguments.
-			 * https://developer.wordpress.org/reference/functions/get_sites/
-			 */
-			foreach ( get_sites() as $website ) {
-				/*
-				 * Switch the current blog.
-				 * https://developer.wordpress.org/reference/functions/switch_to_blog/
-				 */
-				switch_to_blog( $website->blog_id );
-
-				$website_robotstxt    = get_option( 'ms_robotstxt_manager_robotstxt' );
-				$website_append_rules = get_option( 'ms_robotstxt_manager_append' );
-
-				if ( true !== empty( $website_robotstxt['robotstxt'] ) ) {
-					$option_array['robotstxt'] = $website_robotstxt['robotstxt'];
-				}
-
-				if ( true !== empty( $website_append_rules['robotstxt'] ) ) {
-					$option_array['append'] = $website_append_rules['robotstxt'];
-				}
-
-				if ( true === get_option( 'ms_robotstxt_manager_status' ) ) {
-					$option_array['disable'] = true;
-				}
-
-				if ( true !== empty( $option_array ) ) {
-					update_option(
-						MS_ROBOTSTXT_MANAGER_PLUGIN_NAME,
-						$option_array
-					);
-				}
-
-				delete_option( 'ms_robotstxt_manager_robotstxt' );
-				delete_option( 'ms_robotstxt_manager_status' );
-				delete_option( 'ms_robotstxt_manager_append' );
-				delete_option( 'ms_robotstxt_manager_default' );
-
-				/*
-				 * Restore the current blog, after calling switch_to_blog.
-				 * https://developer.wordpress.org/reference/functions/restore_current_blog/
-				 */
-				restore_current_blog();
-			}
-		}
-	}//end upgrade_plugin()
 }//end class

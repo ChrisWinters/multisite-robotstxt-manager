@@ -16,12 +16,11 @@ if ( false === file_exists( dirname( MS_ROBOTSTXT_MANAGER_FILE ) . '/sdk/freemiu
 if ( true === function_exists( 'msrtm_fs' ) ) {
 	msrtm_fs()->set_basename( true, MS_ROBOTSTXT_MANAGER_FILE );
 } elseif ( false === function_exists( 'msrtm_fs' ) ) {
-
 	/**
 	 * Freemius Integration
 	 */
 	function msrtm_fs() {
-		global  $msrtm_fs;
+		global $msrtm_fs;
 
 		if ( false === isset( $msrtm_fs ) ) {
 			if ( false === defined( 'WP_FS__PRODUCT_4131_MULTISITE' ) ) {

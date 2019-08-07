@@ -15,16 +15,16 @@ if ( false === defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-use  MsRobotstxtManager\Trait_Security_Check as TraitSecurityCheck;
-use  MsRobotstxtManager\Plugin_Admin_Notices as PluginAdminNotices;
-use  MsRobotstxtManager\Do_Build_Robotstxt as DoBuildRobotstxt;
-use  MsRobotstxtManager\Option_Manager as OptionManager;
+use MsRobotstxtManager\Trait_Security_Check as TraitSecurityCheck;
+use MsRobotstxtManager\Plugin_Admin_Notices as PluginAdminNotices;
+use MsRobotstxtManager\Do_Build_Robotstxt as DoBuildRobotstxt;
+use MsRobotstxtManager\Option_Manager as OptionManager;
 
 /**
  * Build Robots.txt File Across All Member Sites.
  */
 final class Do_Member_Robotstxt_Build {
-	use  TraitSecurityCheck;
+	use TraitSecurityCheck;
 
 	/**
 	 * Plugin Admin Post Object.
@@ -92,7 +92,13 @@ final class Do_Member_Robotstxt_Build {
 		 * Fires as an admin screen or script is being initialized.
 		 * https://developer.wordpress.org/reference/hooks/admin_init/
 		 */
-		add_action( 'admin_init', [ $this, 'update' ] );
+		add_action(
+			'admin_init',
+			[
+				$this,
+				'update',
+			]
+		);
 	}//end init()
 
 
@@ -160,6 +166,5 @@ final class Do_Member_Robotstxt_Build {
 		if ( true === $message ) {
 			$this->admin_notices->add_notice( 'success', 'member_updated', 'network' );
 		}
-	}
-
+	}//end member_robotstxt_build()
 }//end class

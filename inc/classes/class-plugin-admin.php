@@ -159,11 +159,12 @@ final class Plugin_Admin {
 				$checkrewrite  = $option->get_setting( 'checkrewrite' );
 			}
 
-			$network_robotstxt = $option->get_site_setting( 'robotstxt' );
-			$network_upgrade   = $option->get_site_setting( 'upgraded' );
+			$network_upgrade = $option->get_site_setting( 'upgraded' );
 
 			$sdk = $option->get_site_setting( 'sdk_action' );
 		}
+
+		$network_robotstxt = $option->get_site_setting( 'robotstxt' );
 
 		include_once $dir . '/inc/templates/header.php';
 

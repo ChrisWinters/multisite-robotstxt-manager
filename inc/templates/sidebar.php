@@ -59,10 +59,10 @@ if ( false === defined( 'ABSPATH' ) ) {
 </div> <!-- end postbox -->
 
 <?php if ( msrtm_fs()->is_not_paying() ) { ?>
-<p><a href="<?php echo esc_url( network_site_url( 'wp-admin/network' ) ); ?>/settings.php?page=multisite-robotstxt-manager-pricing"><img src="<?php echo esc_url( home_url() ); ?>/wp-content/plugins/multisite-robotstxt-manager/assets/images/sidebar_pro-plugin.gif" alt="<?php esc_html_e( 'Pro Automation Plugin!', 'multisite-robotstxt-manager' ); ?>" /></a></p>
+<p><a href="<?php echo esc_url( network_site_url( 'wp-admin/network' ) ); ?>/settings.php?page=multisite-robotstxt-manager-pricing"><img src="<?php echo esc_url( plugin_dir_url( MS_ROBOTSTXT_MANAGER_FILE ) ); ?>/assets/images/sidebar_pro-plugin.gif" alt="<?php esc_html_e( 'Pro Automation Plugin!', 'multisite-robotstxt-manager' ); ?>" /></a></p>
 <?php } ?>
 
-<p><a href="https://wordpress.org/support/plugin/multisite-robotstxt-manager/reviews/?rate=5#new-post" target="_blank"><img src="<?php echo esc_url( home_url() ); ?>/wp-content/plugins/multisite-robotstxt-manager/assets/images/sidebar_rate-plugin.gif" alt="<?php esc_html_e( 'Please Rate This Plugin At Wordpress.org!', 'multisite-robotstxt-manager' ); ?>" /></a></p>
+<p><a href="https://wordpress.org/support/plugin/multisite-robotstxt-manager/reviews/?rate=5#new-post" target="_blank"><img src="<?php echo esc_url( plugin_dir_url( MS_ROBOTSTXT_MANAGER_FILE ) ); ?>/assets/images/sidebar_rate-plugin.gif" alt="<?php esc_html_e( 'Please Rate This Plugin At Wordpress.org!', 'multisite-robotstxt-manager' ); ?>" /></a></p>
 
 <div class="postbox">
 	<div class="h5 p-1 font-weight-bold"><?php esc_html_e( 'Robots.txt Help', 'multisite-robotstxt-manager' ); ?></div>

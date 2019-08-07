@@ -16,24 +16,47 @@ if ( false === defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Loads Translated Strings
+ * Load Plugin Translation Strings & .mo File
  */
 final class Translate {
 	/**
-	 * Init Class
+	 * Maybe Init Translate
 	 */
-	public function __construct() {
-		add_action( 'init', [ $this, 'textdomain' ] );
-	}
+	public static function init() {
+		/*
+		 * Call the functions added to a filter hook.
+		 * https://developer.wordpress.org/reference/functions/apply_filters/
+		 *
+		 * Retrieves the current locale.
+		 * https://developer.wordpress.org/reference/functions/get_locale/
+		 */
+		$get_locale = apply_filters(
+			'plugin_locale',
+			get_locale(),
+			MS_ROBOTSTXT_MANAGER_PLUGIN_NAME
+		);
 
+		$load_mo_file = MS_ROBOTSTXT_MANAGER_PLUGIN_DIR . '/lang/' . $get_locale . '.mo';
 
-	/**
-	 * Load Plugin Textdomain
-	 */
-	public function textdomain() {
-		$domain = MS_ROBOTSTXT_MANAGER_PLUGIN_NAME;
-		$locale = apply_filters( 'plugin_locale', get_locale(), $domain );
-		load_textdomain( $domain, trailingslashit( WP_LANG_DIR ) . $domain . '/' . $domain . '-' . $locale . '.mo' );
-		load_plugin_textdomain( $domain, false, basename( dirname( __FILE__ ) ) . '/lang/' );
+		if ( true === file_exists( $load_mo_file ) ) {
+			/*
+			 * Load a .mo file into the text domain $textdomain.
+			 * https://developer.wordpress.org/reference/functions/load_textdomain/
+			 */
+			load_textdomain(
+				MS_ROBOTSTXT_MANAGER_PLUGIN_NAME,
+				$load_mo_file
+			);
+		}
+
+		/*
+		 * Loads a plugin’s translated strings.
+		 * https://developer.wordpress.org/reference/functions/load_plugin_textdomain/
+		 */
+		load_plugin_textdomain(
+			MS_ROBOTSTXT_MANAGER_PLUGIN_NAME,
+			false,
+			MS_ROBOTSTXT_MANAGER_FILE . '/lang/'
+		);
 	}
 }//end class
