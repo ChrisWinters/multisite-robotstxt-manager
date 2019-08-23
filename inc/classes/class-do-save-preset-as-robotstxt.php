@@ -241,7 +241,8 @@ final class Do_Save_Preset_As_Robotstxt {
 	private function open_robotstxt() {
 		$txt  = "# robots.txt\n";
 		$txt .= "User-agent: *\n";
-		$txt .= 'Disallow:';
+		$txt .= "Disallow:\n";
+		$txt .= '{APPEND_WEBSITE_ROBOTSTXT}';
 
 		return $txt;
 	}

@@ -1,5 +1,13 @@
 # Changelog
 
+# 2.0.3
+**2019-08-88 - Hotfix**
+
+* Corrected class-do-build-robotstxt.php array pairs for class-option-manager.php
+* Corrected class-option-manager.php to correctly checking for array key before building the array
+* Moved robotstxt build call in class-do-save-append-rules.php to fire only if the setting was updated
+* Added {APPEND_WEBSITE_ROBOTSTXT} to open robots.txt file within class-do-save-preset-as-robotstxt.php
+
 # 2.0.2
 **2019-08-07 - Hotfix**
 

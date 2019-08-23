@@ -4,7 +4,7 @@ Contributors: tribalNerd, Chris Winters, freemius
 Tags: robotstxt, robots.txt, robots, robot, spiders, virtual, search, google, seo, plugin, network, mu, multisite, technerdia, tribalnerd
 Requires at least: 3.8
 Tested up to: 5.2.2
-Stable tag: 2.0.2
+Stable tag: 2.0.3
 License: GNU GPLv3
 License URI: https://github.com/ChrisWinters/multisite-robotstxt-manager/blob/master/LICENSE
 
@@ -263,9 +263,9 @@ For "real" Multisite HOST Networks, use the WordPress plugin: BWP Google XML Sit
 
 == Changelog ==
 
-= 2.0.2 =
-* Released: 2019-08-07
-* Changelog: https://github.com/ChrisWinters/multisite-robotstxt-manager/blob/master/CHANGELOG.md#202
+= 2.0.3 =
+* Released: 2019-08-22
+* Changelog: https://github.com/ChrisWinters/multisite-robotstxt-manager/blob/master/CHANGELOG.md#203
 
 
 

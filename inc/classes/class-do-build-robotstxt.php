@@ -63,11 +63,6 @@ final class Do_Build_Robotstxt {
 
 		$website_option = $this->option_manager->get_option();
 
-		// Ignore If Disabled.
-		if ( true !== empty( $website_option['disable'] ) ) {
-			return;
-		}
-
 		$network_robotstxt_file = $this->option_manager->get_site_option();
 
 		// Return Default WordPress Robots.txt File.
@@ -141,17 +136,15 @@ final class Do_Build_Robotstxt {
 	 * @param array  $website_option Current Plugin Option Data.
 	 * @param string $robotstxt_file Robots.txt File To Save.
 	 */
-	private function update_robotstxt( $website_option = [], $robotstxt_file = '' ) {
-		if ( true !== empty( $robotstxt_file ) ) {
-			// Remove Robots.txt If Set.
-			if ( true !== empty( $website_option['robotstxt'] ) ) {
-				unset( $website_option['robotstxt'] );
-			}
-
-			// Set Robots.txt File.
-			$website_option['robotstxt'] = $robotstxt_file;
-
-			$this->option_manager->update_option( $website_option );
+	private function update_robotstxt( $website_option = '', $robotstxt_file = '' ) {
+		if ( true === empty( $website_option ) ) {
+			$website_option = [];
 		}
+
+		if ( true === is_array( $website_option ) && true === array_key_exists( 'robotstxt', $website_option ) ) {
+			unset( $website_option['robotstxt'] );
+		}
+
+		$this->option_manager->update_option( array_merge( [ 'robotstxt' => $robotstxt_file ], $website_option ) );
 	}//end update_robotstxt()
 }//end class

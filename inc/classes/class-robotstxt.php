@@ -34,6 +34,24 @@ final class Robotstxt {
 	 */
 	private function robotstxt() {
 		/*
+		 * If Multisite is enabled.
+		 * https://developer.wordpress.org/reference/functions/is_multisite/
+		 */
+		if ( true === is_multisite() ) {
+			/*
+			 * Retrieve the current site ID.
+			 * https://developer.wordpress.org/reference/functions/get_current_blog_id/
+			 */
+			$site_id = get_current_blog_id();
+
+			/*
+			 * Switch the current blog.
+			 * https://developer.wordpress.org/reference/functions/switch_to_blog/
+			 */
+			switch_to_blog( $site_id );
+		}
+
+		/*
 		 * Retrieves an option value based on an option name.
 		 * https://developer.wordpress.org/reference/functions/get_option/
 		 */

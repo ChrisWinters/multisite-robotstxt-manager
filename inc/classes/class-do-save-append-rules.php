@@ -134,10 +134,10 @@ final class Do_Save_Append_Rules {
 		// Remove Disable Marker.
 		$this->option_manager->delete_setting( 'disable' );
 
-		// Build Robots.txt Files.
-		$this->build_robotstxt->init();
-
 		if ( true === $message ) {
+			// Build Robots.txt Files.
+			$this->build_robotstxt->init();
+
 			$this->admin_notices->add_notice( 'success', 'append_success' );
 		}
 	}//end save_append_rules()

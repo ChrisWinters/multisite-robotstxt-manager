@@ -58,6 +58,21 @@ if ( false === defined( 'ABSPATH' ) ) {
 </div></div> <!-- end inside-pad & inside -->
 </div> <!-- end postbox -->
 
+<div class="postbox">
+	<div class="h5 p-1 font-weight-bold"><?php esc_html_e( 'Notice', 'multisite-robotstxt-manager' ); ?>:</div>
+<div class="inside" style="clear:both;padding-top:1px;"><div class="para">
+
+	<?php esc_html_e( 'Please report any issues, bugs, or problems you have - your help is greatly appreciated.', 'multisite-robotstxt-manager' ); ?>
+
+	<ul>
+		<li><a href="<?php echo esc_url( network_site_url( 'wp-admin/network' ) ); ?>/settings.php?page=multisite-robotstxt-manager-contact"><?php esc_html_e( 'Direct Email', 'multisite-robotstxt-manager' ); ?></a></li>
+		<li><a href="https://github.com/ChrisWinters/multisite-robotstxt-manager/issues" target="_blank"><?php esc_html_e( 'Github Issues', 'multisite-robotstxt-manager' ); ?></a></li>
+		<li><a href="https://wordpress.org/support/plugin/multisite-robotstxt-manager/" target="_blank"><?php esc_html_e( 'WordPress Forum', 'multisite-robotstxt-manager' ); ?></a></li>
+	</ul>
+
+</div></div> <!-- end inside-pad & inside -->
+</div> <!-- end postbox -->
+
 <?php if ( msrtm_fs()->is_not_paying() ) { ?>
 <p><a href="<?php echo esc_url( network_site_url( 'wp-admin/network' ) ); ?>/settings.php?page=multisite-robotstxt-manager-pricing"><img src="<?php echo esc_url( plugin_dir_url( MS_ROBOTSTXT_MANAGER_FILE ) ); ?>/assets/images/sidebar_pro-plugin.gif" alt="<?php esc_html_e( 'Pro Automation Plugin!', 'multisite-robotstxt-manager' ); ?>" /></a></p>
 <?php } ?>

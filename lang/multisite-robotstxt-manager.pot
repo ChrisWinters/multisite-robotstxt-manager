@@ -28,15 +28,15 @@ msgstr ""
 msgid "Robots.txt Manager"
 msgstr ""
 
-#: inc/classes/class-plugin-admin.php:198
+#: inc/classes/class-plugin-admin.php:199
 msgid "Settings"
 msgstr ""
 
-#: inc/classes/class-plugin-admin.php:210
+#: inc/classes/class-plugin-admin.php:211
 msgid "Network"
 msgstr ""
 
-#: inc/classes/class-plugin-admin.php:211
+#: inc/classes/class-plugin-admin.php:212
 msgid "Cleaner"
 msgstr ""
 
@@ -248,59 +248,59 @@ msgstr ""
 msgid "Dismiss"
 msgstr ""
 
-#: inc/templates/settings.php:47
+#: inc/templates/settings.php:48
 msgid "WARNING"
 msgstr ""
 
-#: inc/templates/settings.php:47
+#: inc/templates/settings.php:48
 msgid "The Default WordPress Robots.txt File Is Current Displaying! Update the append rules to enable the robots.txt manager for this website."
 msgstr ""
 
-#: inc/templates/settings.php:54
+#: inc/templates/settings.php:55
 msgid "Robots.txt Custom Append Rules"
 msgstr ""
 
-#: inc/templates/settings.php:55
+#: inc/templates/settings.php:56
 msgid "The custom append rules below will replace the {APPEND_WEBSITE_ROBOTSTXT} marker from the network robots.txt file, potentially creating a unique robots.txt file for this website."
 msgstr ""
 
-#: inc/templates/settings.php:55
+#: inc/templates/settings.php:56
 msgid "View robots.txt file"
 msgstr ""
 
-#: inc/templates/settings.php:66
+#: inc/templates/settings.php:67
 msgid "update append rules"
 msgstr ""
 
-#: inc/templates/settings.php:72
+#: inc/templates/settings.php:73
 msgid "Manual Rule Suggestions"
 msgstr ""
 
-#: inc/templates/settings.php:73
+#: inc/templates/settings.php:74
 msgid "The rules below will need to be manually added to the end of the robots.txt file."
 msgstr ""
 
-#: inc/templates/settings.php:77
+#: inc/templates/settings.php:78
 msgid "Upload Path"
 msgstr ""
 
-#: inc/templates/settings.php:81
+#: inc/templates/settings.php:82
 msgid "Theme Path"
 msgstr ""
 
-#: inc/templates/settings.php:85
+#: inc/templates/settings.php:86
 msgid "Sitemap URL"
 msgstr ""
 
-#: inc/templates/settings.php:99
+#: inc/templates/settings.php:100
 msgid "Live Robots.txt File"
 msgstr ""
 
-#: inc/templates/settings.php:116
+#: inc/templates/settings.php:117
 msgid "Current Network Robots.txt File"
 msgstr ""
 
-#: inc/templates/settings.php:146
+#: inc/templates/settings.php:147
 msgid "Restore the default WordPress robots.txt file on this website."
 msgstr ""
 
@@ -320,7 +320,7 @@ msgstr ""
 msgid "Contact Support"
 msgstr ""
 
-#: inc/templates/sidebar.php:54
+#: inc/templates/sidebar.php:54, inc/templates/sidebar.php:70
 msgid "WordPress Forum"
 msgstr ""
 
@@ -333,39 +333,55 @@ msgid "Bugs & Feature Requests"
 msgstr ""
 
 #: inc/templates/sidebar.php:62
-msgid "Pro Automation Plugin!"
+msgid "Notice"
 msgstr ""
 
 #: inc/templates/sidebar.php:65
-msgid "Please Rate This Plugin At Wordpress.org!"
+msgid "Please report any issues, bugs, or problems you have - your help is greatly appreciated."
 msgstr ""
 
 #: inc/templates/sidebar.php:68
+msgid "Direct Email"
+msgstr ""
+
+#: inc/templates/sidebar.php:69
+msgid "Github Issues"
+msgstr ""
+
+#: inc/templates/sidebar.php:77
+msgid "Pro Automation Plugin!"
+msgstr ""
+
+#: inc/templates/sidebar.php:80
+msgid "Please Rate This Plugin At Wordpress.org!"
+msgstr ""
+
+#: inc/templates/sidebar.php:83
 msgid "Robots.txt Help"
 msgstr ""
 
-#: inc/templates/sidebar.php:72
+#: inc/templates/sidebar.php:87
 msgid "Robots.txt Optimization Tips"
 msgstr ""
 
-#: inc/templates/sidebar.php:73
+#: inc/templates/sidebar.php:88
 msgid "AskAapche Robots.txt Example"
 msgstr ""
 
-#: inc/templates/sidebar.php:74
+#: inc/templates/sidebar.php:89
 msgid "Google Robots.txt F.A.Q."
 msgstr ""
 
-#: inc/templates/sidebar.php:75
+#: inc/templates/sidebar.php:90
 msgid "Robots.txt Specifications"
 msgstr ""
 
-#: inc/templates/sidebar.php:76
+#: inc/templates/sidebar.php:91
 msgid "Web Robots Database"
 msgstr ""
 
 #: inc/templates/upgrade.php:53
-msgid "Notice! Plugin setting migration upgrade avaiable. Click the Migrate button below to maybe migrate old settings over, or click the dismiss button to ignore and remove this message."
+msgid "Notice! - Possible Setting Migration Needed! NEW INSTALLS CAN DISMISS THIS NOTICE! Click the Migrate button below to maybe migrate old plugin settings to the new format, or click the dismiss button to ignore and remove this message. (This message will be removed in the next major version release.)"
 msgstr ""
 
 #: inc/templates/upgrade.php:56

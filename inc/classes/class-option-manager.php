@@ -155,17 +155,15 @@ class Option_Manager {
 	public function update_setting( $setting_name, $setting_value, $str = '' ) {
 		$get_option = $this->get_option( $str );
 
-		if ( true !== empty( $get_option[ $setting_name ] ) ) {
-			unset( $get_option[ $setting_name ] );
-		}
-
 		if ( true === empty( $get_option ) ) {
 			$get_option = [];
 		}
 
-		$get_option[ $setting_name ] = $setting_value;
+		if ( true === is_array( $get_option ) && true === array_key_exists( $setting_name, $get_option ) ) {
+			unset( $get_option[ $setting_name ] );
+		}
 
-		$this->update_option( $get_option, $str );
+		$this->update_option( array_merge( $get_option, [ $setting_name => $setting_value ] ), $str );
 	}//end update_setting()
 
 
@@ -179,17 +177,15 @@ class Option_Manager {
 	public function update_site_setting( $setting_name, $setting_value, $str = '' ) {
 		$get_option = $this->get_site_option( $str );
 
-		if ( true !== empty( $get_option[ $setting_name ] ) ) {
-			unset( $get_option[ $setting_name ] );
-		}
-
 		if ( true === empty( $get_option ) ) {
 			$get_option = [];
 		}
 
-		$get_option[ $setting_name ] = $setting_value;
+		if ( true === is_array( $get_option ) && true === array_key_exists( $setting_name, $get_option ) ) {
+			unset( $get_option[ $setting_name ] );
+		}
 
-		$this->update_site_option( $get_option, $str );
+		$this->update_site_option( array_merge( $get_option, [ $setting_name => $setting_value ] ), $str );
 	}//end update_site_setting()
 
 
@@ -248,19 +244,19 @@ class Option_Manager {
 
 		$get_option = $this->get_option( $str );
 
-		if ( true === isset( $get_option[ $setting_name ] ) || true !== empty( $get_option[ $setting_name ] ) ) {
+		if ( true === is_array( $get_option ) && true === array_key_exists( $setting_name, $get_option ) ) {
 			unset( $get_option[ $setting_name ] );
-		}
 
-		if ( true !== empty( $get_option ) ) {
-			/*
-			 * Update the value of an option that was already added.
-			 * https://developer.wordpress.org/reference/functions/update_option/
-			 */
-			update_option(
-				MS_ROBOTSTXT_MANAGER_PLUGIN_NAME . $str,
-				$get_option
-			);
+			if ( true !== empty( $get_option ) ) {
+				/*
+				 * Update the value of an option that was already added.
+				 * https://developer.wordpress.org/reference/functions/update_option/
+				 */
+				update_option(
+					MS_ROBOTSTXT_MANAGER_PLUGIN_NAME . $str,
+					$get_option
+				);
+			}
 		}
 
 		if ( true === empty( $get_option ) ) {
