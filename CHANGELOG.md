@@ -1,7 +1,7 @@
 # Changelog
 
 # 2.0.3
-**2019-08-88 - Hotfix**
+**2019-08-22 - Hotfix**
 
 * Corrected class-do-build-robotstxt.php array pairs for class-option-manager.php
 * Corrected class-option-manager.php to correctly checking for array key before building the array
