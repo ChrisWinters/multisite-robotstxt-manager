@@ -60,6 +60,11 @@ wp_nonce_field(
 			<textarea name="append" cols="65" rows="15" class="w-100"><?php echo esc_html( $append_rules ); ?></textarea>
 		</td>
 		</tr>
+		<tr>
+		<td>
+			<p><input type="checkbox" name="override" value="1" id="override" <?php checked( $override , '1' ); ?> /> <label for="override"><?php esc_html_e( 'Check to use the saved data (above) as this websites robots.txt file, overriding the network robots.txt file.', 'multisite-robotstxt-manager' ); ?></label></p>
+		</td>
+		</tr>
 	</tbody>
 </table>
 

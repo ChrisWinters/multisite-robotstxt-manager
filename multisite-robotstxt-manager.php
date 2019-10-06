@@ -4,7 +4,7 @@
  * Plugin URI: https://github.com/ChrisWinters/multisite-robotstxt-manager
  * Description: A Multisite Network Robots.txt Manager. Quickly manage your Network Websites robots.txt files from a single administration area.
  * Tags: robotstxt, robots.txt, robots, robot, spiders, virtual, search, google, seo, plugin, network, wpmu, multisite, technerdia, tribalnerd
- * Version: 2.0.3
+ * Version: 2.1.0
  * License: GNU GPLv3
  * Copyright (c) 2017-2019 Chris Winters
  * Author: tribalNerd, Chris Winters
@@ -26,7 +26,7 @@ if ( false === defined( 'ABSPATH' ) ) {
 
 define( 'MS_ROBOTSTXT_MANAGER_DIR', __DIR__ );
 define( 'MS_ROBOTSTXT_MANAGER_FILE', __FILE__ );
-define( 'MS_ROBOTSTXT_MANAGER_VERSION', '2.0.3' );
+define( 'MS_ROBOTSTXT_MANAGER_VERSION', '2.1.0' );
 define( 'MS_ROBOTSTXT_MANAGER_PLUGIN_DIR', dirname( __FILE__ ) );
 define( 'MS_ROBOTSTXT_MANAGER_PLUGIN_NAME', 'multisite-robotstxt-manager' );
 define( 'MS_ROBOTSTXT_MANAGER_SETTING_PREFIX', 'multisite-robotstxt_manager_' );

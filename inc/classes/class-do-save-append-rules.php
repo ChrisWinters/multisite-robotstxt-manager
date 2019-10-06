@@ -121,14 +121,20 @@ final class Do_Save_Append_Rules {
 	private function save_append_rules() {
 		$message = false;
 
-		if ( true !== empty( $this->post_object ) && true !== empty( $this->post_object['append'] ) ) {
+		if ( true !== empty( $this->post_object['append'] ) ) {
 			$this->option_manager->update_setting( 'append', $this->post_object['append'] );
 			$message = true;
 		}
 
-		if ( true !== empty( $this->post_object ) && true === empty( $this->post_object['append'] ) ) {
+		if ( true === empty( $this->post_object['append'] ) ) {
 			$this->option_manager->delete_setting( 'append' );
 			$message = true;
+		}
+
+		if ( true !== empty( $this->post_object['override'] ) ) {
+			$this->option_manager->update_setting( 'override', 1 );
+		} else {
+			$this->option_manager->delete_setting( 'override' );
 		}
 
 		// Remove Disable Marker.

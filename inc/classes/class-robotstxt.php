@@ -68,6 +68,11 @@ final class Robotstxt {
 			$robotstxt_file = $website_option['robotstxt'];
 		}
 
+		// Override Robots.txt Set, Use Append As Robots.txt File.
+		if ( true !== empty( $website_option['override'] ) ) {
+			$robotstxt_file = $website_option['append'];
+		}
+
 		// Display Robots.txt File.
 		if ( true !== empty( $robotstxt_file ) ) {
 			header( 'Status: 200 OK', true, 200 );

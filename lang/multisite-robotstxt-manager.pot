@@ -28,15 +28,15 @@ msgstr ""
 msgid "Robots.txt Manager"
 msgstr ""
 
-#: inc/classes/class-plugin-admin.php:199
+#: inc/classes/class-plugin-admin.php:200
 msgid "Settings"
 msgstr ""
 
-#: inc/classes/class-plugin-admin.php:211
+#: inc/classes/class-plugin-admin.php:212
 msgid "Network"
 msgstr ""
 
-#: inc/classes/class-plugin-admin.php:212
+#: inc/classes/class-plugin-admin.php:213
 msgid "Cleaner"
 msgstr ""
 
@@ -248,59 +248,63 @@ msgstr ""
 msgid "Dismiss"
 msgstr ""
 
-#: inc/templates/settings.php:48
+#: inc/templates/settings.php:47
 msgid "WARNING"
 msgstr ""
 
-#: inc/templates/settings.php:48
+#: inc/templates/settings.php:47
 msgid "The Default WordPress Robots.txt File Is Current Displaying! Update the append rules to enable the robots.txt manager for this website."
 msgstr ""
 
-#: inc/templates/settings.php:55
+#: inc/templates/settings.php:54
 msgid "Robots.txt Custom Append Rules"
 msgstr ""
 
-#: inc/templates/settings.php:56
+#: inc/templates/settings.php:55
 msgid "The custom append rules below will replace the {APPEND_WEBSITE_ROBOTSTXT} marker from the network robots.txt file, potentially creating a unique robots.txt file for this website."
 msgstr ""
 
-#: inc/templates/settings.php:56
+#: inc/templates/settings.php:55
 msgid "View robots.txt file"
 msgstr ""
 
-#: inc/templates/settings.php:67
+#: inc/templates/settings.php:65
+msgid "Check to use the saved data (above) as this websites robots.txt file, overriding the network robots.txt file."
+msgstr ""
+
+#: inc/templates/settings.php:71
 msgid "update append rules"
 msgstr ""
 
-#: inc/templates/settings.php:73
+#: inc/templates/settings.php:77
 msgid "Manual Rule Suggestions"
 msgstr ""
 
-#: inc/templates/settings.php:74
+#: inc/templates/settings.php:78
 msgid "The rules below will need to be manually added to the end of the robots.txt file."
 msgstr ""
 
-#: inc/templates/settings.php:78
+#: inc/templates/settings.php:82
 msgid "Upload Path"
 msgstr ""
 
-#: inc/templates/settings.php:82
+#: inc/templates/settings.php:86
 msgid "Theme Path"
 msgstr ""
 
-#: inc/templates/settings.php:86
+#: inc/templates/settings.php:90
 msgid "Sitemap URL"
 msgstr ""
 
-#: inc/templates/settings.php:100
+#: inc/templates/settings.php:104
 msgid "Live Robots.txt File"
 msgstr ""
 
-#: inc/templates/settings.php:117
+#: inc/templates/settings.php:121
 msgid "Current Network Robots.txt File"
 msgstr ""
 
-#: inc/templates/settings.php:147
+#: inc/templates/settings.php:151
 msgid "Restore the default WordPress robots.txt file on this website."
 msgstr ""
 

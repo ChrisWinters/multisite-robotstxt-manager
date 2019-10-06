@@ -143,6 +143,7 @@ final class Plugin_Admin {
 			$uploadpath   = $option->get_setting( 'uploadpath' );
 			$themepath    = $option->get_setting( 'themepath' );
 			$sitemapurl   = $option->get_setting( 'sitemapurl' );
+			$override     = $option->get_setting( 'override' );
 
 			$website_robotstxt = $option->get_setting( 'robotstxt' );
 
