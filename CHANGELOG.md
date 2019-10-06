@@ -1,5 +1,15 @@
 # Changelog
 
+# 2.1.0
+**2019-10-06 - Feature**
+
+* Added website override option to ignore network robots.txt file
+
+# 2.0.4
+**2019-08-28 - Hotfix**
+
+* Removed Freemius nag notice.
+
 # 2.0.3
 **2019-08-22 - Hotfix**
 
