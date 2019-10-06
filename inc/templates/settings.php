@@ -60,11 +60,13 @@ wp_nonce_field(
 			<textarea name="append" cols="65" rows="15" class="w-100"><?php echo esc_html( $append_rules ); ?></textarea>
 		</td>
 		</tr>
+<?php if ( true === is_multisite() ) { ?>
 		<tr>
 		<td>
 			<p><input type="checkbox" name="override" value="1" id="override" <?php checked( $override , '1' ); ?> /> <label for="override"><?php esc_html_e( 'Check to use the saved data (above) as this websites robots.txt file, overriding the network robots.txt file.', 'multisite-robotstxt-manager' ); ?></label></p>
 		</td>
 		</tr>
+<?php } ?>
 	</tbody>
 </table>
 
@@ -105,7 +107,7 @@ wp_nonce_field(
 		</tr>
 		<tr>
 		<td>
-			<textarea name="live_robotstxt" name="network_readonly" cols="65" rows="15" class="w-100"><?php echo esc_html( $website_robotstxt ); ?></textarea>
+			<textarea name="live_robotstxt" name="network_readonly" readonly cols="65" rows="15" class="w-100"><?php echo esc_html( $website_robotstxt ); ?></textarea>
 		</td>
 		</tr>
 	</tbody>
@@ -122,7 +124,7 @@ wp_nonce_field(
 		</tr>
 		<tr>
 		<td>
-			<textarea name="network_robotstxt" name="network_readonly" cols="65" rows="15" class="w-100"><?php echo esc_html( $network_robotstxt ); ?></textarea>
+			<textarea name="network_robotstxt" name="network_readonly" readonly cols="65" rows="15" class="w-100"><?php echo esc_html( $network_robotstxt ); ?></textarea>
 		</td>
 		</tr>
 	</tbody>

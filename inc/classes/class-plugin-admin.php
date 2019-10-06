@@ -147,6 +147,10 @@ final class Plugin_Admin {
 
 			$website_robotstxt = $option->get_setting( 'robotstxt' );
 
+			if ( true !== empty( $override ) ) {
+				$website_robotstxt = $append_rules;
+			}
+
 			$rules      = new GetRobotstxtRules();
 			$uploadpath = ( true === empty( $uploadpath ) ) ? $rules->get_uploadpath() : $uploadpath;
 			$themepath  = ( true === empty( $themepath ) ) ? $rules->get_themepath() : $themepath;
