@@ -95,6 +95,9 @@ final class Plugin_Activate {
 		 * https://developer.wordpress.org/reference/functions/wp_remote_get/
 		 */
 		$website_robotstxt = wp_remote_get( get_home_url() . '/robots.txt' );
+		if( is_wp_error( $website_robotstxt ) ) {
+			return $robotstxt;
+		}
 
 		if ( true !== empty( $website_robotstxt['response']['code'] ) && '200' === $website_robotstxt['response']['code'] && true !== empty( $website_robotstxt['body'] ) ) {
 			$robotstxt  = $website_robotstxt['body'] . "\n";
