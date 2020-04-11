@@ -31,35 +31,35 @@ final class Do_Member_Robotstxt_Build {
 	 *
 	 * @var array
 	 */
-	public $post_object = [];
+	public $post_object = array();
 
 	/**
 	 * Post Action To Take.
 	 *
 	 * @var string
 	 */
-	public $post_action = [];
+	public $post_action = array();
 
 	/**
 	 * Option_Manager Class.
 	 *
 	 * @var object
 	 */
-	public $option_manager = [];
+	public $option_manager = array();
 
 	/**
 	 * Plugin_Admin_Notices Class
 	 *
 	 * @var object
 	 */
-	public $admin_notices = [];
+	public $admin_notices = array();
 
 	/**
 	 * Do_Build_Robotstxt Class
 	 *
 	 * @var object
 	 */
-	public $build_robotstxt = [];
+	public $build_robotstxt = array();
 
 
 	/**
@@ -67,7 +67,7 @@ final class Do_Member_Robotstxt_Build {
 	 *
 	 * @param array $post_object Cleaned Post Object.
 	 */
-	public function __construct( $post_object = [] ) {
+	public function __construct( $post_object = array() ) {
 		if ( true === empty( $post_object ) || true === empty( $post_object['action'] ) ) {
 			return;
 		}
@@ -92,13 +92,7 @@ final class Do_Member_Robotstxt_Build {
 		 * Fires as an admin screen or script is being initialized.
 		 * https://developer.wordpress.org/reference/hooks/admin_init/
 		 */
-		add_action(
-			'admin_init',
-			[
-				$this,
-				'update',
-			]
-		);
+		add_action( 'admin_init', array( $this, 'update' ) );
 	}//end init()
 
 
@@ -107,7 +101,6 @@ final class Do_Member_Robotstxt_Build {
 	 */
 	public function update() {
 		$this->security_check();
-
 		// Network Member Sites Robots.txt Build.
 		if ( 'member' === $this->post_action ) {
 			$this->member_robotstxt_build();
@@ -122,7 +115,6 @@ final class Do_Member_Robotstxt_Build {
 		if ( true === empty( $this->post_object ) || true === empty( $this->admin_notices ) ) {
 			return;
 		}
-
 		$message = false;
 
 		if ( true !== empty( $this->post_object ) && true !== empty( $this->post_object['robotstxt'] ) ) {
@@ -136,7 +128,7 @@ final class Do_Member_Robotstxt_Build {
 		}
 
 		// Current Admin User.
-		$current_user    = wp_get_current_user();
+		$current_user = wp_get_current_user();
 		$this_admin_user = $current_user->ID;
 
 		/*
@@ -152,7 +144,6 @@ final class Do_Member_Robotstxt_Build {
 			 * https://developer.wordpress.org/reference/functions/switch_to_blog/
 			 */
 			switch_to_blog( $member->userblog_id );
-
 			// Build Robots.txt Files.
 			$this->build_robotstxt->init( $member->userblog_id );
 
@@ -166,5 +157,5 @@ final class Do_Member_Robotstxt_Build {
 		if ( true === $message ) {
 			$this->admin_notices->add_notice( 'success', 'member_updated', 'network' );
 		}
-	}//end member_robotstxt_build()
+	}
 }//end class

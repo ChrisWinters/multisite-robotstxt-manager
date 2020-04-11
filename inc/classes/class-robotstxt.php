@@ -85,11 +85,30 @@ final class Robotstxt {
 			 */
 			do_action( 'do_robotstxt' );
 
+			// Get Status.
+			$public = get_option( 'blog_public' );
+
+			if ( '0' == $public ) {
+				$output .= "Disallow: /\n";
+			} else {
+				$output = $robotstxt_file;
+			}
+
+			/**
+			 * Filters the robots.txt output.
+			 *
+			 * @since 3.0.0
+			 *
+			 * @param string $output Robots.txt output.
+			 * @param bool   $public Whether the site is considered "public".
+			 */
+			$display_robotstxt_file = apply_filters( 'robots_txt', $output, $public );
+
 			/*
 			 * Escaping for HTML blocks.
 			 * https://developer.wordpress.org/reference/functions/esc_html/
 			 */
-			echo esc_html( $robotstxt_file );
+			echo esc_html( $display_robotstxt_file );
 			exit;
 		}
 	}

@@ -95,7 +95,14 @@ final class Plugin_Activate {
 		 * https://developer.wordpress.org/reference/functions/wp_remote_get/
 		 */
 		$website_robotstxt = wp_remote_get( get_home_url() . '/robots.txt' );
-		if( is_wp_error( $website_robotstxt ) ) {
+
+		/*
+		 * Check whether variable is a WordPress Error.
+		 * https://developer.wordpress.org/reference/functions/is_wp_error/
+		 *
+		 * Issue: https://github.com/ChrisWinters/multisite-robotstxt-manager/issues/8
+		 */
+		if ( true === is_wp_error( $website_robotstxt ) ) {
 			return $robotstxt;
 		}
 
