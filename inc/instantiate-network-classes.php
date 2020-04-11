@@ -8,10 +8,11 @@
  * @license    GNU GPLv3
  * @link       /LICENSE
  */
+
 namespace MsRobotstxtManager;
 
 if ( false === defined( 'ABSPATH' ) ) {
-    exit;
+	exit;
 }
 
 /*

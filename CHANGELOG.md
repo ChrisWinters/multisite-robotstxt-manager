@@ -1,5 +1,21 @@
 # Changelog
 
+# 3.0.0
+**2020-04-11- Feature**
+* Freemius upgrade
+* Activation issue: https://github.com/ChrisWinters/multisite-robotstxt-manager/issues/8
+* WordPress 5.4 Tested
+
+# 2.1.1
+**2020-01-11- Hotfix**
+
+* Modified how robots.txt file is generated within class-robotstxt.php
+
+# 2.1.0
+**2019-10-06 - Feature**
+
+* Added website override option to ignore network robots.txt file
+
 # 2.1.0
 **2019-10-06 - Feature**
 

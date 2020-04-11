@@ -24,42 +24,42 @@ use MsRobotstxtManager\Option_Manager as OptionManager;
  * Build Robots.txt File Across All Network Sites.
  */
 final class Do_Network_Robotstxt_Build {
-	use TraitSecurityCheck;
+	use  TraitSecurityCheck;
 
 	/**
 	 * Plugin Admin Post Object.
 	 *
 	 * @var array
 	 */
-	public $post_object = [];
+	public $post_object = array();
 
 	/**
 	 * Post Action To Take.
 	 *
 	 * @var string
 	 */
-	public $post_action = [];
+	public $post_action = array();
 
 	/**
 	 * Option_Manager Class.
 	 *
 	 * @var object
 	 */
-	public $option_manager = [];
+	public $option_manager = array();
 
 	/**
 	 * Plugin_Admin_Notices Class
 	 *
 	 * @var object
 	 */
-	public $admin_notices = [];
+	public $admin_notices = array();
 
 	/**
 	 * Do_Build_Robotstxt Class
 	 *
 	 * @var object
 	 */
-	public $build_robotstxt = [];
+	public $build_robotstxt = array();
 
 
 	/**
@@ -67,7 +67,7 @@ final class Do_Network_Robotstxt_Build {
 	 *
 	 * @param array $post_object Cleaned Post Object.
 	 */
-	public function __construct( $post_object = [] ) {
+	public function __construct( $post_object = array() ) {
 		if ( true === empty( $post_object ) || true === empty( $post_object['action'] ) ) {
 			return;
 		}
@@ -92,13 +92,7 @@ final class Do_Network_Robotstxt_Build {
 		 * Fires as an admin screen or script is being initialized.
 		 * https://developer.wordpress.org/reference/hooks/admin_init/
 		 */
-		add_action(
-			'admin_init',
-			[
-				$this,
-				'update',
-			]
-		);
+		add_action( 'admin_init', array( $this, 'update' ) );
 	}//end init()
 
 
@@ -159,5 +153,5 @@ final class Do_Network_Robotstxt_Build {
 		if ( true === $message ) {
 			$this->admin_notices->add_notice( 'success', 'network_updated', 'network' );
 		}
-	}//end network_robosttxt_build()
+	}
 }//end class
