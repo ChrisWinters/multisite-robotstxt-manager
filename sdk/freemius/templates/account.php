@@ -21,7 +21,9 @@
 	/**
 	 * @var FS_Plugin_Tag $update
 	 */
-	$update = $fs->get_update( false, false, WP_FS__TIME_24_HOURS_IN_SEC / 24 );
+	$update = $fs->has_release_on_freemius() ?
+        $fs->get_update( false, false, WP_FS__TIME_24_HOURS_IN_SEC / 24 ) :
+        null;
 
 	if ( is_object($update) ) {
 		/**
@@ -44,6 +46,7 @@
     $site                   = $fs->get_site();
     $name                   = $user->get_name();
     $license                = $fs->_get_license();
+    $is_license_foreign     = ( is_object( $license ) && $user->id != $license->user_id );
     $is_data_debug_mode     = $fs->is_data_debug_mode();
     $is_whitelabeled        = $fs->is_whitelabeled();
     $subscription           = ( is_object( $license ) ?
@@ -56,9 +59,18 @@
     $show_upgrade           = ( ! $is_whitelabeled && $has_paid_plan && ! $is_paying && ! $is_paid_trial );
     $trial_plan             = $fs->get_trial_plan();
 
+    $is_plan_change_supported = (
+        ! $fs->is_single_plan() &&
+        ! $fs->apply_filters( 'hide_plan_change', false )
+    );
+
 	if ( $has_paid_plan ) {
         $fs->_add_license_activation_dialog_box();
 	}
+
+	if ( $fs->should_handle_user_change() ) {
+        $fs->_add_email_address_update_dialog_box();
+    }
 
     $ids_of_installs_activated_with_foreign_licenses = $fs->should_handle_user_change() ?
         $fs->get_installs_ids_with_foreign_licenses() :
@@ -84,12 +96,15 @@
 		) );
 	}
 
-	$payments = $fs->_fetch_payments();
+    $show_billing = ( ! $is_whitelabeled && ! $fs->apply_filters( 'hide_billing_and_payments_info', false ) );
+    if ( $show_billing ) {
+        $payments = $fs->_fetch_payments();
 
-    $show_billing = ( ! $is_whitelabeled && is_array( $payments ) && 0 < count( $payments ) );
+        $show_billing = ( is_array( $payments ) && 0 < count( $payments ) );
+    }
 
 
-	$has_tabs = $fs->_add_tabs_before_content();
+    $has_tabs = $fs->_add_tabs_before_content();
 
 	if ( $has_tabs ) {
 		$query_params['tabs'] = 'true';
@@ -138,6 +153,7 @@
             $install     = $fs->get_install_by_blog_id( $site_info['blog_id'] );
             $view_params = array(
                 'freemius' => $fs,
+                'user'     => $fs->get_user(),
                 'license'  => $license,
                 'site'     => $site_info,
                 'install'  => $install,
@@ -163,18 +179,27 @@
         }
     }
 
-    $is_child_license    = ( is_object( $license ) && FS_Plugin_License::is_valid_id( $license->parent_license_id ) );
-    $bundle_subscription = null;
+    $has_bundle_license = false;
+
+    if ( is_object( $license ) &&
+        FS_Plugin_License::is_valid_id( $license->parent_license_id )
+    ) {
+        // Context license has a parent license, therefore, the account has a bundle license.
+        $has_bundle_license = true;
+    }
+
+    $bundle_subscription             = null;
+    $is_bundle_first_payment_pending = false;
 
     if (
         $show_plan_row &&
         is_object( $license ) &&
-        FS_Plugin_License::is_valid_id( $license->parent_license_id )
+        $has_bundle_license
     ) {
-        $bundle_subscription = $fs->_get_subscription( $license->parent_license_id );
+        $bundle_plan_title               = strtoupper( $license->parent_plan_title );
+        $bundle_subscription             = $fs->_get_subscription( $license->parent_license_id );
+        $is_bundle_first_payment_pending = $license->is_first_payment_pending();
     }
-
-    $is_active_bundle_subscription = ( is_object( $bundle_subscription ) && $bundle_subscription->is_active() );
 
     $fs_blog_id = ( is_multisite() && ! is_network_admin() ) ?
         get_current_blog_id() :
@@ -183,6 +208,54 @@
     $active_plugins_directories_map = Freemius::get_active_plugins_directories_map( $fs_blog_id );
 
     $is_premium = $fs->is_premium();
+
+    $account_addons       = $fs->get_updated_account_addons();
+    $installed_addons     = $fs->get_installed_addons();
+    $installed_addons_ids = array();
+
+    /**
+     * Store the installed add-ons' IDs into a collection which will be used in determining the add-ons to show on the "Account" page, and at the same time try to find an add-on that is activated with a bundle license if the core product is not.
+     *
+     * @author Leo Fajardo
+     *
+     * @since 2.4.0
+     */
+    foreach ( $installed_addons as $fs_addon ) {
+        $installed_addons_ids[] = $fs_addon->get_id();
+
+        if ( $has_bundle_license ) {
+            // We already have the context bundle license details, skip.
+            continue;
+        }
+
+        if (
+            $show_plan_row &&
+            $fs_addon->has_active_valid_license()
+        ) {
+            $addon_license = $fs_addon->_get_license();
+
+            if ( FS_Plugin_License::is_valid_id( $addon_license->parent_license_id ) ) {
+                // Add-on's license is associated with a parent/bundle license.
+                $has_bundle_license = true;
+
+                $bundle_plan_title               = strtoupper( $addon_license->parent_plan_title );
+                $bundle_subscription             = $fs_addon->_get_subscription( $addon_license->parent_license_id );
+                $is_bundle_first_payment_pending = $addon_license->is_first_payment_pending();
+            }
+        }
+    }
+
+    $addons_to_show = array_unique( array_merge( $installed_addons_ids, $account_addons ) );
+
+    $is_active_bundle_subscription = ( is_object( $bundle_subscription ) && $bundle_subscription->is_active() );
+
+    $available_license = ( $fs->is_free_plan() && ! fs_is_network_admin() ) ?
+        $fs->_get_available_premium_license( $site->is_localhost() ) :
+        null;
+
+    $available_license_paid_plan = is_object( $available_license ) ?
+        $fs->_get_plan_by_id( $available_license->plan_id ) :
+        null;
 ?>
 	<div class="wrap fs-section">
 		<?php if ( ! $has_tabs && ! $fs->apply_filters( 'hide_account_tabs', false ) ) : ?>
@@ -223,24 +296,19 @@
                                         <li>&nbsp;&bull;&nbsp;</li>
                                     <?php endif ?>
 									<?php if ( $show_billing ) : ?>
-										<li><a href="#fs_billing"><i class="dashicons dashicons-portfolio"></i> <?php fs_esc_html_echo_inline( 'Billing & Invoices', 'billing-invoices', $slug ) ?></li>
+                                        <li><a href="#fs_billing"><i class="dashicons dashicons-portfolio"></i> <?php fs_esc_html_echo_inline( 'Billing & Invoices', 'billing-invoices', $slug ) ?></a></li>
 										<li>&nbsp;&bull;&nbsp;</li>
 									<?php endif ?>
                                     <?php if ( ! $is_whitelabeled ) : ?>
                                         <?php if ( ! $is_paying ) : ?>
                                             <li>
-                                                <form action="<?php echo $fs->_get_admin_page_url( 'account' ) ?>" method="POST">
-                                                    <input type="hidden" name="fs_action" value="delete_account">
-                                                    <?php wp_nonce_field( 'delete_account' ) ?>
-                                                    <a class="fs-delete-account" href="#" onclick="if (confirm('<?php
-                                                        if ( $is_active_subscription ) {
-                                                            echo esc_attr( sprintf( fs_text_inline( 'Deleting the account will automatically deactivate your %s plan license so you can use it on other sites. If you want to terminate the recurring payments as well, click the "Cancel" button, and first "Downgrade" your account. Are you sure you would like to continue with the deletion?', 'delete-account-x-confirm', $slug ), $plan->title ) );
-                                                        } else {
-                                                            echo esc_attr( sprintf( fs_text_inline( 'Deletion is not temporary. Only delete if you no longer want to use this %s anymore. Are you sure you would like to continue with the deletion?', 'delete-account-confirm', $slug ), $fs->get_module_label( true ) ) );
-                                                        }
-                                                    ?>'))  this.parentNode.submit(); return false;"><i
-                                                            class="dashicons dashicons-no"></i> <?php fs_esc_html_echo_inline( 'Delete Account', 'delete-account', $slug ) ?></a>
-                                                </form>
+                                                <?php
+                                                    $view_params = array(
+                                                        'freemius'          => $fs,
+                                                        'license'           => $available_license,
+                                                        'license_paid_plan' => $available_license_paid_plan,
+                                                    );
+                                                    fs_require_template( 'account/partials/disconnect-button.php', $view_params ); ?>
                                             </li>
                                             <li>&nbsp;&bull;&nbsp;</li>
                                         <?php endif ?>
@@ -279,7 +347,7 @@
                                                 </li>
                                                 <li>&nbsp;&bull;&nbsp;</li>
                                             <?php endif ?>
-                                            <?php if ( ! $fs->is_single_plan() ) : ?>
+                                            <?php if ( $is_plan_change_supported ) : ?>
                                                 <li>
                                                     <a href="<?php echo $fs->get_upgrade_url() ?>"><i
                                                             class="dashicons dashicons-grid-view"></i> <?php echo esc_html( $change_plan_text ) ?></a>
@@ -315,7 +383,7 @@
 
 										$profile   = array();
 
-										if ( ! $is_whitelabeled ) {
+    									if ( ! $is_whitelabeled ) {
                                             $profile[] = array(
                                                 'id'    => 'user_name',
                                                 'title' => fs_text_inline( 'Name', 'name', $slug ),
@@ -384,15 +452,15 @@
 											'value' => $fs->get_plugin_version()
 										);
 
-										if ( $is_premium && ! $is_whitelabeled ) {
+										if ( ! fs_is_network_admin() && $is_premium ) {
 										    $profile[] = array(
                                                 'id'    => 'beta_program',
                                                 'title' => '',
-                                                'value' => $user->is_beta
+                                                'value' => $site->is_beta
                                             );
                                         }
 
-										if ( $has_paid_plan ) {
+										if ( $has_paid_plan || $has_bundle_license ) {
 											if ( $fs->is_trial() ) {
 											    if ( $show_plan_row ) {
                                                     $profile[] = array(
@@ -407,18 +475,18 @@
                                                 if ( $show_plan_row ) {
                                                     $profile[] = array(
                                                         'id'    => 'plan',
-                                                        'title' => ( $is_child_license ? ucfirst( $fs->get_module_type() ) . ' ' : '' ) . $plan_text,
+                                                        'title' => ( $has_bundle_license ? ucfirst( $fs->get_module_type() ) . ' ' : '' ) . $plan_text,
                                                         'value' => strtoupper( is_string( $plan->name ) ?
                                                             $plan->title :
                                                             strtoupper( $free_text )
                                                         )
                                                     );
 
-                                                    if ( $is_child_license ) {
+                                                    if ( $has_bundle_license ) {
                                                         $profile[] = array(
                                                             'id'    => 'bundle_plan',
                                                             'title' => $bundle_plan_text,
-                                                            'value' => strtoupper( $license->parent_plan_title )
+                                                            'value' => $bundle_plan_title
                                                         );
                                                     }
                                                 }
@@ -486,15 +554,13 @@
 														<?php endif ?>
                                                         <?php if ( ! $is_whitelabeled ) : ?>
 														<div class="button-group">
-															<?php $available_license = $fs->is_free_plan() && ! fs_is_network_admin() ? $fs->_get_available_premium_license( $site->is_localhost() ) : false ?>
                                                             <?php if ( is_object( $available_license ) ) : ?>
-																<?php $premium_plan = $fs->_get_plan_by_id( $available_license->plan_id ) ?>
                                                                 <?php
                                                                 $view_params = array(
                                                                     'freemius'     => $fs,
                                                                     'slug'         => $slug,
                                                                     'license'      => $available_license,
-                                                                    'plan'         => $premium_plan,
+                                                                    'plan'         => $available_license_paid_plan,
                                                                     'is_localhost' => $site->is_localhost(),
                                                                     'install_id'   => $site->id,
                                                                     'class'        => 'button-primary',
@@ -511,7 +577,7 @@
 																	<input type="hidden" name="fs_action"
 																	       value="<?php echo $fs->get_unique_affix() ?>_sync_license">
 																	<?php wp_nonce_field( $fs->get_unique_affix() . '_sync_license' ) ?>
-																	<?php if ( $show_upgrade || ! $fs->is_single_plan() ) : ?>
+																	<?php if ( $show_upgrade || $is_plan_change_supported ) : ?>
 																	<a href="<?php echo $fs->get_upgrade_url() ?>"
 																	   class="button<?php
 																		   echo $show_upgrade ?
@@ -525,7 +591,7 @@
                                                         <?php endif ?>
 													<?php elseif ( 'bundle_plan' === $p['id'] ) : ?>
 														<?php if ( is_object( $bundle_subscription ) ) : ?>
-															<?php if ( $is_active_bundle_subscription && ! $license->is_first_payment_pending() ) : ?>
+															<?php if ( $is_active_bundle_subscription && ! $is_bundle_first_payment_pending ) : ?>
 																<label class="fs-tag fs-success"><?php echo esc_html( sprintf( $renews_in_text, human_time_diff( time(), strtotime( $bundle_subscription->next_payment ) ) ) ) ?></label>
 															<?php endif ?>
                                                         <?php endif ?>
@@ -555,7 +621,7 @@
 																<div class="button-group">
 																	<?php if ( $is_paying || $fs->is_trial() ) : ?>
 																		<?php if ( ! $fs->is_allowed_to_install() ) : ?>
-                                                                            <a target="_blank" class="button button-primary"
+                                                                            <a target="_blank" rel="noopener" class="button button-primary"
                                                                                 href="<?php echo $fs->_get_latest_download_local_url() ?>"><?php
                                                                                 $download_version_text_suffix = ( is_object( $update ) ? ' [' . $update->version . ']' : '' );
 
@@ -594,7 +660,7 @@
 															<?php endif ?>
 															<?php
 														elseif ( in_array( $p['id'], array( 'license_key', 'site_secret_key' ) ) ) : ?>
-                                                            <?php if ( ! $is_whitelabeled ) : ?>
+                                                            <?php if ( ! $is_whitelabeled && ( 'site_secret_key' === $p['id'] || ! $is_license_foreign ) ) : ?>
                                                                 <button class="button button-small fs-toggle-visibility"><?php fs_esc_html_echo_x_inline( 'Show', 'verb', 'show', $slug ) ?></button>
                                                             <?php endif ?>
                                                             <?php if ('license_key' === $p['id']) : ?>
@@ -607,6 +673,7 @@
 																'user_name'
 															) ) )
 														) : ?>
+                                                            <?php if ( 'email' !== $p['id'] || ! fs_is_network_admin() ) : ?>
 															<form action="<?php echo $fs->_get_admin_page_url( 'account' ) ?>" method="POST"
 															      onsubmit="var val = prompt('<?php echo esc_attr( sprintf(
                                                                       /* translators: %s: User's account property (e.g. name, email) */
@@ -617,9 +684,10 @@
 																<input type="hidden" name="fs_<?php echo $p['id'] ?>_<?php echo $fs->get_unique_affix() ?>"
 																       value="">
 																<?php wp_nonce_field( 'update_' . $p['id'] ) ?>
-																<input type="submit" class="button button-small"
+																<input type="submit" class="button button-small <?php if ( 'email' === $p['id'] ) echo 'button-edit-email-address' ?>"
 																       value="<?php echo fs_esc_attr_x_inline( 'Edit', 'verb', 'edit', $slug ) ?>">
 															</form>
+                                                            <?php endif ?>
                                                         <?php elseif ( 'user_id' === $p['id'] && ! empty( $ids_of_installs_activated_with_foreign_licenses ) ) : ?>
                                                                 <input id="fs_change_user" type="submit" class="button button-small"
                                                                        value="<?php echo fs_esc_attr_inline( 'Change User', 'change-user', $slug ) ?>">
@@ -679,30 +747,36 @@
                                     <div class="fs-table-body">
                                         <table class="widefat">
                                             <?php
+                                                $current_blog_id = get_current_blog_id();
+
                                                 foreach ( $site_view_params as $view_params ) {
                                                     fs_require_template(
                                                     	'account/partials/site.php',
 	                                                    $view_params
                                                     );
-                                            } ?>
+                                                }
+
+                                                /**
+                                                 * It's possible for the `Freemius::switch_to_blog()` method to be called within the `site.php` template and this changes the Freemius instance's context, so this check is for restoring the previous context based on the previously retrieved site.
+                                                 *
+                                                 * @author Leo Fajardo (@leorw)
+                                                 * @since 2.5.0
+                                                 */
+                                                $current_install = $fs->get_site();
+
+                                                if (
+                                                    is_object( $site ) &&
+                                                    ( ! is_object( $current_install ) || $current_install->id != $site->id )
+                                                ) {
+                                                    $fs->switch_to_blog( $current_blog_id, $site, true );
+                                                }
+                                            ?>
                                         </table>
                                     </div>
                                 </div>
 							</div>
 						</div>
 						<?php endif ?>
-
-						<?php
-							$account_addons = $fs->get_updated_account_addons();
-
-							$installed_addons     = $fs->get_installed_addons();
-							$installed_addons_ids = array();
-							foreach ( $installed_addons as $fs_addon ) {
-								$installed_addons_ids[] = $fs_addon->get_id();
-							}
-
-							$addons_to_show = array_unique( array_merge( $installed_addons_ids, $account_addons ) );
-						?>
 						<?php if ( 0 < count( $addons_to_show ) ) : ?>
 							<!-- Add-Ons -->
 							<div class="postbox">
@@ -800,7 +874,7 @@
 
 						<?php
 							if ( $show_billing ) {
-								$view_params = array( 'id' => $VARS['id'] );
+								$view_params = array( 'id' => $VARS['id'], 'payments' => $payments );
 								fs_require_once_template( 'account/billing.php', $view_params );
 								fs_require_once_template( 'account/payments.php', $view_params );
 							}
@@ -880,7 +954,7 @@
 
                 if ( ! isChecked || confirm( '<?php echo $confirmation_message ?>' ) ) {
                     $.ajax( {
-                        url   : ajaxurl,
+                        url   : <?php echo Freemius::ajax_url() ?>,
                         method: 'POST',
                         data  : {
                             action   : '<?php echo $fs->get_ajax_action( 'set_beta_mode' ) ?>',
@@ -1019,6 +1093,29 @@
                 });
             });
 
+            $( '.fs-toggle-whitelabel-mode' ).click( function () {
+                var $toggleLink = $( this );
+
+                $.ajax( {
+                    url   : <?php echo Freemius::ajax_url() ?>,
+                    method: 'POST',
+                    data  : {
+                        action   : '<?php echo $fs->get_ajax_action( 'toggle_whitelabel_mode' ) ?>',
+                        security : '<?php echo $fs->get_ajax_security( 'toggle_whitelabel_mode' ) ?>',
+                        module_id: <?php echo $fs->get_id() ?>
+                    },
+                    beforeSend: function () {
+                        $toggleLink.parent().text( '<?php
+                            $is_whitelabeled ?
+                                fs_esc_html_echo_inline( 'Disabling white-label mode', 'disabling-whitelabel-mode' ) :
+                                fs_esc_html_echo_inline( 'Enabling white-label mode', 'enabling-whitelabel-mode' )
+                        ?>' + '...' );
+                    },
+                    complete: function () {
+                        location.reload();
+                    }
+                } );
+            });
         })(jQuery);
     </script>
 <?php
@@ -1033,4 +1130,4 @@
 		'module_slug'    => $slug,
 		'module_version' => $fs->get_plugin_version(),
 	);
-	fs_require_template( 'powered-by.php', $params );
+    fs_require_template( 'powered-by.php', $params );

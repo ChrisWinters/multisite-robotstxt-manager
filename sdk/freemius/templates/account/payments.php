@@ -10,19 +10,19 @@
 		exit;
 	}
 
-	/**
-	 * @var array $VARS
-	 * @var Freemius $fs
-	 */
-	$fs = freemius( $VARS['id'] );
+    /**
+     * @var array $VARS
+     * @var Freemius $fs
+     */
+    $fs = freemius( $VARS['id'] );
+
+    /**
+     * @var FS_Payment[] $payments
+     */
+    $payments = $VARS['payments'];
 
 	$slug = $fs->get_slug();
 
-	$payments = $fs->_fetch_payments();
-
-	$show_payments = ( is_array( $payments ) && 0 < count( $payments ) );
-
-	if ( $show_payments ) :
 ?>
 <div class="postbox">
 	<div id="fs_payments">
@@ -47,7 +47,7 @@
 						<td><?php echo $payment->formatted_gross() ?></td>
 						<td><?php if (! $payment->is_migrated() ) : ?><a href="<?php echo $fs->_get_invoice_api_url( $payment->id ) ?>"
 						       class="button button-small"
-						       target="_blank"><?php fs_esc_html_echo_inline( 'Invoice', 'invoice', $slug ) ?></a><?php endif ?></td>
+						       target="_blank" rel="noopener"><?php fs_esc_html_echo_inline( 'Invoice', 'invoice', $slug ) ?></a><?php endif ?></td>
 					</tr>
 					<?php $odd = ! $odd; endforeach ?>
 				</tbody>
@@ -56,4 +56,3 @@
 	</div>
 </div>
 <?php
-	endif;

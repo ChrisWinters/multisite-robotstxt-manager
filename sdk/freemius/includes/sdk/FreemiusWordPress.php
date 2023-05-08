@@ -14,6 +14,9 @@
 	 * License for the specific language governing permissions and limitations
 	 * under the License.
 	 */
+    if ( ! defined( 'ABSPATH' ) ) {
+        exit;
+    }
 
 	require_once dirname( __FILE__ ) . '/FreemiusBase.php';
 
@@ -59,6 +62,10 @@
 		}
 	}
 
+    if ( ! defined( 'FS_SDK__SSLVERIFY' ) ) {
+        define( 'FS_SDK__SSLVERIFY', false );
+    }
+
 	$curl_version = FS_SDK__HAS_CURL ?
 		curl_version() :
 		array( 'version' => '7.37' );
@@ -78,10 +85,7 @@
 		define( 'FS_API__SANDBOX_ADDRESS', '://sandbox-api.freemius.com' );
 	}
 
-	if ( class_exists( 'Freemius_Api_WordPress' ) ) {
-		return;
-	}
-
+	if ( ! class_exists( 'Freemius_Api_WordPress' ) ) {
 	class Freemius_Api_WordPress extends Freemius_Api_Base {
 		private static $_logger = array();
 
@@ -160,6 +164,15 @@
 			self::$_protocol = 'http';
 		}
 
+        /**
+         * Sets API connection protocol to HTTPS.
+         *
+         * @since 2.5.4
+         */
+        public static function SetHttps() {
+            self::$_protocol = 'https';
+        }
+
 		/**
 		 * @since 1.0.4
 		 *
@@ -228,10 +241,13 @@
 			$now          = ( time() - self::$_clock_diff );
 			$date         = date( 'r', $now );
 
-			if ( in_array( $pMethod, array( 'POST', 'PUT' ) ) && ! empty( $pPostParams ) ) {
-				$content_md5  = md5( $pPostParams );
-				$content_type = 'application/json';
-			}
+			if ( in_array( $pMethod, array( 'POST', 'PUT' ) ) ) {
+                $content_type = 'application/json';
+
+                if ( ! empty( $pPostParams ) ) {
+                    $content_md5 = md5( $pPostParams );
+                }
+            }
 
 			$string_to_sign = implode( $eol, array(
 				$pMethod,
@@ -295,9 +311,11 @@
 		 * @return mixed
 		 */
 		private static function ExecuteRequest( $pUrl, &$pWPRemoteArgs ) {
+            $bt = debug_backtrace();
+
 			$start = microtime( true );
 
-			$response = wp_remote_request( $pUrl, $pWPRemoteArgs );
+            $response = self::RemoteRequest( $pUrl, $pWPRemoteArgs );
 
 			if ( FS_API__LOGGER_ON ) {
 				$end = microtime( true );
@@ -317,12 +335,37 @@
 						$response['body'] :
 						json_encode( $response->get_error_messages() ),
 					'code'      => ! $is_http_error ? $response['response']['code'] : null,
-					'backtrace' => debug_backtrace(),
+					'backtrace' => $bt,
 				);
 			}
 
 			return $response;
 		}
+
+        /**
+         * @author Leo Fajardo (@leorw)
+         *
+         * @param string $pUrl
+         * @param array  $pWPRemoteArgs
+         *
+         * @return array|WP_Error The response array or a WP_Error on failure.
+         */
+        static function RemoteRequest( $pUrl, $pWPRemoteArgs ) {
+            $response = wp_remote_request( $pUrl, $pWPRemoteArgs );
+
+            if (
+                is_array( $response ) &&
+                (
+                    empty( $response['headers'] ) ||
+                    empty( $response['headers']['x-api-server'] )
+                )
+            ) {
+                // API is considered blocked if the response doesn't include the `x-api-server` header. When there's no error but this header doesn't exist, the response is usually not in the expected form (e.g., cannot be JSON-decoded).
+                $response = new WP_Error( 'api_blocked', htmlentities( $response['body'] ) );
+            }
+
+            return $response;
+        }
 
 		/**
 		 * @return array
@@ -380,10 +423,11 @@
 			}
 
 			if ( in_array( $pMethod, array( 'POST', 'PUT' ) ) ) {
-				if ( is_array( $pParams ) && 0 < count( $pParams ) ) {
-					$pWPRemoteArgs['headers']['Content-type'] = 'application/json';
-					$pWPRemoteArgs['body']                    = json_encode( $pParams );
-				}
+                $pWPRemoteArgs['headers']['Content-type'] = 'application/json';
+
+                if ( is_array( $pParams ) && 0 < count( $pParams ) ) {
+                    $pWPRemoteArgs['body'] = json_encode( $pParams );
+                }
 			}
 
 			$request_url = self::GetUrl( $pCanonizedPath, $pIsSandbox );
@@ -397,7 +441,7 @@
             }
 
 			if ( 'https' === substr( strtolower( $request_url ), 0, 5 ) ) {
-				$pWPRemoteArgs['sslverify'] = false;
+				$pWPRemoteArgs['sslverify'] = FS_SDK__SSLVERIFY;
 			}
 
 			if ( false !== $pBeforeExecutionFunction &&
@@ -533,28 +577,20 @@
 		#region Connectivity Test
 		#----------------------------------------------------------------------------------
 
-		/**
-		 * If successful connectivity to the API endpoint using ping.json endpoint.
-		 *
-		 *      - OR -
-		 *
-		 * Validate if ping result object is valid.
-		 *
-		 * @param mixed $pPong
-		 *
-		 * @return bool
-		 */
-		public static function Test( $pPong = null ) {
-			$pong = is_null( $pPong ) ?
-				self::Ping() :
-				$pPong;
-
-			return (
-				is_object( $pong ) &&
-				isset( $pong->api ) &&
-				'pong' === $pong->api
-			);
-		}
+        /**
+         * This method exists only for backward compatibility to prevent a fatal error from happening when called from an outdated piece of code.
+         *
+         * @param mixed $pPong
+         *
+         * @return bool
+         */
+        public static function Test( $pPong = null ) {
+            return (
+                is_object( $pPong ) &&
+                isset( $pPong->api ) &&
+                'pong' === $pPong->api
+            );
+        }
 
 		/**
 		 * Ping API to test connectivity.
@@ -570,7 +606,7 @@
 			} catch ( Exception $e ) {
 				// Map to error object.
 				$result = (object) array(
-					'error' => array(
+					'error' => (object) array(
 						'type'    => 'Unknown',
 						'message' => $e->getMessage() . ' (' . $e->getFile() . ': ' . $e->getLine() . ')',
 						'code'    => 'unknown',
@@ -649,7 +685,7 @@
 				$message = ( 1 < count( $parts ) ) ? $parts[1] : $message;
 
 				$e = new Freemius_Exception( array(
-					'error' => array(
+					'error' => (object) array(
 						'code'    => $code,
 						'message' => $message,
 						'type'    => 'CurlException',
@@ -657,7 +693,7 @@
 				) );
 			} else {
 				$e = new Freemius_Exception( array(
-					'error' => array(
+					'error' => (object) array(
 						'code'    => $pError->get_error_code(),
 						'message' => $pError->get_error_message(),
 						'type'    => 'WPRemoteException',
@@ -702,3 +738,4 @@
 
 		#endregion
 	}
+    }
