@@ -260,14 +260,20 @@
                     if ( $has_valid_blog_id ) {
                         restore_current_blog();
                     }
+                }
 
-                    if ( is_object( $fs_addon ) ) {
-                        $data->has_purchased_license = $fs_addon->has_active_valid_license();
-                    } else {
-                        $account_addons = $this->_fs->get_account_addons();
-                        if ( ! empty( $account_addons ) && in_array( $selected_addon->id, $account_addons ) ) {
-                            $data->has_purchased_license = true;
-                        }
+                /**
+                 * Check if there's a purchased license in case the add-on can only be installed/downloaded as part of a purchased bundle.
+                 *
+                 * @author Leo Fajardo (@leorw)
+                 * @since 2.4.1
+                 */
+                if ( is_object( $fs_addon ) ) {
+                    $data->has_purchased_license = $fs_addon->has_active_valid_license();
+                } else {
+                    $account_addons = $this->_fs->get_account_addons();
+                    if ( ! empty( $account_addons ) && in_array( $selected_addon->id, $account_addons ) ) {
+                        $data->has_purchased_license = true;
                     }
                 }
 
@@ -305,6 +311,7 @@
                     $data->version      = $latest->version;
                     $data->last_updated = $latest->created;
                     $data->requires     = $latest->requires_platform_version;
+                    $data->requires_php = $latest->requires_programming_language_version;
                     $data->tested       = $latest->tested_up_to_version;
                 } else if ( ! empty( $current_addon_version ) ) {
                     $data->version = $current_addon_version;
@@ -577,7 +584,7 @@
 
             $has_installed_version = ( 'install' !== $this->status['status'] );
 
-            if ( ! $api->has_paid_plan ) {
+            if ( ! $api->has_paid_plan && ! $api->has_purchased_license ) {
                 /**
                  * Free-only add-on.
                  *
@@ -880,9 +887,11 @@
                 $classes[] = 'disabled';
             }
 
+            $rel = ( '_blank' === $target ) ? ' rel="noopener noreferrer"' : '';
+
             return sprintf(
                 '<a %s class="button %s">%s</a>',
-                empty( $href ) ? '' : 'href="' . $href . '" target="' . $target . '"',
+                empty( $href ) ? '' : 'href="' . $href . '" target="' . $target . '"' . $rel,
                 implode( ' ', $classes ),
                 $label
             );
@@ -1201,7 +1210,7 @@
 
                                             $(document).ready(function () {
                                                 var $plan = $('.plugin-information-pricing .fs-plan[data-plan-id=<?php echo $plan->id ?>]');
-                                                $plan.find('input[type=radio]').live('click', function () {
+                                                $plan.find('input[type=radio]').on('click', function () {
                                                     _updateCtaUrl(
                                                         $plan.attr('data-plan-id'),
                                                         $(this).val(),
@@ -1298,8 +1307,8 @@
                                     <?php endif ?>
                                 </div>
                             </div>
-                            </div>
                         <?php endforeach ?>
+                      </div>
                     <?php endif ?>
                 <?php endif ?>
                 <div>
@@ -1336,7 +1345,10 @@
                                 ?>
                                 <li>
                                     <strong><?php fs_esc_html_echo_inline( 'Requires WordPress Version', 'requires-wordpress-version', $api->slug ) ?>
-                                        :</strong> <?php echo esc_html( sprintf( fs_text_inline( '%s or higher', 'x-or-higher', $api->slug ), $api->requires ) ) ?>
+                                        :</strong> <?php echo esc_html( sprintf(
+                                            /* translators: %s: Version number. */
+                                            fs_text_inline( '%s or higher', 'x-or-higher', $api->slug ), $api->requires )
+                                    ) ?>
                                 </li>
                                 <?php
                             }
@@ -1345,6 +1357,19 @@
                                 <li>
                                     <strong><?php fs_esc_html_echo_inline( 'Compatible up to', 'compatible-up-to', $api->slug ); ?>
                                         :</strong> <?php echo $api->tested; ?>
+                                </li>
+                                <?php
+                            }
+                            if ( ! empty( $api->requires_php ) ) {
+                                ?>
+                                <li>
+                                    <strong><?php fs_esc_html_echo_inline( 'Requires PHP Version', 'requires-php-version', $api->slug ); ?>:</strong>
+                                    <?php
+                                        echo esc_html( sprintf(
+                                            /* translators: %s: Version number. */
+                                            fs_text_inline( '%s or higher', 'x-or-higher', $api->slug ), $api->requires_php )
+                                        );
+                                    ?>
                                 </li>
                                 <?php
                             }
@@ -1367,6 +1392,7 @@
                             if ( ! empty( $api->slug ) && true == $api->is_wp_org_compliant ) {
                                 ?>
                                 <li><a target="_blank"
+                                       rel="noopener noreferrer"
                                        href="https://wordpress.org/plugins/<?php echo $api->slug; ?>/"><?php fs_esc_html_echo_inline( 'WordPress.org Plugin Page', 'wp-org-plugin-page', $api->slug ) ?>
                                         &#187;</a>
                                 </li>
@@ -1375,6 +1401,7 @@
                             if ( ! empty( $api->homepage ) ) {
                                 ?>
                                 <li><a target="_blank"
+                                       rel="noopener noreferrer"
                                        href="<?php echo esc_url( $api->homepage ); ?>"><?php fs_esc_html_echo_inline( 'Plugin Homepage', 'plugin-homepage', $api->slug ) ?>
                                         &#187;</a>
                                 </li>
@@ -1383,6 +1410,7 @@
                             if ( ! empty( $api->donate_link ) && empty( $api->contributors ) ) {
                                 ?>
                                 <li><a target="_blank"
+                                       rel="noopener noreferrer"
                                        href="<?php echo esc_url( $api->donate_link ); ?>"><?php fs_esc_html_echo_inline( 'Donate to this plugin', 'donate-to-plugin', $api->slug ) ?>
                                         &#187;</a>
                                 </li>
@@ -1426,18 +1454,19 @@
                             );
                             ?>
                             <div class="counter-container">
-					<span class="counter-label"><a
-                            href="https://wordpress.org/support/view/plugin-reviews/<?php echo $api->slug; ?>?filter=<?php echo $key; ?>"
-                            target="_blank"
-                            title="<?php echo esc_attr( sprintf(
-                            /* translators: %s: # of stars (e.g. 5 stars) */
-                                fs_text_inline( 'Click to see reviews that provided a rating of %s', 'click-to-reviews', $api->slug ),
-                                $stars_label
-                            ) ) ?>"><?php echo $stars_label ?></a></span>
+                              <span class="counter-label"><a
+                                href="https://wordpress.org/support/view/plugin-reviews/<?php echo $api->slug; ?>?filter=<?php echo $key; ?>"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                title="<?php echo esc_attr( sprintf(
+                                  /* translators: %s: # of stars (e.g. 5 stars) */
+                                  fs_text_inline( 'Click to see reviews that provided a rating of %s', 'click-to-reviews', $api->slug ),
+                                  $stars_label
+                                ) ) ?>"><?php echo $stars_label ?></a></span>
                                 <span class="counter-back">
-						<span class="counter-bar" style="width: <?php echo absint(92 * $_rating); ?>px;"></span>
-					</span>
-                                <span class="counter-count"><?php echo number_format_i18n( $ratecount ); ?></span>
+                                <span class="counter-bar" style="width: <?php echo absint(92 * $_rating); ?>px;"></span>
+                              </span>
+                              <span class="counter-count"><?php echo number_format_i18n( $ratecount ); ?></span>
                             </div>
                             <?php
                         }
@@ -1458,13 +1487,14 @@
                                     if ( empty( $contrib_profile ) ) {
                                         echo "<li><img src='https://wordpress.org/grav-redirect.php?user={$contrib_username}&amp;s=36' width='18' height='18' />{$contrib_username}</li>";
                                     } else {
-                                        echo "<li><a href='{$contrib_profile}' target='_blank'><img src='https://wordpress.org/grav-redirect.php?user={$contrib_username}&amp;s=36' width='18' height='18' />{$contrib_username}</a></li>";
+                                        echo "<li><a href='{$contrib_profile}' target='_blank' rel='noopener noreferrer'><img src='https://wordpress.org/grav-redirect.php?user={$contrib_username}&amp;s=36' width='18' height='18' />{$contrib_username}</a></li>";
                                     }
                                 }
                             ?>
                         </ul>
                         <?php if ( ! empty( $api->donate_link ) ) { ?>
                             <a target="_blank"
+                               rel="noopener noreferrer"
                                href="<?php echo esc_url( $api->donate_link ); ?>"><?php fs_echo_inline( 'Donate to this plugin', 'donate-to-plugin', $api->slug ) ?>
                                 &#187;</a>
                         <?php } ?>
@@ -1472,9 +1502,43 @@
             </div>
             <div id="section-holder" class="wrap">
             <?php
-            if ( ! empty( $api->tested ) && version_compare( substr( $GLOBALS['wp_version'], 0, strlen( $api->tested ) ), $api->tested, '>' ) ) {
+            $requires_php = isset( $api->requires_php ) ? $api->requires_php : null;
+            $requires_wp  = isset( $api->requires ) ? $api->requires : null;
+
+            $compatible_php = empty( $requires_php ) || version_compare( PHP_VERSION, $requires_php, '>=' );
+
+            // Strip off any -alpha, -RC, -beta, -src suffixes.
+            list( $wp_version ) = explode( '-', $GLOBALS['wp_version'] );
+
+            $compatible_wp  = empty( $requires_wp ) || version_compare( $wp_version, $requires_wp, '>=' );
+            $tested_wp      = ( empty( $api->tested ) || version_compare( $wp_version, $api->tested, '<=' ) );
+
+            if ( ! $compatible_php ) {
+                echo '<div class="notice notice-error notice-alt"><p><strong>' . fs_text_inline( 'Error', 'error', $api->slug ) . ':</strong> ' . fs_text_inline( 'This plugin requires a newer version of PHP.', 'newer-php-required-error', $api->slug );
+
+                if ( current_user_can( 'update_php' ) ) {
+                    $wp_get_update_php_url = function_exists( 'wp_get_update_php_url' ) ?
+                        wp_get_update_php_url() :
+                        'https://wordpress.org/support/update-php/';
+
+                    printf(
+                    /* translators: %s: URL to Update PHP page. */
+                        ' ' . fs_text_inline( '<a href="%s" target="_blank">Click here to learn more about updating PHP</a>.', 'php-update-learn-more-link', $api->slug ),
+                        esc_url( $wp_get_update_php_url )
+                    );
+
+                    if ( function_exists( 'wp_update_php_annotation' ) ) {
+                        wp_update_php_annotation( '</p><p><em>', '</em>' );
+                    }
+                } else {
+                    echo '</p>';
+                }
+                echo '</div>';
+            }
+
+            if ( ! $tested_wp ) {
                 echo '<div class="notice notice-warning"><p>' . '<strong>' . fs_text_inline( 'Warning', 'warning', $api->slug ) . ':</strong> ' . fs_text_inline( 'This plugin has not been tested with your current version of WordPress.', 'not-tested-warning', $api->slug ) . '</p></div>';
-            } else if ( ! empty( $api->requires ) && version_compare( substr( $GLOBALS['wp_version'], 0, strlen( $api->requires ) ), $api->requires, '<' ) ) {
+            } else if ( ! $compatible_wp ) {
                 echo '<div class="notice notice-warning"><p>' . '<strong>' . fs_text_inline( 'Warning', 'warning', $api->slug ) . ':</strong> ' . fs_text_inline( 'This plugin has not been marked as compatible with your version of WordPress.', 'not-compatible-warning', $api->slug ) . '</p></div>';
             }
 

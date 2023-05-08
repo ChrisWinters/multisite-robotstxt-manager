@@ -13,8 +13,10 @@
     /**
      * @var array    $VARS
      * @var Freemius $fs
+     * @var string   $plugin_title
      */
-    $fs = freemius( $VARS['id'] );
+    $fs           = freemius( $VARS['id'] );
+    $plugin_title = $VARS['plugin_title'];
 
     $slug = $fs->get_slug();
 
@@ -22,7 +24,6 @@
     $affiliate       = $fs->get_affiliate();
     $affiliate_terms = $fs->get_affiliate_terms();
 
-    $plugin_title = $fs->get_plugin_title();
     $module_type  = $fs->is_plugin() ?
         WP_FS__MODULE_TYPE_PLUGIN :
         WP_FS__MODULE_TYPE_THEME;
@@ -45,7 +46,7 @@
     $promotion_method_mobile_apps  = false;
     $statistics_information        = false;
     $promotion_method_description  = false;
-    $members_dashboard_login_url   = 'https://members.freemius.com/login/';
+    $members_dashboard_login_url   = 'https://users.freemius.com/login';
 
     $affiliate_application_data = $fs->get_affiliate_application_data();
 
@@ -71,7 +72,7 @@
         $current_user  = Freemius::_get_current_wp_user();
         $full_name     = trim( $current_user->user_firstname . ' ' . $current_user->user_lastname );
         $email_address = $current_user->user_email;
-        $domain        = fs_strip_url_protocol( get_site_url() );
+        $domain        = Freemius::get_unfiltered_site_url( null, true );
     }
 
     $affiliate_tracking = 30;
@@ -83,6 +84,9 @@
     }
 
     $apply_to_become_affiliate_text = fs_text_inline( 'Apply to become an affiliate', 'apply-to-become-an-affiliate', $slug );
+
+    $module_id                   = $fs->get_id();
+    $affiliate_program_terms_url = "https://freemius.com/plugin/{$module_id}/{$slug}/legal/affiliate-program/";
 ?>
 <div id="fs_affiliation_content_wrapper" class="wrap">
     <form method="post" action="">
@@ -104,7 +108,7 @@
                                             fs_esc_html_inline( "Your affiliate application for %s has been accepted! Log in to your affiliate area at: %s.", 'affiliate-application-accepted', $slug ),
                                             $plugin_title,
                                             sprintf(
-                                                '<a href="%s" target="_blank">%s</a>',
+                                                '<a href="%s" target="_blank" rel="noopener">%s</a>',
                                                 $members_dashboard_login_url,
                                                 $members_dashboard_login_url
                                             )
@@ -217,11 +221,17 @@
                                             <p class="description"><?php echo esc_html( sprintf( fs_text_inline( 'Please provide details on how you intend to promote %s (please be as specific as possible).', 'promotion-method-desc-field-desc', $slug ), $plugin_title ) ) ?></p>
                                         <?php endif ?>
                                     </div>
+                                    <?php if ( ! $is_affiliate ) : ?>
+                                    <div>
+                                        <input type="checkbox" id="legal_consent_checkbox">
+                                        <label for="legal_consent_checkbox">I agree to the <a href="<?php echo $affiliate_program_terms_url ?>" target="_blank" rel="noopener">Referrer Program</a>'s terms & conditions.</label>
+                                    </div>
+                                    <?php endif ?>
                                 </form>
                             </div>
                             <?php if ( ! $is_affiliate ) : ?>
                                 <a id="cancel_button" href="#" class="button button-secondary button-cancel" style="display: none"><?php fs_esc_html_echo_inline( 'Cancel', 'cancel', $slug ) ?></a>
-                                <a id="submit_button" class="button button-primary" href="#" style="display: none"><?php echo esc_html( $apply_to_become_affiliate_text ) ?></a>
+                                <a id="submit_button" class="button button-primary disabled" href="#" style="display: none"><?php echo esc_html( $apply_to_become_affiliate_text ) ?></a>
                                 <a id="apply_button" class="button button-primary" href="#"><?php fs_esc_html_echo_inline( 'Become an affiliate', 'become-an-affiliate', $slug ) ?></a>
                             <?php endif ?>
                         </div>
@@ -242,7 +252,8 @@
                     $errorMessageContainer    = $('#error_message'),
                     $domain                   = $('#domain'),
                     $addDomain                = $('#add_domain'),
-                    $extraDomainsContainer    = $('#extra_domains_container');
+                    $extraDomainsContainer    = $('#extra_domains_container'),
+                    $legalConsentCheckbox     = $( '#legal_consent_checkbox' );
 
                 $applyButton.click(function (evt) {
                     evt.preventDefault();
@@ -355,12 +366,12 @@
                     }
 
                     $.ajax({
-                        url       : ajaxurl,
+                        url       : <?php echo Freemius::ajax_url() ?>,
                         method    : 'POST',
                         data      : {
                             action   : '<?php echo $fs->get_ajax_action( 'submit_affiliate_application' ) ?>',
                             security : '<?php echo $fs->get_ajax_security( 'submit_affiliate_application' ) ?>',
-                            module_id: '<?php echo $fs->get_id() ?>',
+                            module_id: '<?php echo $module_id ?>',
                             affiliate: affiliate
                         },
                         beforeSend: function () {
@@ -472,15 +483,27 @@
 
                     window.scrollTo(0, 0);
                 }
+
+                /**
+                 * @author Xiaheng Chen (@xhchen)
+                 *
+                 * @since 2.4.0
+                 */
+                $legalConsentCheckbox.click( function () {
+                    if ( $( this ).prop( 'checked' ) ) {
+                        $submitButton.removeClass( 'disabled' );
+                    } else {
+                        $submitButton.addClass( 'disabled' );
+                    }
+                } );
             });
         </script>
     </div>
 <?php
     $params = array(
         'page'           => 'affiliation',
-        'module_id'      => $fs->get_id(),
+        'module_id'      => $module_id,
         'module_slug'    => $slug,
         'module_version' => $fs->get_plugin_version(),
     );
     fs_require_template( 'powered-by.php', $params );
-?>

@@ -149,111 +149,21 @@
 
 	#endregion Core Redirect (copied from BuddyPress) -----------------------------------------
 
-	if ( ! function_exists( '__fs' ) ) {
-		global $fs_text_overrides;
-
-		if ( ! isset( $fs_text_overrides ) ) {
-			$fs_text_overrides = array();
-		}
-
-		/**
-		 * Retrieve a translated text by key.
-		 *
-		 * @deprecated Use `fs_text()` instead since methods starting with `__` trigger warnings in Php 7.
-         * @todo Remove this method in the future.
-		 *
-		 * @author     Vova Feldman (@svovaf)
-		 * @since      1.1.4
-		 *
-		 * @param string $key
-		 * @param string $slug
-		 *
-		 * @return string
-		 *
-		 * @global       $fs_text, $fs_text_overrides
-		 */
-		function __fs( $key, $slug = 'freemius' ) {
-            _deprecated_function( __FUNCTION__, '2.0.0', 'fs_text()' );
-
-			global $fs_text,
-			       $fs_module_info_text,
-			       $fs_text_overrides;
-
-			if ( isset( $fs_text_overrides[ $slug ] ) ) {
-				if ( isset( $fs_text_overrides[ $slug ][ $key ] ) ) {
-					return $fs_text_overrides[ $slug ][ $key ];
-				}
-
-				$lower_key = strtolower( $key );
-				if ( isset( $fs_text_overrides[ $slug ][ $lower_key ] ) ) {
-					return $fs_text_overrides[ $slug ][ $lower_key ];
-				}
-			}
-
-			if ( ! isset( $fs_text ) ) {
-				$dir = defined( 'WP_FS__DIR_INCLUDES' ) ?
-					WP_FS__DIR_INCLUDES :
-					dirname( __FILE__ );
-
-				require_once $dir . '/i18n.php';
-			}
-
-			if ( isset( $fs_text[ $key ] ) ) {
-				return $fs_text[ $key ];
-			}
-
-			if ( isset( $fs_module_info_text[ $key ] ) ) {
-				return $fs_module_info_text[ $key ];
-			}
-
-			return $key;
-		}
-
-		/**
-		 * Output a translated text by key.
-		 *
-		 * @deprecated Use `fs_echo()` instead for consistency with `fs_text()`.
-		 *
-         * @todo Remove this method in the future.
-         *
-		 * @author     Vova Feldman (@svovaf)
-		 * @since      1.1.4
-		 *
-		 * @param string $key
-		 * @param string $slug
-		 */
-		function _efs( $key, $slug = 'freemius' ) {
-			fs_echo( $key, $slug );
-		}
-	}
-
 	if ( ! function_exists( 'fs_get_ip' ) ) {
 		/**
-		 * Get client IP.
-		 *
+		 * Get server IP.
+         *
+         * @since 2.5.1 This method returns the server IP.
+         *
 		 * @author Vova Feldman (@svovaf)
 		 * @since  1.1.2
 		 *
 		 * @return string|null
 		 */
 		function fs_get_ip() {
-			$fields = array(
-				'HTTP_CF_CONNECTING_IP',
-				'HTTP_CLIENT_IP',
-				'HTTP_X_FORWARDED_FOR',
-				'HTTP_X_FORWARDED',
-				'HTTP_FORWARDED_FOR',
-				'HTTP_FORWARDED',
-				'REMOTE_ADDR',
-			);
-
-			foreach ( $fields as $ip_field ) {
-				if ( ! empty( $_SERVER[ $ip_field ] ) ) {
-					return $_SERVER[ $ip_field ];
-				}
-			}
-
-			return null;
+			return empty( $_SERVER[ 'SERVER_ADDR' ] ) ?
+                null :
+                $_SERVER[ 'SERVER_ADDR' ];
 		}
 	}
 
@@ -380,45 +290,62 @@
         global $fs_active_plugins;
 
         /**
-         * @todo Multi-site network activated plugin are always loaded prior to site plugins so if there's a a plugin activated in the network mode that has an older version of the SDK of another plugin which is site activated that has new SDK version, the fs-essential-functions.php will be loaded from the older SDK. Same thing about MU plugins (loaded even before network activated plugins).
+         * @todo Multi-site network activated plugin are always loaded prior to site plugins so if there's a plugin activated in the network mode that has an older version of the SDK of another plugin which is site activated that has new SDK version, the fs-essential-functions.php will be loaded from the older SDK. Same thing about MU plugins (loaded even before network activated plugins).
          *
          * @link https://github.com/Freemius/wordpress-sdk/issues/26
          */
 
         $newest_sdk_plugin_path = $fs_active_plugins->newest->plugin_path;
 
-        $active_plugins        = get_option( 'active_plugins', array() );
-        $newest_sdk_plugin_key = array_search( $newest_sdk_plugin_path, $active_plugins );
-        if ( 0 === $newest_sdk_plugin_key ) {
-            // if it's 0 it's the first plugin already, no need to continue
-            return false;
-        } else if ( is_numeric( $newest_sdk_plugin_key ) ) {
-            // Remove plugin from its current position.
-            array_splice( $active_plugins, $newest_sdk_plugin_key, 1 );
+        $active_plugins         = get_option( 'active_plugins', array() );
+        $updated_active_plugins = array( $newest_sdk_plugin_path );
 
-            // Set it to be included first.
-            array_unshift( $active_plugins, $newest_sdk_plugin_path );
+        $plugin_found  = false;
+        $is_first_path = true;
 
-            update_option( 'active_plugins', $active_plugins );
+        foreach ( $active_plugins as $key => $plugin_path ) {
+            if ( $plugin_path === $newest_sdk_plugin_path ) {
+                if ( $is_first_path ) {
+                    // if it's the first plugin already, no need to continue
+                    return false;
+                }
+
+                $plugin_found = true;
+
+                // Skip the plugin (it is already added as the 1st item of $updated_active_plugins).
+                continue;
+            }
+
+            $updated_active_plugins[] = $plugin_path;
+
+            if ( $is_first_path ) {
+                $is_first_path = false;
+            }
+        }
+
+        if ( $plugin_found ) {
+            update_option( 'active_plugins', $updated_active_plugins );
 
             return true;
-        } else if ( is_multisite() && false === $newest_sdk_plugin_key ) {
+        }
+
+        if ( is_multisite() ) {
             // Plugin is network active.
             $network_active_plugins = get_site_option( 'active_sitewide_plugins', array() );
 
-            if (isset($network_active_plugins[$newest_sdk_plugin_path])) {
-                reset($network_active_plugins);
-                if ( $newest_sdk_plugin_path === key($network_active_plugins) ) {
+            if ( isset( $network_active_plugins[ $newest_sdk_plugin_path ] ) ) {
+                reset( $network_active_plugins );
+                if ( $newest_sdk_plugin_path === key( $network_active_plugins ) ) {
                     // Plugin is already activated first on the network level.
                     return false;
-                } else if ( is_numeric( $newest_sdk_plugin_key ) ) {
-                    $time = $network_active_plugins[$newest_sdk_plugin_path];
+                } else {
+                    $time = $network_active_plugins[ $newest_sdk_plugin_path ];
 
                     // Remove plugin from its current position.
-                    unset($network_active_plugins[$newest_sdk_plugin_path]);
+                    unset( $network_active_plugins[ $newest_sdk_plugin_path ] );
 
                     // Set it to be included first.
-                    $network_active_plugins = array($newest_sdk_plugin_path => $time) + $network_active_plugins;
+                    $network_active_plugins = array( $newest_sdk_plugin_path => $time ) + $network_active_plugins;
 
                     update_site_option( 'active_sitewide_plugins', $network_active_plugins );
 
