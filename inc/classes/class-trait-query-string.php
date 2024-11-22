@@ -30,7 +30,7 @@ trait Trait_Query_String {
 		$string = filter_input(
 			INPUT_GET,
 			$get,
-			FILTER_SANITIZE_STRING,
+			FILTER_SANITIZE_SPECIAL_CHARS,
 			( FILTER_FLAG_STRIP_HIGH | FILTER_FLAG_STRIP_BACKTICK )
 		);
 
