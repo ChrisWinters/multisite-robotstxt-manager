@@ -1,41 +1,52 @@
 # Changelog
 
-# 3.0.0
-**2020-04-11- Feature**
+## 3.1.0
+
+### **2024-11-21- Feature**
+
+* Correct $output variable [#11](https://github.com/ChrisWinters/multisite-robotstxt-manager/pull/11)
+* Remove Freemius [#12](https://github.com/ChrisWinters/multisite-robotstxt-manager/pull/12)
+* Replace deprecated filter [#13](https://github.com/ChrisWinters/multisite-robotstxt-manager/issues/13)
+* WordPress 6.7.1 Tested
+
+## 3.0.0
+
+### **2020-04-11- Feature**
+
 * Freemius upgrade
-* Activation issue: https://github.com/ChrisWinters/multisite-robotstxt-manager/issues/8
+* Activation issue [#8](https://github.com/ChrisWinters/multisite-robotstxt-manager/issues/8)
 * WordPress 5.4 Tested
 
-# 2.1.1
-**2020-01-11- Hotfix**
+## 2.1.1
+
+### **2020-01-11- Hotfix**
 
 * Modified how robots.txt file is generated within class-robotstxt.php
 
-# 2.1.0
-**2019-10-06 - Feature**
+## 2.1.0
+
+### **2019-10-06 - Feature**
 
 * Added website override option to ignore network robots.txt file
 
-# 2.1.0
-**2019-10-06 - Feature**
+## 2.0.4
 
-* Added website override option to ignore network robots.txt file
-
-# 2.0.4
-**2019-08-28 - Hotfix**
+### **2019-08-28 - Hotfix**
 
 * Removed Freemius nag notice.
 
-# 2.0.3
-**2019-08-22 - Hotfix**
+## 2.0.3
+
+### **2019-08-22 - Hotfix**
 
 * Corrected class-do-build-robotstxt.php array pairs for class-option-manager.php
 * Corrected class-option-manager.php to correctly checking for array key before building the array
 * Moved robotstxt build call in class-do-save-append-rules.php to fire only if the setting was updated
 * Added {APPEND_WEBSITE_ROBOTSTXT} to open robots.txt file within class-do-save-preset-as-robotstxt.php
 
-# 2.0.2
-**2019-08-07 - Hotfix**
+## 2.0.2
+
+### **2019-08-07 - Hotfix**
 
 * Removed plugin-activation level upgrade in favor of manual upgrade
 * Moved admin/network/public class includes into plugins_loaded hook
@@ -47,51 +58,56 @@
 * Corrected function call in class-do-robotstxt-cleaner.php
 * Corrected bump.js gulp task
 
-# 2.0.1
-**2019-07-25 - Hotfix**
+## 2.0.1
+
+### **2019-07-25 - Hotfix**
 
 * Created manual upgrade and delete old settings notice.
 
-# 2.0.0
-**2019-07-22 - Release**
+## 2.0.0
+
+### **2019-07-22 - Release**
 
 * Tested: Wordpress Version 5.2.2
 * Major code base upgrade
 * Migrated settings to single option
 
-# 1.0.12
-**2017-9-6 - Hotfix**
+## 1.0.12
+
+### **2017-9-6 - Hotfix**
 
 * Tested: Wordpress Version 4.8
 * Changed: Network & Admin Area Plugin Update Notice Handler.
 * Fixed: Remove Rewrite Rule Flush After Correcting Rewrite Rules.
 
-# 1.0.11
-**2017-24-4 - Hotfix**
+## 1.0.11
+
+### **2017-24-4 - Hotfix**
 
 * Added: Added more Sitemap filenames to check/build for.
 * Changed: Sitemap check/build, added rewrite rule & physical file checks if fopen is not enabled.
 
-# 1.0.10
-**2017-23-4 - Hotfix**
+## 1.0.10
+
+### **2017-23-4 - Hotfix**
 
 * Tested: Wordpress Version 4.7.4
 * Changed: Review/Rating URL within templates/sidebar.php
 * Fixed: Cleaner option name checks, using previous version names.
 * Fixed: Cleaner rewrite_rule to delete/update the option when missing the robots.txt array.
 
-# 1.0.9
+## 1.0.9
 
 * Fixed: Bad method call in class-cleaner.php.
 * Fixed: Multiple incorrect update_option formats.
-* Fixed: Network Robots.txt now saves when published | https://github.com/ChrisWinters/multisite-robotstxt-manager/issues/5
+* Fixed: Network Robots.txt now saves when published [#5](https://github.com/ChrisWinters/multisite-robotstxt-manager/issues/5)
 * Fixed: Removed append marker, if no append rules found.
 * Fixed: Wrapped is_writable() check to physical robots.txt removal.
 * Change: Option names for cleaner, appended cleaner_.
 * Change: Modified update success/fail messages.
-* Change: Deleted uninstall.php | https://github.com/ChrisWinters/multisite-robotstxt-manager/issues/6
+* Change: Deleted uninstall.php [#6](https://github.com/ChrisWinters/multisite-robotstxt-manager/issues/6)
 
-# 1.0.8
+## 1.0.8
 
 * New plugin structure/files, using the same option names.
 * Added: New tab "Cleaner" to the Network Admin area.
@@ -103,24 +119,24 @@
 * Change: Plugin admin areas to be more visually friendly.
 * Moved: Screenshots/header/thumbnail images into the svn/assets folder.
 
-# 1.0.7
+## 1.0.7
 
- * Bug: Fixed bad calls from helper class causing options not saving for each site. Thanks https://github.com/benjaminniess
+* Bug: Fixed bad calls from helper class causing options not saving for each site. Thanks https://github.com/benjaminniess
 
-# 1.0.6
+## 1.0.6
 
 * Bug: Corrected class_helper->getSitemapUrl() - printing "No Sitemap Found" in robots.txt files
 * Bug: Moved class_admin->updateNetwork()->throwMessage() outside of foreach when updating the network
 * Change: templates/home.php to display No Sitemap Found within input field
 
-# 1.0.5
+## 1.0.5
 
 * Modified class_helper->getSitemapUrl(): added get_option( 'siteurl' ) check for sitemap url
 * Corrected commented out redirect action
 * Corrected marketup in robots.txt file, again.
 * Added final public to class_presets methods
 
-# 1.0.4
+## 1.0.4
 
 * Add options to update the full network or only blogs the admin is a user of
 * Added message for missing sitemap.xml files within website plugin admin
@@ -134,14 +150,14 @@
 * Removed class_core.php, functions moved to plugin root
 * Commented out $rewrite_rule check/update, until new solution is found
 
-# 1.0.3
+## 1.0.3
 
 * Moved upgrade process outside of activation method, into unique class
 * Added message/method to detect and replace old plugin data with new data
 * Re-added old robots.txt plugin detection and cleaning option
 * Re-added bad rewrite rule detection and cleaning option
 
-# 1.0.2
+## 1.0.2
 
 * Upgrade Bug Corrected
 * Changed how Extention loads in
@@ -150,11 +166,11 @@
 * Corrected static function calls for register_activation_hook
 * Added feature to copy old sitemap url to new append option
 
-# 1.0.1
+## 1.0.1
 
 * Because SVN sucks!
 
-# 1.0.0
+## 1.0.0
 
 * Major rebuild, all files recreated, new code
 * Set network robots.txt file as global file
@@ -165,7 +181,7 @@
 * Adjusted how Pro Extension adapts in
 * Expanded automation features
 
-# 0.4.0
+## 0.4.0
 
 * Major rebuild
 * Modified how and when the sitemap urls are created.
@@ -184,12 +200,12 @@
 * Merged network admin and website admin template.
 * Add old robots.txt plugin detection and cleaning option.
 
-# 0.3.1
+## 0.3.1
 
 * Created website admin areas.
 * Added is_user_member_of_blog function for super admins.
 
-# 0.3.0
+## 0.3.0
 
 * Modified add_submenu_page calls.
 * Modified DB prepare() statements.
@@ -197,13 +213,13 @@
 * Cleaned undefined index errors.
 * Ran PHP Debug and WP Debug and removed related errors.
 
-# 0.2.2x
+## 0.2.2x
 
 * Modified add_submenu_page calls.
 * Modified DB prepare() statements.
 * Structure change to make room for automation feature.
 
-# 0.2.1
+## 0.2.1
 
 * Made robots.txt file display when a Website within a directory (domain.com/domain-path) is called.
 * Added is_network_admin() and $_SERVER script checks around extra links function.
@@ -222,7 +238,7 @@
 * Improved sitemap structure function.
 * More comments.
 
-# 0.2.0
+## 0.2.0
 
 * Made the site dropdown list populate in a new way, and list site names insted of domains.
 * Added sitemap option, url, and structure to default robots.txt, per site, and pre-sets.
@@ -240,11 +256,11 @@
 * Added non-network check on install.
 * Serialize proper option data.
 
-# 0.1.1
+## 0.1.1
 
 * Replaced action do_robots with filter robots_txt at call.
 * Removed ob_gzhandler
 
-# 0.1
+## 0.1
 
 * Created March 08, 2012

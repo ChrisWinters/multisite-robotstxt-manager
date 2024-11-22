@@ -3,8 +3,8 @@ Plugin Name: Multisite Robots.txt Manager | MS Robots.txt
 Contributors: Chris Winters
 Tags: robots.txt, seo, multisite
 Requires at least: 3.8
-Tested up to: 5.4
-Stable tag: 3.0.0
+Tested up to: 6.7.1
+Stable tag: 3.1.0
 License: GNU GPLv3
 License URI: https://github.com/ChrisWinters/multisite-robotstxt-manager/blob/master/LICENSE
 
@@ -103,9 +103,9 @@ A) Yes, all settings and options are removed upon deletion.
 
 == Changelog ==
 
-**3.0.0**
-- Released: 2020-04-11
-- [Changelog Details](https://github.com/ChrisWinters/multisite-robotstxt-manager/blob/master/CHANGELOG.md#300)
+**3.0.1**
+- Released: 2024-11-21
+- [Changelog Details](https://github.com/ChrisWinters/multisite-robotstxt-manager/blob/master/CHANGELOG.md#301)
 
 == Screenshots ==
 
