@@ -40,7 +40,7 @@ class Plugin_Admin_Post {
 			return;
 		}
 
-		$post_object_array = filter_input_array( INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS );
+		$post_object_array = filter_input_array( INPUT_POST, FILTER_UNSAFE_RAW );
 		$post_object       = $this->unset_post_items( $post_object_array );
 
 		if ( true === empty( $post_object ) ) {
