@@ -71,7 +71,7 @@ final class Do_Build_Robotstxt {
 		}
 
 		$append_rules   = ( true !== empty( $website_option['append'] ) ) ? $website_option['append'] : '';
-		$robotstxt_file = $this->replace_append_rules( $append_rules, $network_robotstxt_file['robotstxt'] );
+		$robotstxt_file = $this->replace_append_rules( $network_robotstxt_file['robotstxt'], $append_rules );
 
 		$this->update_robotstxt( $website_option, $robotstxt_file );
 
@@ -112,12 +112,12 @@ final class Do_Build_Robotstxt {
 	/**
 	 * Maybe Replace Append Rules
 	 *
-	 * @param string $append_rules      Website Append Rules.
 	 * @param string $network_robotstxt Network Robots.txt File.
+	 * @param string $append_rules      Website Append Rules.
 	 *
 	 * @return string
 	 */
-	private function replace_append_rules( $append_rules = '', $network_robotstxt ) {
+	private function replace_append_rules( $network_robotstxt, $append_rules = '' ) {
 		if ( true !== empty( $append_rules ) ) {
 			// Append Rules Found.
 			$robotstxt_file = str_replace( '{APPEND_WEBSITE_ROBOTSTXT}', $append_rules, $network_robotstxt );
