@@ -35,10 +35,6 @@ if ( true === is_admin() ) {
 	$disable_website = new \MsRobotstxtManager\Do_Disable_Website( $post_object );
 	$disable_website->init();
 
-	// Network: Save SDK Options.
-	$save_sdk = new \MsRobotstxtManager\Do_Save_Sdk( $post_object );
-	$save_sdk->init();
-
 	// Network: Save Network Robots.txt File.
 	$save_network_robotstxt = new \MsRobotstxtManager\Do_Save_Network_Robotstxt( $post_object );
 	$save_network_robotstxt->init();

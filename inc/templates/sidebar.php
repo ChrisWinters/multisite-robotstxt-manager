@@ -32,23 +32,7 @@ if ( false === defined( 'ABSPATH' ) ) {
 <div class="postbox">
 	<div class="h5 p-1 font-weight-bold"><?php esc_html_e( 'Robots.txt Manager', 'multisite-robotstxt-manager' ); ?></div>
 <div class="inside" style="clear:both;padding-top:1px;"><div class="para">
-
-<?php if ( msrtm_fs()->is_anonymous() ) { ?>
-<form enctype="multipart/form-data" method="post" action="">
-	<?php
-	wp_nonce_field(
-		MS_ROBOTSTXT_MANAGER_SETTING_PREFIX . 'action',
-		MS_ROBOTSTXT_MANAGER_SETTING_PREFIX . 'nonce'
-	);
-	?>
-<input type="hidden" name="action" value="reconnect" />
-<input type="submit" name="submit" value=" <?php esc_html_e( 'Connect To Plugin Services', 'multisite-robotstxt-manager' ); ?> " />
-</form>
-<?php } ?>
 	<ul>
-<?php if ( msrtm_fs()->is_not_paying() ) { ?>
-		<li class="font-weight-bold">→ <a href="<?php echo esc_url( network_site_url( 'wp-admin/network' ) ); ?>/settings.php?page=multisite-robotstxt-manager-pricing"><?php esc_html_e( 'Pro Plugin: Automation Upgrade', 'multisite-robotstxt-manager' ); ?></a></li>
-<?php } ?>
 		<li class="font-weight-bold">&bull; <a href="<?php echo esc_url( network_site_url( 'wp-admin/network' ) ); ?>/settings.php?page=multisite-robotstxt-manager-affiliation"><?php esc_html_e( 'Affiliates Earn 50% Revshare', 'multisite-robotstxt-manager' ); ?></a></li>
 		<li>&bull; <a href="<?php echo esc_url( network_site_url( 'wp-admin/network' ) ); ?>/settings.php?page=multisite-robotstxt-manager-contact"><?php esc_html_e( 'Contact Support', 'multisite-robotstxt-manager' ); ?></a></li>
 		<li>&bull; <a href="https://wordpress.org/support/plugin/multisite-robotstxt-manager/" target="_blank"><?php esc_html_e( 'WordPress Forum', 'multisite-robotstxt-manager' ); ?></a></li>
@@ -72,10 +56,6 @@ if ( false === defined( 'ABSPATH' ) ) {
 
 </div></div> <!-- end inside-pad & inside -->
 </div> <!-- end postbox -->
-
-<?php if ( msrtm_fs()->is_not_paying() ) { ?>
-<p><a href="<?php echo esc_url( network_site_url( 'wp-admin/network' ) ); ?>/settings.php?page=multisite-robotstxt-manager-pricing"><img src="<?php echo esc_url( plugin_dir_url( MS_ROBOTSTXT_MANAGER_FILE ) ); ?>/assets/images/sidebar_pro-plugin.gif" alt="<?php esc_html_e( 'Pro Automation Plugin!', 'multisite-robotstxt-manager' ); ?>" /></a></p>
-<?php } ?>
 
 <p><a href="https://wordpress.org/support/plugin/multisite-robotstxt-manager/reviews/?rate=5#new-post" target="_blank"><img src="<?php echo esc_url( plugin_dir_url( MS_ROBOTSTXT_MANAGER_FILE ) ); ?>/assets/images/sidebar_rate-plugin.gif" alt="<?php esc_html_e( 'Please Rate This Plugin At Wordpress.org!', 'multisite-robotstxt-manager' ); ?>" /></a></p>
 

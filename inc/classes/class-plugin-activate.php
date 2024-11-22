@@ -43,9 +43,6 @@ final class Plugin_Activate {
 
 		// Maybe Save Robots.txt As Plugin Robots.txt.
 		self::set_robotstxt();
-
-		// Skip Freemius Connection.
-		msrtm_fs()->skip_connection( null, true );
 	}//end init()
 
 

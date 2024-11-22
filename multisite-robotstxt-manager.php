@@ -31,7 +31,6 @@ define( 'MS_ROBOTSTXT_MANAGER_PLUGIN_DIR', dirname( __FILE__ ) );
 define( 'MS_ROBOTSTXT_MANAGER_PLUGIN_NAME', 'multisite-robotstxt-manager' );
 define( 'MS_ROBOTSTXT_MANAGER_SETTING_PREFIX', 'multisite-robotstxt_manager_' );
 
-require_once dirname( __FILE__ ) . '/sdk/msrtm-fs.php';
 require_once dirname( __FILE__ ) . '/inc/autoload-classes.php';
 
 /*

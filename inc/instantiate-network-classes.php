@@ -23,8 +23,4 @@ if ( true === is_network_admin() ) {
 	// Maybe Upgrade Plugin.
 	$maybe_upgrade_plugin = new \MsRobotstxtManager\Plugin_Upgrade( $post_object );
 	$maybe_upgrade_plugin->init();
-
-	// SDK: Save Dismiss Status.
-	$freemius = new \MsRobotstxtManager\Do_Save_Sdk( $post_object );
-	$freemius->init();
 }
