@@ -87,10 +87,9 @@ final class Robotstxt {
 
 			// Get Status.
 			$public = get_option( 'blog_public' );
+			$output = "Disallow: /\n";
 
-			if ( '0' == $public ) {
-				$output .= "Disallow: /\n";
-			} else {
+			if ( '0' !== $public ) {
 				$output = $robotstxt_file;
 			}
 
